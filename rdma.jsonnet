@@ -17,7 +17,7 @@ local rdma_metrics = [
 g.dashboard.new('HPC/GPU Dashboard')
 + g.dashboard.withUid('rdma-metrics')
 + g.dashboard.withDescription(|||
-  DCGM Metrics dashboard generated with jsonnet
+  RDMA Hardware Metrics dashboard generated with jsonnet
 |||)
 + g.dashboard.withTimezone('browser')
 + g.dashboard.graphTooltip.withSharedCrosshair()
