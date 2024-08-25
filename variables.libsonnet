@@ -3,8 +3,7 @@ local var = g.dashboard.variable;
 
 {
   datasource:
-    var.datasource.new('datasource', 'prometheus')
-    + var.datasource.withRegex('(P|p)rometheus'),
+    var.datasource.new('datasource', 'prometheus'),
 
   hostname:
     var.query.new('hostname')
@@ -19,6 +18,13 @@ local var = g.dashboard.variable;
     + var.query.withDatasourceFromVariable(self.datasource)
     + var.query.queryTypes.withLabelValues(
       'device',
+    ),
+
+  interface:
+    var.query.new('interface')
+    + var.query.withDatasourceFromVariable(self.datasource)
+    + var.query.queryTypes.withLabelValues(
+      'interface',
     )
     + var.query.withRefresh(1),
 }
