@@ -3,16 +3,16 @@ import time
 import subprocess
 
 # Define Prometheus metrics
-np_ecn_marked_roce_packets = Gauge('np_ecn_marked_roce_packets', 'Number of ROCEv2 packets marked for congestion', ['hostname', 'interface'])
-out_of_sequence = Gauge('out_of_sequence', 'Number of out of sequence packets received.', ['hostname', 'interface'])
-packet_seq_err = Gauge('packet_seq_err', 'Number of received NAK sequence error packets', ['hostname', 'interface'])
-local_ack_timeout_err = Gauge('local_ack_timeout_err', 'Number of times QPs ack timer expired', ['hostname', 'interface'])
-roce_adp_retrans = Gauge('roce_adp_retrans', 'Number of adaptive retransmissions for RoCE traffic', ['hostname', 'interface'])
-np_cnp_sent = Gauge('np_cnp_sent', 'Number of CNP packets sent', ['hostname', 'interface'])
-rp_cnp_handled = Gauge('rp_cnp_handled', 'Number of CNP packets handled to throttle', ['hostname', 'interface'])
-rp_cnp_ignored = Gauge('rp_cnp_ignored', 'Number of CNP packets received and ignored', ['hostname', 'interface'])
-rx_icrc_encapsulated = Gauge('rx_icrc_encapsulated', 'Number of RoCE packets with ICRC (Invertible Cyclic Redundancy Check) errors', ['hostname', 'interface'])
-roce_slow_restart = Gauge('roce_slow_restart', 'Number of times RoCE slow restart was used', ['hostname', 'interface'])
+np_ecn_marked_roce_packets = Gauge('rdma_np_ecn_marked_roce_packets', 'Number of ROCEv2 packets marked for congestion', ['hostname', 'interface'])
+out_of_sequence = Gauge('rdma_out_of_sequence', 'Number of out of sequence packets received.', ['hostname', 'interface'])
+packet_seq_err = Gauge('rdma_packet_seq_err', 'Number of received NAK sequence error packets', ['hostname', 'interface'])
+local_ack_timeout_err = Gauge('rdma_local_ack_timeout_err', 'Number of times QPs ack timer expired', ['hostname', 'interface'])
+roce_adp_retrans = Gauge('rdma_roce_adp_retrans', 'Number of adaptive retransmissions for RoCE traffic', ['hostname', 'interface'])
+np_cnp_sent = Gauge('rdma_np_cnp_sent', 'Number of CNP packets sent', ['hostname', 'interface'])
+rp_cnp_handled = Gauge('rdma_rp_cnp_handled', 'Number of CNP packets handled to throttle', ['hostname', 'interface'])
+rp_cnp_ignored = Gauge('rdma_rp_cnp_ignored', 'Number of CNP packets received and ignored', ['hostname', 'interface'])
+rx_icrc_encapsulated = Gauge('rdma_rx_icrc_encapsulated', 'Number of RoCE packets with ICRC (Invertible Cyclic Redundancy Check) errors', ['hostname', 'interface'])
+roce_slow_restart = Gauge('rdma_roce_slow_restart', 'Number of times RoCE slow restart was used', ['hostname', 'interface'])
 
 def get_rdma_metrics():
     hostname = subprocess.getoutput("hostname")
@@ -41,7 +41,7 @@ def get_rdma_metrics():
 
 if __name__ == '__main__':
     # Start up the server to expose the metrics.
-    start_http_server(8000)
+    start_http_server(9500)
     # Generate RDMA metrics every 10 seconds
     while True:
         get_rdma_metrics()
