@@ -20,7 +20,6 @@ def get_nvlink_metrics():
     for line in metrics_raw:
         line = line.strip()
         if line.startswith("GPU"):
-            print(">>found GPU")
             gpu_match = re.match(r"GPU (\d+): (.+?) \(UUID: (.+?)\)", line.strip())
             if gpu_match:
                 gpu_id = gpu_match.group(1)
@@ -33,9 +32,6 @@ def get_nvlink_metrics():
                 }
                 link_data[gpu] = {}
         elif line.startswith("Link") and gpu is not None:
-            print(">>found Line")
-            print(gpu_id)
-
             line = line.strip()
             data_tx_match = re.match(r"Link (\d+): Data Tx: (\d+) KiB", line)
             data_rx_match = re.match(r"Link (\d+): Data Rx: (\d+) KiB", line)
@@ -83,6 +79,5 @@ if __name__ == '__main__':
     # Generate NVLink metrics every 10 seconds
     while True:
         get_nvlink_metrics()
-        print(json.dumps(link_data, indent=4))
         time.sleep(10)
-    
+
