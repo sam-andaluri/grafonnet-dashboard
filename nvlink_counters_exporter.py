@@ -9,10 +9,10 @@ link_data = {}
 gpu_id = None
 gpu = None
 
-data_tx_kib = Gauge('data_tx_kib', 'Total data in KiB transmitted', ['hostname', 'gpu', "link"])
-data_rx_kib = Gauge('data_rx_kib', 'Total data in KiB received', ['hostname', 'gpu', "link"])
-raw_tx_kib = Gauge('raw_tx_kib', 'Total raw bytes in KiB transmitted', ['hostname', 'gpu', "link"])
-raw_rx_kib = Gauge('raw_rx_kib', 'Total raw bytes in KiB received', ['hostname', 'gpu', "link"])
+data_tx_kib = Gauge('nvlink_data_tx_kib', 'Total data in KiB transmitted', ['hostname', 'gpu', "link"])
+data_rx_kib = Gauge('nvlink_data_rx_kib', 'Total data in KiB received', ['hostname', 'gpu', "link"])
+raw_tx_kib = Gauge('nvlink_raw_tx_kib', 'Total raw bytes in KiB transmitted', ['hostname', 'gpu', "link"])
+raw_rx_kib = Gauge('nvlink_raw_rx_kib', 'Total raw bytes in KiB received', ['hostname', 'gpu', "link"])
 
 def get_nvlink_metrics():
     hostname = subprocess.getoutput("hostname")
@@ -79,9 +79,10 @@ def get_nvlink_metrics():
                    link_data[gpu][link_id]["raw_rx_kib"]=raw_rx
 if __name__ == '__main__':
     # Start up the server to expose the metrics.
-    start_http_server(8000)
+    start_http_server(9600)
     # Generate NVLink metrics every 10 seconds
     while True:
         get_nvlink_metrics()
         print(json.dumps(link_data, indent=4))
         time.sleep(10)
+    
