@@ -2,10 +2,10 @@ local g = import './g.libsonnet';
 local variables = import './variables.libsonnet';
 
 local nvlink_metrics = [
-{ name: 'data_tx_kib', title: 'Total data in KiB transmitted', unit: 'KB' },
-{ name: 'data_rx_kib', title: 'Total data in KiB received', unit: 'KB' },
-{ name: 'raw_tx_kib', title: 'Total raw bytes in KiB transmitted', unit: 'KB' },
-{ name: 'raw_rx_kib', title: 'Total raw bytes in KiB received', unit: 'KB' },
+{ name: 'nvlink_data_tx_kib', title: 'Total data in KiB transmitted', unit: 'KB' },
+{ name: 'nvlink_data_rx_kib', title: 'Total data in KiB received', unit: 'KB' },
+{ name: 'nvlink_raw_tx_kib', title: 'Total raw bytes in KiB transmitted', unit: 'KB' },
+{ name: 'nvlink_raw_rx_kib', title: 'Total raw bytes in KiB received', unit: 'KB' },
 ];
 
 g.dashboard.new('HPC/GPU Dashboard')
