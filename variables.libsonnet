@@ -3,7 +3,7 @@ local var = g.dashboard.variable;
 
 {
   datasource:
-    var.datasource.new('datasource', 'prometheus'),
+    var.datasource.new('datasource', 'Prometheus'),
 
   hostname:
     var.query.new('hostname')
@@ -25,6 +25,14 @@ local var = g.dashboard.variable;
     + var.query.withDatasourceFromVariable(self.datasource)
     + var.query.queryTypes.withLabelValues(
       'interface',
+    )
+    + var.query.withRefresh(1),
+
+  cluster:
+    var.query.new('cluster_name')
+    + var.query.withDatasourceFromVariable(self.datasource)
+    + var.query.queryTypes.withLabelValues(
+      'cluster_name',
     )
     + var.query.withRefresh(1),
 }
