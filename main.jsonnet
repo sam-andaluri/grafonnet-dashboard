@@ -22,9 +22,6 @@ local dcgm_metrics = [
   { name: 'DCGM_FI_DEV_UNCORRECTABLE_REMAPPED_ROWS', title: 'Number of remapped rows for uncorrectable errors', unit: 'counter' },
   { name: 'DCGM_FI_DEV_CORRECTABLE_REMAPPED_ROWS', title: 'Number of remapped rows for correctable errors', unit: 'counter' },
   { name: 'DCGM_FI_DEV_ROW_REMAP_FAILURE', title: 'Whether remapping of rows has failed', unit: 'counter' },
-  { name: 'DCGM_FI_PROF_GR_ENGINE_ACTIVE', title: 'Ratio of time the graphics engine is active', unit: 'counter' },
-  { name: 'DCGM_FI_PROF_PIPE_TENSOR_ACTIVE', title: 'Ratio of cycles the tensor (HMMA) pipe is active', unit: 'counter' },
-  { name: 'DCGM_FI_PROF_DRAM_ACTIVE', title: 'Ratio of cycles the device memory interface is active sending or receiving data', unit: 'counter' },
 ];
 
 local rdma_metrics = [
@@ -57,9 +54,10 @@ local node_metrics = [
 { expr: '(node_load1)', legend_format: '1m load average {{instance}}', title: 'Instance 1m load average', unit: 'percent' },
 { expr: '(node_load5)', legend_format: '5m load average {{instance}}', title: 'Instance 5m load average', unit: 'percent' },
 { expr: '(node_load15)', legend_format: '15m load average {{instance}}', title: 'Instance 15m load average', unit: 'percent' },
-{ expr: '(1 - (avg(irate(node_cpu_seconds_total{mode="idle"}[5m]))))', legend_format: '5m average cpu utilization {{instance}}', title: 'Average CPU Utilization last 5m', unit: 'percent' },
-{ expr: '1 - (node_memory_MemAvailable_bytes/node_memory_MemTotal_bytes)', legend_format: 'memory utilization {{instance}}',  title: 'Memory utilization', unit: 'percent' },
-{ expr: '100 - ((node_filesystem_avail_bytes{instance="$node",job="$job",device!~"rootfs"} * 100) / node_filesystem_size_bytes{instance="$node",job="$job",device!~"rootfs"})', legend_format: '{{mountpoint}}', title: 'Storage utilization', unit: 'percent'},
+{ expr: '(1 - (node_memory_MemAvailable_bytes/node_memory_MemTotal_bytes))', legend_format: 'memory utilization {{instance}}',  title: 'Memory utilization', unit: 'percent' },
+{ expr: '(1 - (node_filesystem_avail_bytes{device!~"rootfs"} / node_filesystem_size_bytes{device!~"rootfs"}))*100', legend_format: '{{mountpoint}}', title: 'Storage utilization', unit: 'percent'},
+{ expr: 'irate(node_network_receive_bytes_total{instance="$node",job="$job"}[$__rate_interval])*8', legend_format: "recv {{device}}", title: 'Network Traffic Received', unit: 'bit'},
+{ expr: 'irate(node_network_transmit_bytes_total{instance="$node",job="$job"}[$__rate_interval])*8', legend_format: "sent {{device}}", title: 'Network Traffic Sent', unit: 'bit'}
 ];
 
 g.dashboard.new('GPU RDMA NVLink Dashboard')
