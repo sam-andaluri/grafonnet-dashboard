@@ -236,11 +236,11 @@
                         "type": "prometheus",
                         "uid": "Prometheus"
                      },
-                     "expr": "(1 - (avg(irate(node_cpu_seconds_total{mode=\"idle\"}[5m]))))",
-                     "legendFormat": "5m average cpu utilization {{instance}}"
+                     "expr": "(1 - (node_memory_MemAvailable_bytes/node_memory_MemTotal_bytes))*100",
+                     "legendFormat": "memory utilization {{instance}}"
                   }
                ],
-               "title": "Average CPU Utilization last 5m",
+               "title": "Memory utilization",
                "type": "timeseries"
             },
             {
@@ -267,11 +267,11 @@
                         "type": "prometheus",
                         "uid": "Prometheus"
                      },
-                     "expr": "1 - (node_memory_MemAvailable_bytes/node_memory_MemTotal_bytes)",
-                     "legendFormat": "memory utilization {{instance}}"
+                     "expr": "(1 - (node_filesystem_avail_bytes{device!~\"rootfs\"} / node_filesystem_size_bytes{device!~\"rootfs\"}))*100",
+                     "legendFormat": "{{mountpoint}}"
                   }
                ],
-               "title": "Memory utilization",
+               "title": "Storage utilization",
                "type": "timeseries"
             },
             {
@@ -281,7 +281,7 @@
                },
                "fieldConfig": {
                   "defaults": {
-                     "unit": "percent"
+                     "unit": "bytes"
                   }
                },
                "gridPos": {
@@ -298,11 +298,42 @@
                         "type": "prometheus",
                         "uid": "Prometheus"
                      },
-                     "expr": "100 - ((node_filesystem_avail_bytes{instance=\"$node\",job=\"$job\",device!~\"rootfs\"} * 100) / node_filesystem_size_bytes{instance=\"$node\",job=\"$job\",device!~\"rootfs\"})",
-                     "legendFormat": "{{mountpoint}}"
+                     "expr": "rate(node_network_receive_bytes_total[$__rate_interval])",
+                     "legendFormat": "recv {{device}}"
                   }
                ],
-               "title": "Storage utilization",
+               "title": "Network Traffic Received",
+               "type": "timeseries"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "bytes"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 0,
+                  "y": 0
+               },
+               "id": 12,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "Prometheus"
+                     },
+                     "expr": "rate(node_network_transmit_bytes_total[$__rate_interval])",
+                     "legendFormat": "sent {{device}}"
+                  }
+               ],
+               "title": "Network Traffic Sent",
                "type": "timeseries"
             }
          ],
@@ -317,7 +348,7 @@
             "x": 0,
             "y": 2
          },
-         "id": 12,
+         "id": 13,
          "panels": [
             {
                "datasource": {
@@ -335,7 +366,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 13,
+               "id": 14,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -366,7 +397,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 14,
+               "id": 15,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -397,7 +428,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 15,
+               "id": 16,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -428,7 +459,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 16,
+               "id": 17,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -459,7 +490,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 17,
+               "id": 18,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -490,7 +521,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 18,
+               "id": 19,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -521,7 +552,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 19,
+               "id": 20,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -552,7 +583,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 20,
+               "id": 21,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -583,7 +614,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 21,
+               "id": 22,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -614,7 +645,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 22,
+               "id": 23,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -645,7 +676,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 23,
+               "id": 24,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -676,7 +707,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 24,
+               "id": 25,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -707,7 +738,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 25,
+               "id": 26,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -738,7 +769,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 26,
+               "id": 27,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -769,7 +800,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 27,
+               "id": 28,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -800,7 +831,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 28,
+               "id": 29,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -831,7 +862,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 29,
+               "id": 30,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -862,7 +893,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 30,
+               "id": 31,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -893,7 +924,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 31,
+               "id": 32,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -906,99 +937,6 @@
                   }
                ],
                "title": "Whether remapping of rows has failed",
-               "type": "timeseries"
-            },
-            {
-               "datasource": {
-                  "type": "datasource",
-                  "uid": "-- Mixed --"
-               },
-               "fieldConfig": {
-                  "defaults": {
-                     "unit": "counter"
-                  }
-               },
-               "gridPos": {
-                  "h": 8,
-                  "w": 8,
-                  "x": 8,
-                  "y": 0
-               },
-               "id": 32,
-               "pluginVersion": "v11.0.0",
-               "targets": [
-                  {
-                     "datasource": {
-                        "type": "prometheus",
-                        "uid": "Prometheus"
-                     },
-                     "expr": "avg by(Hostname) (DCGM_FI_PROF_GR_ENGINE_ACTIVE)",
-                     "legendFormat": "{{ Hostname }}"
-                  }
-               ],
-               "title": "Ratio of time the graphics engine is active",
-               "type": "timeseries"
-            },
-            {
-               "datasource": {
-                  "type": "datasource",
-                  "uid": "-- Mixed --"
-               },
-               "fieldConfig": {
-                  "defaults": {
-                     "unit": "counter"
-                  }
-               },
-               "gridPos": {
-                  "h": 8,
-                  "w": 8,
-                  "x": 16,
-                  "y": 0
-               },
-               "id": 33,
-               "pluginVersion": "v11.0.0",
-               "targets": [
-                  {
-                     "datasource": {
-                        "type": "prometheus",
-                        "uid": "Prometheus"
-                     },
-                     "expr": "avg by(Hostname) (DCGM_FI_PROF_PIPE_TENSOR_ACTIVE)",
-                     "legendFormat": "{{ Hostname }}"
-                  }
-               ],
-               "title": "Ratio of cycles the tensor (HMMA) pipe is active",
-               "type": "timeseries"
-            },
-            {
-               "datasource": {
-                  "type": "datasource",
-                  "uid": "-- Mixed --"
-               },
-               "fieldConfig": {
-                  "defaults": {
-                     "unit": "counter"
-                  }
-               },
-               "gridPos": {
-                  "h": 8,
-                  "w": 8,
-                  "x": 0,
-                  "y": 0
-               },
-               "id": 34,
-               "pluginVersion": "v11.0.0",
-               "targets": [
-                  {
-                     "datasource": {
-                        "type": "prometheus",
-                        "uid": "Prometheus"
-                     },
-                     "expr": "avg by(Hostname) (DCGM_FI_PROF_DRAM_ACTIVE)",
-                     "legendFormat": "{{ Hostname }}"
-                  }
-               ],
-               "title": "Ratio of cycles the device memory interface is active sending or receiving data",
                "type": "timeseries"
             }
          ],
@@ -1013,7 +951,7 @@
             "x": 0,
             "y": 3
          },
-         "id": 35,
+         "id": 33,
          "panels": [
             {
                "datasource": {
@@ -1031,7 +969,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 36,
+               "id": 34,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1062,7 +1000,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 37,
+               "id": 35,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1093,7 +1031,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 38,
+               "id": 36,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1124,7 +1062,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 39,
+               "id": 37,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1155,7 +1093,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 40,
+               "id": 38,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1186,7 +1124,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 41,
+               "id": 39,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1217,7 +1155,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 42,
+               "id": 40,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1248,7 +1186,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 43,
+               "id": 41,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1279,7 +1217,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 44,
+               "id": 42,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1310,7 +1248,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 45,
+               "id": 43,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1337,7 +1275,7 @@
             "x": 0,
             "y": 4
          },
-         "id": 46,
+         "id": 44,
          "panels": [
             {
                "datasource": {
@@ -1355,7 +1293,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 47,
+               "id": 45,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1386,7 +1324,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 48,
+               "id": 46,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1417,7 +1355,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 49,
+               "id": 47,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1448,7 +1386,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 50,
+               "id": 48,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1512,6 +1450,16 @@
             },
             "name": "cluster_name",
             "query": "label_values(cluster_name)",
+            "refresh": 1,
+            "type": "query"
+         },
+         {
+            "datasource": {
+               "type": "Prometheus",
+               "uid": "${datasource}"
+            },
+            "name": "instance",
+            "query": "label_values(instance)",
             "refresh": 1,
             "type": "query"
          }

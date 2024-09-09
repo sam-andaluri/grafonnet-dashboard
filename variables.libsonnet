@@ -5,6 +5,14 @@ local var = g.dashboard.variable;
   datasource:
     var.datasource.new('datasource', 'Prometheus'),
 
+  instance:
+    var.query.new('instance')
+    + var.query.withDatasourceFromVariable(self.datasource)
+    + var.query.queryTypes.withLabelValues(
+      'instance',
+    )
+    + var.query.withRefresh(1),
+
   hostname:
     var.query.new('hostname')
     + var.query.withDatasourceFromVariable(self.datasource)

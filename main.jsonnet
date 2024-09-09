@@ -54,10 +54,10 @@ local node_metrics = [
 { expr: '(node_load1)', legend_format: '1m load average {{instance}}', title: 'Instance 1m load average', unit: 'percent' },
 { expr: '(node_load5)', legend_format: '5m load average {{instance}}', title: 'Instance 5m load average', unit: 'percent' },
 { expr: '(node_load15)', legend_format: '15m load average {{instance}}', title: 'Instance 15m load average', unit: 'percent' },
-{ expr: '(1 - (node_memory_MemAvailable_bytes/node_memory_MemTotal_bytes))', legend_format: 'memory utilization {{instance}}',  title: 'Memory utilization', unit: 'percent' },
+{ expr: '(1 - (node_memory_MemAvailable_bytes/node_memory_MemTotal_bytes))*100', legend_format: 'memory utilization {{instance}}',  title: 'Memory utilization', unit: 'percent' },
 { expr: '(1 - (node_filesystem_avail_bytes{device!~"rootfs"} / node_filesystem_size_bytes{device!~"rootfs"}))*100', legend_format: '{{mountpoint}}', title: 'Storage utilization', unit: 'percent'},
-{ expr: 'irate(node_network_receive_bytes_total{instance="$node",job="$job"}[$__rate_interval])*8', legend_format: "recv {{device}}", title: 'Network Traffic Received', unit: 'bit'},
-{ expr: 'irate(node_network_transmit_bytes_total{instance="$node",job="$job"}[$__rate_interval])*8', legend_format: "sent {{device}}", title: 'Network Traffic Sent', unit: 'bit'}
+{ expr: 'rate(node_network_receive_bytes_total[$__rate_interval])', legend_format: "recv {{device}}", title: 'Network Traffic Received', unit: 'bytes'},
+{ expr: 'rate(node_network_transmit_bytes_total[$__rate_interval])', legend_format: "sent {{device}}", title: 'Network Traffic Sent', unit: 'bytes'}
 ];
 
 g.dashboard.new('GPU RDMA NVLink Dashboard')
@@ -73,6 +73,7 @@ g.dashboard.new('GPU RDMA NVLink Dashboard')
   variables.device,
   variables.interface,
   variables.cluster,
+  variables.instance,
 ])
 + g.dashboard.withPanels(
   g.util.grid.makeGrid([
