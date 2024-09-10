@@ -60,7 +60,7 @@ local node_metrics = [
 { expr: 'rate(node_network_transmit_bytes_total[$__rate_interval])', legend_format: "sent {{device}}", title: 'Network Traffic Sent', unit: 'bytes'}
 ];
 
-g.dashboard.new('GPU RDMA NVLink Dashboard')
+g.dashboard.new('Cluster Dashboard')
 + g.dashboard.withUid('cluster-dashboard')
 + g.dashboard.withDescription(|||
   Dashboard for GPU Clusters
@@ -68,12 +68,8 @@ g.dashboard.new('GPU RDMA NVLink Dashboard')
 + g.dashboard.withTimezone('browser')
 + g.dashboard.graphTooltip.withSharedCrosshair()
 + g.dashboard.withVariables([
-  variables.datasource,
-  variables.hostname,
-  variables.device,
-  variables.interface,
+  variables.prometheus,
   variables.cluster,
-  variables.instance,
 ])
 + g.dashboard.withPanels(
   g.util.grid.makeGrid([
@@ -83,7 +79,7 @@ g.dashboard.new('GPU RDMA NVLink Dashboard')
       g.panel.timeSeries.new(metric.title)
         + g.panel.timeSeries.queryOptions.withTargets([
             g.query.prometheus.new(
-                'Prometheus',
+                '$PROMETHEUS_DS',
                 metric.expr,
             )
             + g.query.prometheus.withLegendFormat(metric.legend_format)
@@ -99,7 +95,7 @@ g.dashboard.new('GPU RDMA NVLink Dashboard')
       g.panel.timeSeries.new(metric.title)
         + g.panel.timeSeries.queryOptions.withTargets([
             g.query.prometheus.new(
-                'Prometheus',
+                '$PROMETHEUS_DS',
                 metric.expr,
             )
             + g.query.prometheus.withLegendFormat(metric.legend_format)
@@ -115,7 +111,7 @@ g.dashboard.new('GPU RDMA NVLink Dashboard')
       g.panel.timeSeries.new(metric.title)
         + g.panel.timeSeries.queryOptions.withTargets([
             g.query.prometheus.new(
-                'Prometheus',
+                '$PROMETHEUS_DS',
                 'avg by(Hostname) (' + metric.name + ')',
             )
             + g.query.prometheus.withLegendFormat('{{ Hostname }}')
@@ -131,7 +127,7 @@ g.dashboard.new('GPU RDMA NVLink Dashboard')
       g.panel.timeSeries.new(metric.title)
         + g.panel.timeSeries.queryOptions.withTargets([
             g.query.prometheus.new(
-                'Prometheus',
+                '$PROMETHEUS_DS',
                 '(' + metric.name + ')',
             )
             + g.query.prometheus.withLegendFormat('{{ interface }}')
@@ -147,7 +143,7 @@ g.dashboard.new('GPU RDMA NVLink Dashboard')
       g.panel.timeSeries.new(metric.title)
         + g.panel.timeSeries.queryOptions.withTargets([
             g.query.prometheus.new(
-                'Prometheus',
+                '$PROMETHEUS_DS',
                 'sum by(gpu) (' + metric.name + ')',
             )
             + g.query.prometheus.withLegendFormat('{{ gpu }}')

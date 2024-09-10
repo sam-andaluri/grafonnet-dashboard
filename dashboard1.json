@@ -34,7 +34,7 @@
                   {
                      "datasource": {
                         "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
+                        "uid": "Prometheus"
                      },
                      "expr": "avg by (cluster_name) (node_load1)",
                      "legendFormat": "1m load average {{cluster_name}}"
@@ -65,7 +65,7 @@
                   {
                      "datasource": {
                         "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
+                        "uid": "Prometheus"
                      },
                      "expr": "avg by (cluster_name) (node_load5)",
                      "legendFormat": "5m load average {{cluster_name}}"
@@ -96,7 +96,7 @@
                   {
                      "datasource": {
                         "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
+                        "uid": "Prometheus"
                      },
                      "expr": "avg by (cluster_name) (node_load15)",
                      "legendFormat": "15m load average {{cluster_name}}"
@@ -141,7 +141,7 @@
                   {
                      "datasource": {
                         "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
+                        "uid": "Prometheus"
                      },
                      "expr": "(node_load1)",
                      "legendFormat": "1m load average {{instance}}"
@@ -172,7 +172,7 @@
                   {
                      "datasource": {
                         "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
+                        "uid": "Prometheus"
                      },
                      "expr": "(node_load5)",
                      "legendFormat": "5m load average {{instance}}"
@@ -203,7 +203,7 @@
                   {
                      "datasource": {
                         "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
+                        "uid": "Prometheus"
                      },
                      "expr": "(node_load15)",
                      "legendFormat": "15m load average {{instance}}"
@@ -234,7 +234,7 @@
                   {
                      "datasource": {
                         "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
+                        "uid": "Prometheus"
                      },
                      "expr": "(1 - (node_memory_MemAvailable_bytes/node_memory_MemTotal_bytes))*100",
                      "legendFormat": "memory utilization {{instance}}"
@@ -265,7 +265,7 @@
                   {
                      "datasource": {
                         "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
+                        "uid": "Prometheus"
                      },
                      "expr": "(1 - (node_filesystem_avail_bytes{device!~\"rootfs\"} / node_filesystem_size_bytes{device!~\"rootfs\"}))*100",
                      "legendFormat": "{{mountpoint}}"
@@ -296,7 +296,7 @@
                   {
                      "datasource": {
                         "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
+                        "uid": "Prometheus"
                      },
                      "expr": "rate(node_network_receive_bytes_total[$__rate_interval])",
                      "legendFormat": "recv {{device}}"
@@ -327,7 +327,7 @@
                   {
                      "datasource": {
                         "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
+                        "uid": "Prometheus"
                      },
                      "expr": "rate(node_network_transmit_bytes_total[$__rate_interval])",
                      "legendFormat": "sent {{device}}"
@@ -372,7 +372,7 @@
                   {
                      "datasource": {
                         "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
+                        "uid": "Prometheus"
                      },
                      "expr": "avg by(Hostname) (DCGM_FI_DEV_SM_CLOCK)",
                      "legendFormat": "{{ Hostname }}"
@@ -403,7 +403,7 @@
                   {
                      "datasource": {
                         "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
+                        "uid": "Prometheus"
                      },
                      "expr": "avg by(Hostname) (DCGM_FI_DEV_MEM_CLOCK)",
                      "legendFormat": "{{ Hostname }}"
@@ -434,7 +434,7 @@
                   {
                      "datasource": {
                         "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
+                        "uid": "Prometheus"
                      },
                      "expr": "avg by(Hostname) (DCGM_FI_DEV_MEMORY_TEMP)",
                      "legendFormat": "{{ Hostname }}"
@@ -465,7 +465,7 @@
                   {
                      "datasource": {
                         "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
+                        "uid": "Prometheus"
                      },
                      "expr": "avg by(Hostname) (DCGM_FI_DEV_GPU_TEMP)",
                      "legendFormat": "{{ Hostname }}"
@@ -496,7 +496,7 @@
                   {
                      "datasource": {
                         "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
+                        "uid": "Prometheus"
                      },
                      "expr": "avg by(Hostname) (DCGM_FI_DEV_POWER_USAGE)",
                      "legendFormat": "{{ Hostname }}"
@@ -527,7 +527,7 @@
                   {
                      "datasource": {
                         "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
+                        "uid": "Prometheus"
                      },
                      "expr": "avg by(Hostname) (DCGM_FI_DEV_TOTAL_ENERGY_CONSUMPTION)",
                      "legendFormat": "{{ Hostname }}"
@@ -558,7 +558,7 @@
                   {
                      "datasource": {
                         "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
+                        "uid": "Prometheus"
                      },
                      "expr": "avg by(Hostname) (DCGM_FI_DEV_PCIE_REPLAY_COUNTER)",
                      "legendFormat": "{{ Hostname }}"
@@ -589,7 +589,7 @@
                   {
                      "datasource": {
                         "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
+                        "uid": "Prometheus"
                      },
                      "expr": "avg by(Hostname) (DCGM_FI_DEV_GPU_UTIL)",
                      "legendFormat": "{{ Hostname }}"
@@ -620,7 +620,7 @@
                   {
                      "datasource": {
                         "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
+                        "uid": "Prometheus"
                      },
                      "expr": "avg by(Hostname) (DCGM_FI_DEV_MEM_COPY_UTIL)",
                      "legendFormat": "{{ Hostname }}"
@@ -651,7 +651,7 @@
                   {
                      "datasource": {
                         "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
+                        "uid": "Prometheus"
                      },
                      "expr": "avg by(Hostname) (DCGM_FI_DEV_ENC_UTIL)",
                      "legendFormat": "{{ Hostname }}"
@@ -682,7 +682,7 @@
                   {
                      "datasource": {
                         "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
+                        "uid": "Prometheus"
                      },
                      "expr": "avg by(Hostname) (DCGM_FI_DEV_DEC_UTIL)",
                      "legendFormat": "{{ Hostname }}"
@@ -713,7 +713,7 @@
                   {
                      "datasource": {
                         "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
+                        "uid": "Prometheus"
                      },
                      "expr": "avg by(Hostname) (DCGM_FI_DEV_XID_ERRORS)",
                      "legendFormat": "{{ Hostname }}"
@@ -744,7 +744,7 @@
                   {
                      "datasource": {
                         "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
+                        "uid": "Prometheus"
                      },
                      "expr": "avg by(Hostname) (DCGM_FI_DEV_FB_FREE)",
                      "legendFormat": "{{ Hostname }}"
@@ -775,7 +775,7 @@
                   {
                      "datasource": {
                         "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
+                        "uid": "Prometheus"
                      },
                      "expr": "avg by(Hostname) (DCGM_FI_DEV_FB_USED)",
                      "legendFormat": "{{ Hostname }}"
@@ -806,7 +806,7 @@
                   {
                      "datasource": {
                         "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
+                        "uid": "Prometheus"
                      },
                      "expr": "avg by(Hostname) (DCGM_FI_DEV_VGPU_LICENSE_STATUS)",
                      "legendFormat": "{{ Hostname }}"
@@ -837,7 +837,7 @@
                   {
                      "datasource": {
                         "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
+                        "uid": "Prometheus"
                      },
                      "expr": "avg by(Hostname) (DCGM_FI_DEV_NVLINK_BANDWIDTH_TOTAL)",
                      "legendFormat": "{{ Hostname }}"
@@ -868,7 +868,7 @@
                   {
                      "datasource": {
                         "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
+                        "uid": "Prometheus"
                      },
                      "expr": "avg by(Hostname) (DCGM_FI_DEV_UNCORRECTABLE_REMAPPED_ROWS)",
                      "legendFormat": "{{ Hostname }}"
@@ -899,7 +899,7 @@
                   {
                      "datasource": {
                         "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
+                        "uid": "Prometheus"
                      },
                      "expr": "avg by(Hostname) (DCGM_FI_DEV_CORRECTABLE_REMAPPED_ROWS)",
                      "legendFormat": "{{ Hostname }}"
@@ -930,7 +930,7 @@
                   {
                      "datasource": {
                         "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
+                        "uid": "Prometheus"
                      },
                      "expr": "avg by(Hostname) (DCGM_FI_DEV_ROW_REMAP_FAILURE)",
                      "legendFormat": "{{ Hostname }}"
@@ -975,7 +975,7 @@
                   {
                      "datasource": {
                         "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
+                        "uid": "Prometheus"
                      },
                      "expr": "(rdma_np_ecn_marked_roce_packets)",
                      "legendFormat": "{{ interface }}"
@@ -1006,7 +1006,7 @@
                   {
                      "datasource": {
                         "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
+                        "uid": "Prometheus"
                      },
                      "expr": "(rdma_out_of_sequence)",
                      "legendFormat": "{{ interface }}"
@@ -1037,7 +1037,7 @@
                   {
                      "datasource": {
                         "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
+                        "uid": "Prometheus"
                      },
                      "expr": "(rdma_packet_seq_err)",
                      "legendFormat": "{{ interface }}"
@@ -1068,7 +1068,7 @@
                   {
                      "datasource": {
                         "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
+                        "uid": "Prometheus"
                      },
                      "expr": "(rdma_local_ack_timeout_err)",
                      "legendFormat": "{{ interface }}"
@@ -1099,7 +1099,7 @@
                   {
                      "datasource": {
                         "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
+                        "uid": "Prometheus"
                      },
                      "expr": "(rdma_roce_adp_retrans)",
                      "legendFormat": "{{ interface }}"
@@ -1130,7 +1130,7 @@
                   {
                      "datasource": {
                         "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
+                        "uid": "Prometheus"
                      },
                      "expr": "(rdma_np_cnp_sent)",
                      "legendFormat": "{{ interface }}"
@@ -1161,7 +1161,7 @@
                   {
                      "datasource": {
                         "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
+                        "uid": "Prometheus"
                      },
                      "expr": "(rdma_rp_cnp_handled)",
                      "legendFormat": "{{ interface }}"
@@ -1192,7 +1192,7 @@
                   {
                      "datasource": {
                         "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
+                        "uid": "Prometheus"
                      },
                      "expr": "(rdma_rp_cnp_ignored)",
                      "legendFormat": "{{ interface }}"
@@ -1223,7 +1223,7 @@
                   {
                      "datasource": {
                         "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
+                        "uid": "Prometheus"
                      },
                      "expr": "(rdma_rx_icrc_encapsulated)",
                      "legendFormat": "{{ interface }}"
@@ -1254,7 +1254,7 @@
                   {
                      "datasource": {
                         "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
+                        "uid": "Prometheus"
                      },
                      "expr": "(rdma_roce_slow_restart)",
                      "legendFormat": "{{ interface }}"
@@ -1299,7 +1299,7 @@
                   {
                      "datasource": {
                         "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
+                        "uid": "Prometheus"
                      },
                      "expr": "sum by(gpu) (nvlink_data_tx_kib)",
                      "legendFormat": "{{ gpu }}"
@@ -1330,7 +1330,7 @@
                   {
                      "datasource": {
                         "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
+                        "uid": "Prometheus"
                      },
                      "expr": "sum by(gpu) (nvlink_data_rx_kib)",
                      "legendFormat": "{{ gpu }}"
@@ -1361,7 +1361,7 @@
                   {
                      "datasource": {
                         "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
+                        "uid": "Prometheus"
                      },
                      "expr": "sum by(gpu) (nvlink_raw_tx_kib)",
                      "legendFormat": "{{ gpu }}"
@@ -1392,7 +1392,7 @@
                   {
                      "datasource": {
                         "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
+                        "uid": "Prometheus"
                      },
                      "expr": "sum by(gpu) (nvlink_raw_rx_kib)",
                      "legendFormat": "{{ gpu }}"
@@ -1410,19 +1410,56 @@
    "templating": {
       "list": [
          {
-            "hide": 1,
-            "name": "PROMETHEUS_DS",
-            "query": "prometheus",
+            "name": "datasource",
+            "query": "Prometheus",
             "type": "datasource"
          },
          {
             "datasource": {
-               "type": "prometheus",
-               "uid": "${PROMETHEUS_DS}"
+               "type": "Prometheus",
+               "uid": "${datasource}"
             },
-            "multi": true,
+            "name": "hostname",
+            "query": "label_values(Hostname)",
+            "refresh": 1,
+            "type": "query"
+         },
+         {
+            "datasource": {
+               "type": "Prometheus",
+               "uid": "${datasource}"
+            },
+            "name": "device",
+            "query": "label_values(device)",
+            "type": "query"
+         },
+         {
+            "datasource": {
+               "type": "Prometheus",
+               "uid": "${datasource}"
+            },
+            "name": "interface",
+            "query": "label_values(interface)",
+            "refresh": 1,
+            "type": "query"
+         },
+         {
+            "datasource": {
+               "type": "Prometheus",
+               "uid": "${datasource}"
+            },
             "name": "cluster_name",
-            "query": "label_values(up, cluster_name)",
+            "query": "label_values(cluster_name)",
+            "refresh": 1,
+            "type": "query"
+         },
+         {
+            "datasource": {
+               "type": "Prometheus",
+               "uid": "${datasource}"
+            },
+            "name": "instance",
+            "query": "label_values(instance)",
             "refresh": 1,
             "type": "query"
          }
@@ -1433,6 +1470,6 @@
       "to": "now"
    },
    "timezone": "browser",
-   "title": "Cluster Dashboard",
+   "title": "GPU RDMA NVLink Dashboard",
    "uid": "cluster-dashboard"
 }

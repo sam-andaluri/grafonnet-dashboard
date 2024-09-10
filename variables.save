@@ -1,0 +1,50 @@
+local g = import './g.libsonnet';
+local var = g.dashboard.variable;
+
+{
+  prometheus:
+    var.datasource.new('PROMETHEUS_DS', 'prometheus')
+    + var.datasource.generalOptions.showOnDashboard.withValueOnly(),
+
+  datasource:
+    var.datasource.new('datasource', 'Prometheus')
+    + var.datasource.generalOptions.withLabel('Data Source'),
+
+  instance:
+    var.query.new('instance')
+    + var.query.withDatasourceFromVariable(self.datasource)
+    + var.query.queryTypes.withLabelValues(
+      'instance',
+    )
+    + var.query.withRefresh(1),
+
+  hostname:
+    var.query.new('hostname')
+    + var.query.withDatasourceFromVariable(self.datasource)
+    + var.query.queryTypes.withLabelValues(
+      'Hostname',
+    )
+    + var.query.withRefresh(1),
+
+  device:
+    var.query.new('device')
+    + var.query.withDatasourceFromVariable(self.datasource)
+    + var.query.queryTypes.withLabelValues(
+      'device',
+    ),
+
+  interface:
+    var.query.new('interface')
+    + var.query.withDatasourceFromVariable(self.datasource)
+    + var.query.queryTypes.withLabelValues(
+      'interface',
+    )
+    + var.query.withRefresh(1),
+
+  cluster:
+    var.query.new('cluster_name')
+    + var.query.withDatasourceFromVariable(self.datasource)
+    + var.query.selectionOptions.withMulti()
+    + var.query.selectionOptions.withIncludeAll()
+    + var.query.withRefresh(1),
+}
