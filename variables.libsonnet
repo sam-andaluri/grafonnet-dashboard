@@ -6,6 +6,46 @@ local var = g.dashboard.variable;
     var.datasource.new('PROMETHEUS_DS', 'prometheus')
     + var.datasource.generalOptions.showOnDashboard.withValueOnly(),
 
+  compartment:
+    var.query.new('compartment')
+    + var.query.withDatasourceFromVariable(self.prometheus)
+    + var.query.queryTypes.withLabelValues('compartment', 'up')
+    + var.query.selectionOptions.withMulti()
+    + var.query.selectionOptions.withIncludeAll()
+    + var.query.withRefresh(1),
+
+  hpc_island:
+    var.query.new('hpc_island')
+    + var.query.withDatasourceFromVariable(self.prometheus)
+    + var.query.queryTypes.withLabelValues('hpc_island', 'up')
+    + var.query.selectionOptions.withMulti()
+    + var.query.selectionOptions.withIncludeAll()
+    + var.query.withRefresh(1),
+
+  rack_id:
+    var.query.new('rackID')
+    + var.query.withDatasourceFromVariable(self.prometheus)
+    + var.query.queryTypes.withLabelValues('rackID', 'up')
+    + var.query.selectionOptions.withMulti()
+    + var.query.selectionOptions.withIncludeAll()
+    + var.query.withRefresh(1),
+
+  rail_id:
+    var.query.new('rail_id')
+    + var.query.withDatasourceFromVariable(self.prometheus)
+    + var.query.queryTypes.withLabelValues('rail_id', 'up')
+    + var.query.selectionOptions.withMulti()
+    + var.query.selectionOptions.withIncludeAll()
+    + var.query.withRefresh(1),
+
+  availability_domain:
+    var.query.new('AD')
+    + var.query.withDatasourceFromVariable(self.prometheus)
+    + var.query.queryTypes.withLabelValues('AD', 'up')
+    + var.query.selectionOptions.withMulti()
+    + var.query.selectionOptions.withIncludeAll()
+    + var.query.withRefresh(1),
+
   oci_name:
     var.query.new('oci_name')
     + var.query.withDatasourceFromVariable(self.prometheus)

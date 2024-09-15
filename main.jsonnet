@@ -38,10 +38,10 @@ local rdma_metrics = [
 ];
 
 local nvlink_metrics = [
-{ name: 'nvlink_data_tx_kib', title: 'Total data in KiB transmitted', unit: 'KB' },
-{ name: 'nvlink_data_rx_kib', title: 'Total data in KiB received', unit: 'KB' },
-{ name: 'nvlink_raw_tx_kib', title: 'Total raw bytes in KiB transmitted', unit: 'KB' },
-{ name: 'nvlink_raw_rx_kib', title: 'Total raw bytes in KiB received', unit: 'KB' },
+{ name: 'nvlink_data_tx_kib', title: 'Total data in KiB transmitted', unit: 'Bps' },
+{ name: 'nvlink_data_rx_kib', title: 'Total data in KiB received', unit: 'Bps' },
+{ name: 'nvlink_raw_tx_kib', title: 'Total raw bytes in KiB transmitted', unit: 'Bps' },
+{ name: 'nvlink_raw_rx_kib', title: 'Total raw bytes in KiB received', unit: 'Bps' },
 ];
 
 local cluster_metrics = [
@@ -56,8 +56,13 @@ local node_metrics = [
 { expr: '(node_load15{oci_name=~"$oci_name"})', legend_format: '{{oci_name}}', title: 'Instance 15m load average', unit: 'percent' },
 { expr: 'ceil((1 - (node_memory_MemAvailable_bytes{oci_name=~"$oci_name"}/node_memory_MemTotal_bytes{oci_name=~"$oci_name"}))*100)', legend_format: '{{oci_name}}',  title: 'Memory utilization', unit: 'percent' },
 { expr: 'ceil((1 - (node_filesystem_avail_bytes{mountpoint=~"$mountpoint",device!~"rootfs"} / node_filesystem_size_bytes{mountpoint=~"$mountpoint",device!~"rootfs"}))*100)', legend_format: '{{mountpoint}}', title: 'Storage utilization', unit: 'percent'},
-{ expr: 'rate(node_network_receive_bytes_total{oci_name=~"$oci_name",device=~"$device"}[$__rate_interval])', legend_format: "{{oci_name}} {{device}}", title: 'Network Traffic Received', unit: 'bytes'},
-{ expr: 'rate(node_network_transmit_bytes_total{oci_name=~"$oci_name",device=~"$device"}[$__rate_interval])', legend_format: "{{oci_name}} {{device}}", title: 'Network Traffic Sent', unit: 'bytes'}
+{ expr: 'irate(node_disk_reads_completed_total[$__rate_interval])', legend_format: '{{oci_name}} {{device}}', title: 'Disk reads completed iops', unit: 'iops'},
+{ expr: 'irate(node_disk_writes_completed_total[$__rate_interval])', legend_format: '{{oci_name}} {{device}}', title: 'Disk writes completed iops', unit: 'iops'},
+{ expr: 'irate(node_disk_read_bytes_total[$__rate_interval])', legend_format: '{{oci_name}} {{device}}', title: 'Disk read bytes', unit: 'Bps'},
+{ expr: 'irate(node_disk_written_bytes_total[$__rate_interval])', legend_format: '{{oci_name}} {{device}}', title: 'Disk write bytes', unit: 'Bps'},
+{ expr: 'irate(node_disk_io_time_seconds_total[$__rate_interval])', legend_format: '{{oci_name}} {{device}}', title: 'Time spent doing I/Os', unit: 'percentunit'},
+{ expr: 'rate(node_network_receive_bytes_total{oci_name=~"$oci_name",device=~"$device"}[$__rate_interval])', legend_format: "{{oci_name}} {{device}}", title: 'Network Traffic Received', unit: 'Bps'},
+{ expr: 'rate(node_network_transmit_bytes_total{oci_name=~"$oci_name",device=~"$device"}[$__rate_interval])', legend_format: "{{oci_name}} {{device}}", title: 'Network Traffic Sent', unit: 'Bps'}
 ];
 
 local health_status = [
@@ -74,6 +79,11 @@ g.dashboard.new('Cluster Dashboard')
 + g.dashboard.graphTooltip.withSharedCrosshair()
 + g.dashboard.withVariables([
   variables.prometheus,
+  variables.availability_domain,
+  variables.compartment,
+  variables.rack_id,
+  variables.rail_id,
+  variables.hpc_island,
   variables.cluster,
   variables.oci_name,
   variables.hostname,
