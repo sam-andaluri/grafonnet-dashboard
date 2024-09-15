@@ -19,7 +19,7 @@
                },
                "fieldConfig": {
                   "defaults": {
-                     "unit": "percent"
+                     "unit": "none"
                   }
                },
                "gridPos": {
@@ -29,6 +29,88 @@
                   "y": 0
                },
                "id": 2,
+               "options": {
+                  "showValue": "never"
+               },
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "rdma_device_status{oci_name=~\"$oci_name\"}",
+                     "legendFormat": "{{oci_name}} {{rdma_device}}"
+                  }
+               ],
+               "title": "RDMA Device Status",
+               "type": "state-timeline"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "none"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 8,
+                  "y": 0
+               },
+               "id": 3,
+               "options": {
+                  "showValue": "never"
+               },
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "rttcc_status{oci_name=~\"$oci_name\"}",
+                     "legendFormat": "{{oci_name}} {{rdma_device}}"
+                  }
+               ],
+               "title": "RTTCC Status",
+               "type": "state-timeline"
+            }
+         ],
+         "title": "Health",
+         "type": "row"
+      },
+      {
+         "collapsed": true,
+         "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 1
+         },
+         "id": 4,
+         "panels": [
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "percent"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 0,
+                  "y": 0
+               },
+               "id": 5,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -59,7 +141,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 3,
+               "id": 6,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -90,7 +172,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 4,
+               "id": 7,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -115,9 +197,9 @@
             "h": 1,
             "w": 24,
             "x": 0,
-            "y": 1
+            "y": 2
          },
-         "id": 5,
+         "id": 8,
          "panels": [
             {
                "datasource": {
@@ -135,7 +217,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 6,
+               "id": 9,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -166,7 +248,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 7,
+               "id": 10,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -197,7 +279,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 8,
+               "id": 11,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -228,7 +310,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 9,
+               "id": 12,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -259,7 +341,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 10,
+               "id": 13,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -290,7 +372,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 11,
+               "id": 14,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -321,7 +403,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 12,
+               "id": 15,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -346,9 +428,9 @@
             "h": 1,
             "w": 24,
             "x": 0,
-            "y": 2
+            "y": 3
          },
-         "id": 13,
+         "id": 16,
          "panels": [
             {
                "datasource": {
@@ -366,7 +448,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 14,
+               "id": 17,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -374,7 +456,7 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_SM_CLOCK{Hostname=~\"$oci_name\"})",
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_SM_CLOCK{Hostname=~\"$hostname\"})",
                      "legendFormat": "Host {{ Hostname }}"
                   }
                ],
@@ -397,7 +479,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 15,
+               "id": 18,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -405,7 +487,7 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_MEM_CLOCK{Hostname=~\"$oci_name\"})",
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_MEM_CLOCK{Hostname=~\"$hostname\"})",
                      "legendFormat": "Host {{ Hostname }}"
                   }
                ],
@@ -428,7 +510,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 16,
+               "id": 19,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -436,7 +518,7 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_MEMORY_TEMP{Hostname=~\"$oci_name\"})",
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_MEMORY_TEMP{Hostname=~\"$hostname\"})",
                      "legendFormat": "Host {{ Hostname }}"
                   }
                ],
@@ -459,7 +541,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 17,
+               "id": 20,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -467,7 +549,7 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_GPU_TEMP{Hostname=~\"$oci_name\"})",
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_GPU_TEMP{Hostname=~\"$hostname\"})",
                      "legendFormat": "Host {{ Hostname }}"
                   }
                ],
@@ -490,7 +572,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 18,
+               "id": 21,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -498,7 +580,7 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_POWER_USAGE{Hostname=~\"$oci_name\"})",
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_POWER_USAGE{Hostname=~\"$hostname\"})",
                      "legendFormat": "Host {{ Hostname }}"
                   }
                ],
@@ -521,7 +603,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 19,
+               "id": 22,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -529,7 +611,7 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_TOTAL_ENERGY_CONSUMPTION{Hostname=~\"$oci_name\"})",
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_TOTAL_ENERGY_CONSUMPTION{Hostname=~\"$hostname\"})",
                      "legendFormat": "Host {{ Hostname }}"
                   }
                ],
@@ -552,99 +634,6 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 20,
-               "pluginVersion": "v11.0.0",
-               "targets": [
-                  {
-                     "datasource": {
-                        "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
-                     },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_PCIE_REPLAY_COUNTER{Hostname=~\"$oci_name\"})",
-                     "legendFormat": "Host {{ Hostname }}"
-                  }
-               ],
-               "title": "Total number of PCIe retries",
-               "type": "timeseries"
-            },
-            {
-               "datasource": {
-                  "type": "datasource",
-                  "uid": "-- Mixed --"
-               },
-               "fieldConfig": {
-                  "defaults": {
-                     "unit": "percent"
-                  }
-               },
-               "gridPos": {
-                  "h": 8,
-                  "w": 8,
-                  "x": 8,
-                  "y": 0
-               },
-               "id": 21,
-               "pluginVersion": "v11.0.0",
-               "targets": [
-                  {
-                     "datasource": {
-                        "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
-                     },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_GPU_UTIL{Hostname=~\"$oci_name\"})",
-                     "legendFormat": "Host {{ Hostname }}"
-                  }
-               ],
-               "title": "GPU Utilization",
-               "type": "timeseries"
-            },
-            {
-               "datasource": {
-                  "type": "datasource",
-                  "uid": "-- Mixed --"
-               },
-               "fieldConfig": {
-                  "defaults": {
-                     "unit": "percent"
-                  }
-               },
-               "gridPos": {
-                  "h": 8,
-                  "w": 8,
-                  "x": 16,
-                  "y": 0
-               },
-               "id": 22,
-               "pluginVersion": "v11.0.0",
-               "targets": [
-                  {
-                     "datasource": {
-                        "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
-                     },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_MEM_COPY_UTIL{Hostname=~\"$oci_name\"})",
-                     "legendFormat": "Host {{ Hostname }}"
-                  }
-               ],
-               "title": "Memory Copy Utilization",
-               "type": "timeseries"
-            },
-            {
-               "datasource": {
-                  "type": "datasource",
-                  "uid": "-- Mixed --"
-               },
-               "fieldConfig": {
-                  "defaults": {
-                     "unit": "percent"
-                  }
-               },
-               "gridPos": {
-                  "h": 8,
-                  "w": 8,
-                  "x": 0,
-                  "y": 0
-               },
                "id": 23,
                "pluginVersion": "v11.0.0",
                "targets": [
@@ -653,11 +642,11 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_ENC_UTIL{Hostname=~\"$oci_name\"})",
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_PCIE_REPLAY_COUNTER{Hostname=~\"$hostname\"})",
                      "legendFormat": "Host {{ Hostname }}"
                   }
                ],
-               "title": "Encoder Utilization",
+               "title": "Total number of PCIe retries",
                "type": "timeseries"
             },
             {
@@ -684,11 +673,11 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_DEC_UTIL{Hostname=~\"$oci_name\"})",
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_GPU_UTIL{Hostname=~\"$hostname\"})",
                      "legendFormat": "Host {{ Hostname }}"
                   }
                ],
-               "title": "Decoder Utilization",
+               "title": "GPU Utilization",
                "type": "timeseries"
             },
             {
@@ -698,7 +687,7 @@
                },
                "fieldConfig": {
                   "defaults": {
-                     "unit": "none"
+                     "unit": "percent"
                   }
                },
                "gridPos": {
@@ -715,11 +704,11 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_XID_ERRORS{Hostname=~\"$oci_name\"})",
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_MEM_COPY_UTIL{Hostname=~\"$hostname\"})",
                      "legendFormat": "Host {{ Hostname }}"
                   }
                ],
-               "title": "Value of the last XID error encountered",
+               "title": "Memory Copy Utilization",
                "type": "timeseries"
             },
             {
@@ -729,7 +718,7 @@
                },
                "fieldConfig": {
                   "defaults": {
-                     "unit": "megabytes"
+                     "unit": "percent"
                   }
                },
                "gridPos": {
@@ -746,11 +735,11 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_FB_FREE{Hostname=~\"$oci_name\"})",
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_ENC_UTIL{Hostname=~\"$hostname\"})",
                      "legendFormat": "Host {{ Hostname }}"
                   }
                ],
-               "title": "Framebuffer memory free (in MiB)",
+               "title": "Encoder Utilization",
                "type": "timeseries"
             },
             {
@@ -760,7 +749,7 @@
                },
                "fieldConfig": {
                   "defaults": {
-                     "unit": "megabytes"
+                     "unit": "percent"
                   }
                },
                "gridPos": {
@@ -777,11 +766,11 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_FB_USED{Hostname=~\"$oci_name\"})",
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_DEC_UTIL{Hostname=~\"$hostname\"})",
                      "legendFormat": "Host {{ Hostname }}"
                   }
                ],
-               "title": "Framebuffer memory used (in MiB)",
+               "title": "Decoder Utilization",
                "type": "timeseries"
             },
             {
@@ -808,11 +797,11 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_VGPU_LICENSE_STATUS{Hostname=~\"$oci_name\"})",
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_XID_ERRORS{Hostname=~\"$hostname\"})",
                      "legendFormat": "Host {{ Hostname }}"
                   }
                ],
-               "title": "vGPU License status",
+               "title": "Value of the last XID error encountered",
                "type": "timeseries"
             },
             {
@@ -822,7 +811,7 @@
                },
                "fieldConfig": {
                   "defaults": {
-                     "unit": "none"
+                     "unit": "megabytes"
                   }
                },
                "gridPos": {
@@ -839,11 +828,11 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_NVLINK_BANDWIDTH_TOTAL{Hostname=~\"$oci_name\"})",
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_FB_FREE{Hostname=~\"$hostname\"})",
                      "legendFormat": "Host {{ Hostname }}"
                   }
                ],
-               "title": "Total number of NVLink bandwidth counters for all lanes",
+               "title": "Framebuffer memory free (in MiB)",
                "type": "timeseries"
             },
             {
@@ -853,7 +842,7 @@
                },
                "fieldConfig": {
                   "defaults": {
-                     "unit": "none"
+                     "unit": "megabytes"
                   }
                },
                "gridPos": {
@@ -870,11 +859,11 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_UNCORRECTABLE_REMAPPED_ROWS{Hostname=~\"$oci_name\"})",
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_FB_USED{Hostname=~\"$hostname\"})",
                      "legendFormat": "Host {{ Hostname }}"
                   }
                ],
-               "title": "Number of remapped rows for uncorrectable errors",
+               "title": "Framebuffer memory used (in MiB)",
                "type": "timeseries"
             },
             {
@@ -901,11 +890,11 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_CORRECTABLE_REMAPPED_ROWS{Hostname=~\"$oci_name\"})",
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_VGPU_LICENSE_STATUS{Hostname=~\"$hostname\"})",
                      "legendFormat": "Host {{ Hostname }}"
                   }
                ],
-               "title": "Number of remapped rows for correctable errors",
+               "title": "vGPU License status",
                "type": "timeseries"
             },
             {
@@ -932,56 +921,11 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_ROW_REMAP_FAILURE{Hostname=~\"$oci_name\"})",
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_NVLINK_BANDWIDTH_TOTAL{Hostname=~\"$hostname\"})",
                      "legendFormat": "Host {{ Hostname }}"
                   }
                ],
-               "title": "Whether remapping of rows has failed",
-               "type": "timeseries"
-            }
-         ],
-         "title": "GPU",
-         "type": "row"
-      },
-      {
-         "collapsed": true,
-         "gridPos": {
-            "h": 1,
-            "w": 24,
-            "x": 0,
-            "y": 3
-         },
-         "id": 33,
-         "panels": [
-            {
-               "datasource": {
-                  "type": "datasource",
-                  "uid": "-- Mixed --"
-               },
-               "fieldConfig": {
-                  "defaults": {
-                     "unit": "none"
-                  }
-               },
-               "gridPos": {
-                  "h": 8,
-                  "w": 8,
-                  "x": 0,
-                  "y": 0
-               },
-               "id": 34,
-               "pluginVersion": "v11.0.0",
-               "targets": [
-                  {
-                     "datasource": {
-                        "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
-                     },
-                     "expr": "(rdma_np_ecn_marked_roce_packets{hostname=~\"$oci_name\",interface=~\"$interface\"})",
-                     "legendFormat": "RDMA hardware counters by host {{ oci_name }} and nic {{ interface }}"
-                  }
-               ],
-               "title": "Number of ROCEv2 packets marked for congestion",
+               "title": "Total number of NVLink bandwidth counters for all lanes",
                "type": "timeseries"
             },
             {
@@ -1000,7 +944,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 35,
+               "id": 33,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1008,11 +952,11 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "(rdma_out_of_sequence{hostname=~\"$oci_name\",interface=~\"$interface\"})",
-                     "legendFormat": "RDMA hardware counters by host {{ oci_name }} and nic {{ interface }}"
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_UNCORRECTABLE_REMAPPED_ROWS{Hostname=~\"$hostname\"})",
+                     "legendFormat": "Host {{ Hostname }}"
                   }
                ],
-               "title": "Number of out of sequence packets received",
+               "title": "Number of remapped rows for uncorrectable errors",
                "type": "timeseries"
             },
             {
@@ -1031,7 +975,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 36,
+               "id": 34,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1039,13 +983,58 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "(rdma_packet_seq_err{hostname=~\"$oci_name\",interface=~\"$interface\"})",
-                     "legendFormat": "RDMA hardware counters by host {{ oci_name }} and nic {{ interface }}"
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_CORRECTABLE_REMAPPED_ROWS{Hostname=~\"$hostname\"})",
+                     "legendFormat": "Host {{ Hostname }}"
                   }
                ],
-               "title": "Number of received NAK sequence error packets",
+               "title": "Number of remapped rows for correctable errors",
                "type": "timeseries"
             },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "none"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 0,
+                  "y": 0
+               },
+               "id": 35,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_ROW_REMAP_FAILURE{Hostname=~\"$hostname\"})",
+                     "legendFormat": "Host {{ Hostname }}"
+                  }
+               ],
+               "title": "Whether remapping of rows has failed",
+               "type": "timeseries"
+            }
+         ],
+         "title": "GPU",
+         "type": "row"
+      },
+      {
+         "collapsed": true,
+         "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 4
+         },
+         "id": 36,
+         "panels": [
             {
                "datasource": {
                   "type": "datasource",
@@ -1070,11 +1059,11 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "(rdma_local_ack_timeout_err{hostname=~\"$oci_name\",interface=~\"$interface\"})",
+                     "expr": "(rdma_np_ecn_marked_roce_packets{oci_name=~\"$oci_name\",interface=~\"$interface\"})",
                      "legendFormat": "RDMA hardware counters by host {{ oci_name }} and nic {{ interface }}"
                   }
                ],
-               "title": "Number of times QPs ack timer expired",
+               "title": "Number of ROCEv2 packets marked for congestion",
                "type": "timeseries"
             },
             {
@@ -1101,11 +1090,11 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "(rdma_roce_adp_retrans{hostname=~\"$oci_name\",interface=~\"$interface\"})",
+                     "expr": "(rdma_out_of_sequence{oci_name=~\"$oci_name\",interface=~\"$interface\"})",
                      "legendFormat": "RDMA hardware counters by host {{ oci_name }} and nic {{ interface }}"
                   }
                ],
-               "title": "Number of adaptive retransmissions for RoCE traffic",
+               "title": "Number of out of sequence packets received",
                "type": "timeseries"
             },
             {
@@ -1132,11 +1121,11 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "(rdma_np_cnp_sent{hostname=~\"$oci_name\",interface=~\"$interface\"})",
+                     "expr": "(rdma_packet_seq_err{oci_name=~\"$oci_name\",interface=~\"$interface\"})",
                      "legendFormat": "RDMA hardware counters by host {{ oci_name }} and nic {{ interface }}"
                   }
                ],
-               "title": "Number of CNP packets sent",
+               "title": "Number of received NAK sequence error packets",
                "type": "timeseries"
             },
             {
@@ -1163,11 +1152,11 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "(rdma_rp_cnp_handled{hostname=~\"$oci_name\",interface=~\"$interface\"})",
+                     "expr": "(rdma_local_ack_timeout_err{oci_name=~\"$oci_name\",interface=~\"$interface\"})",
                      "legendFormat": "RDMA hardware counters by host {{ oci_name }} and nic {{ interface }}"
                   }
                ],
-               "title": "Number of CNP packets handled to throttle",
+               "title": "Number of times QPs ack timer expired",
                "type": "timeseries"
             },
             {
@@ -1194,11 +1183,11 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "(rdma_rp_cnp_ignored{hostname=~\"$oci_name\",interface=~\"$interface\"})",
+                     "expr": "(rdma_roce_adp_retrans{oci_name=~\"$oci_name\",interface=~\"$interface\"})",
                      "legendFormat": "RDMA hardware counters by host {{ oci_name }} and nic {{ interface }}"
                   }
                ],
-               "title": "Number of CNP packets received and ignored",
+               "title": "Number of adaptive retransmissions for RoCE traffic",
                "type": "timeseries"
             },
             {
@@ -1225,11 +1214,11 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "(rdma_rx_icrc_encapsulated{hostname=~\"$oci_name\",interface=~\"$interface\"})",
+                     "expr": "(rdma_np_cnp_sent{oci_name=~\"$oci_name\",interface=~\"$interface\"})",
                      "legendFormat": "RDMA hardware counters by host {{ oci_name }} and nic {{ interface }}"
                   }
                ],
-               "title": "Number of RoCE packets with ICRC (Invertible Cyclic Redundancy Check) errors",
+               "title": "Number of CNP packets sent",
                "type": "timeseries"
             },
             {
@@ -1256,7 +1245,100 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "(rdma_roce_slow_restart{hostname=~\"$oci_name\",interface=~\"$interface\"})",
+                     "expr": "(rdma_rp_cnp_handled{oci_name=~\"$oci_name\",interface=~\"$interface\"})",
+                     "legendFormat": "RDMA hardware counters by host {{ oci_name }} and nic {{ interface }}"
+                  }
+               ],
+               "title": "Number of CNP packets handled to throttle",
+               "type": "timeseries"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "none"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 8,
+                  "y": 0
+               },
+               "id": 44,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "(rdma_rp_cnp_ignored{oci_name=~\"$oci_name\",interface=~\"$interface\"})",
+                     "legendFormat": "RDMA hardware counters by host {{ oci_name }} and nic {{ interface }}"
+                  }
+               ],
+               "title": "Number of CNP packets received and ignored",
+               "type": "timeseries"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "none"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 16,
+                  "y": 0
+               },
+               "id": 45,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "(rdma_rx_icrc_encapsulated{oci_name=~\"$oci_name\",interface=~\"$interface\"})",
+                     "legendFormat": "RDMA hardware counters by host {{ oci_name }} and nic {{ interface }}"
+                  }
+               ],
+               "title": "Number of RoCE packets with ICRC (Invertible Cyclic Redundancy Check) errors",
+               "type": "timeseries"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "none"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 0,
+                  "y": 0
+               },
+               "id": 46,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "(rdma_roce_slow_restart{oci_name=~\"$oci_name\",interface=~\"$interface\"})",
                      "legendFormat": "RDMA hardware counters by host {{ oci_name }} and nic {{ interface }}"
                   }
                ],
@@ -1273,103 +1355,10 @@
             "h": 1,
             "w": 24,
             "x": 0,
-            "y": 4
+            "y": 5
          },
-         "id": 44,
+         "id": 47,
          "panels": [
-            {
-               "datasource": {
-                  "type": "datasource",
-                  "uid": "-- Mixed --"
-               },
-               "fieldConfig": {
-                  "defaults": {
-                     "unit": "KB"
-                  }
-               },
-               "gridPos": {
-                  "h": 8,
-                  "w": 8,
-                  "x": 0,
-                  "y": 0
-               },
-               "id": 45,
-               "pluginVersion": "v11.0.0",
-               "targets": [
-                  {
-                     "datasource": {
-                        "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
-                     },
-                     "expr": "sum by(gpu) (nvlink_data_tx_kib{hostname=~\"$oci_name\",gpu=~\"$gpu\"})",
-                     "legendFormat": "Total NVLink bandwidth usage by host {{ oci_name }} and gpu {{ gpu }}"
-                  }
-               ],
-               "title": "Total data in KiB transmitted",
-               "type": "timeseries"
-            },
-            {
-               "datasource": {
-                  "type": "datasource",
-                  "uid": "-- Mixed --"
-               },
-               "fieldConfig": {
-                  "defaults": {
-                     "unit": "KB"
-                  }
-               },
-               "gridPos": {
-                  "h": 8,
-                  "w": 8,
-                  "x": 8,
-                  "y": 0
-               },
-               "id": 46,
-               "pluginVersion": "v11.0.0",
-               "targets": [
-                  {
-                     "datasource": {
-                        "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
-                     },
-                     "expr": "sum by(gpu) (nvlink_data_rx_kib{hostname=~\"$oci_name\",gpu=~\"$gpu\"})",
-                     "legendFormat": "Total NVLink bandwidth usage by host {{ oci_name }} and gpu {{ gpu }}"
-                  }
-               ],
-               "title": "Total data in KiB received",
-               "type": "timeseries"
-            },
-            {
-               "datasource": {
-                  "type": "datasource",
-                  "uid": "-- Mixed --"
-               },
-               "fieldConfig": {
-                  "defaults": {
-                     "unit": "KB"
-                  }
-               },
-               "gridPos": {
-                  "h": 8,
-                  "w": 8,
-                  "x": 16,
-                  "y": 0
-               },
-               "id": 47,
-               "pluginVersion": "v11.0.0",
-               "targets": [
-                  {
-                     "datasource": {
-                        "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
-                     },
-                     "expr": "sum by(gpu) (nvlink_raw_tx_kib{hostname=~\"$oci_name\",gpu=~\"$gpu\"})",
-                     "legendFormat": "Total NVLink bandwidth usage by host {{ oci_name }} and gpu {{ gpu }}"
-                  }
-               ],
-               "title": "Total raw bytes in KiB transmitted",
-               "type": "timeseries"
-            },
             {
                "datasource": {
                   "type": "datasource",
@@ -1394,8 +1383,101 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "sum by(gpu) (nvlink_raw_rx_kib{hostname=~\"$oci_name\",gpu=~\"$gpu\"})",
-                     "legendFormat": "Total NVLink bandwidth usage by host {{ oci_name }} and gpu {{ gpu }}"
+                     "expr": "sum by(gpu) (nvlink_data_tx_kib{oci_name=~\"$oci_name\",gpu=~\"$gpu\"})",
+                     "legendFormat": "Total NVLink bandwidth usage by gpu {{ gpu }}"
+                  }
+               ],
+               "title": "Total data in KiB transmitted",
+               "type": "timeseries"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "KB"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 8,
+                  "y": 0
+               },
+               "id": 49,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "sum by(gpu) (nvlink_data_rx_kib{oci_name=~\"$oci_name\",gpu=~\"$gpu\"})",
+                     "legendFormat": "Total NVLink bandwidth usage by gpu {{ gpu }}"
+                  }
+               ],
+               "title": "Total data in KiB received",
+               "type": "timeseries"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "KB"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 16,
+                  "y": 0
+               },
+               "id": 50,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "sum by(gpu) (nvlink_raw_tx_kib{oci_name=~\"$oci_name\",gpu=~\"$gpu\"})",
+                     "legendFormat": "Total NVLink bandwidth usage by gpu {{ gpu }}"
+                  }
+               ],
+               "title": "Total raw bytes in KiB transmitted",
+               "type": "timeseries"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "KB"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 0,
+                  "y": 0
+               },
+               "id": 51,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "sum by(gpu) (nvlink_raw_rx_kib{oci_name=~\"$oci_name\",gpu=~\"$gpu\"})",
+                     "legendFormat": "Total NVLink bandwidth usage by gpu {{ gpu }}"
                   }
                ],
                "title": "Total raw bytes in KiB received",
@@ -1420,6 +1502,7 @@
                "type": "prometheus",
                "uid": "${PROMETHEUS_DS}"
             },
+            "includeAll": true,
             "multi": true,
             "name": "cluster_name",
             "query": "label_values(up, cluster_name)",
@@ -1431,6 +1514,7 @@
                "type": "prometheus",
                "uid": "${PROMETHEUS_DS}"
             },
+            "includeAll": true,
             "multi": true,
             "name": "oci_name",
             "query": "label_values(up, oci_name)",
@@ -1442,6 +1526,31 @@
                "type": "prometheus",
                "uid": "${PROMETHEUS_DS}"
             },
+            "includeAll": true,
+            "multi": true,
+            "name": "hostname",
+            "query": "label_values(DCGM_FI_DEV_GPU_UTIL, Hostname)",
+            "refresh": 1,
+            "type": "query"
+         },
+         {
+            "datasource": {
+               "type": "prometheus",
+               "uid": "${PROMETHEUS_DS}"
+            },
+            "includeAll": true,
+            "multi": true,
+            "name": "instance",
+            "query": "label_values(rdma_device_status, instance)",
+            "refresh": 1,
+            "type": "query"
+         },
+         {
+            "datasource": {
+               "type": "prometheus",
+               "uid": "${PROMETHEUS_DS}"
+            },
+            "includeAll": true,
             "multi": true,
             "name": "mountpoint",
             "query": "label_values(node_filesystem_free_bytes, mountpoint)",
@@ -1453,6 +1562,7 @@
                "type": "prometheus",
                "uid": "${PROMETHEUS_DS}"
             },
+            "includeAll": true,
             "multi": true,
             "name": "fstype",
             "query": "label_values(node_filesystem_free_bytes, fstype)",
@@ -1464,6 +1574,7 @@
                "type": "prometheus",
                "uid": "${PROMETHEUS_DS}"
             },
+            "includeAll": true,
             "multi": true,
             "name": "device",
             "query": "label_values(node_network_receive_bytes_total, device)",
@@ -1475,6 +1586,7 @@
                "type": "prometheus",
                "uid": "${PROMETHEUS_DS}"
             },
+            "includeAll": true,
             "multi": true,
             "name": "interface",
             "query": "label_values(rdma_np_ecn_marked_roce_packets, interface)",
@@ -1486,6 +1598,7 @@
                "type": "prometheus",
                "uid": "${PROMETHEUS_DS}"
             },
+            "includeAll": true,
             "multi": true,
             "name": "gpu",
             "query": "label_values(DCGM_FI_DEV_GPU_UTIL, gpu)",
