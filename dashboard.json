@@ -1641,6 +1641,268 @@
          ],
          "title": "NVLink",
          "type": "row"
+      },
+      {
+         "collapsed": true,
+         "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 6
+         },
+         "id": 57,
+         "panels": [
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "MiBs"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 0,
+                  "y": 0
+               },
+               "id": 58,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "rate(node_mountstats_nfs_total_read_bytes_total[$__range])",
+                     "legendFormat": "{{hostname}} - {{export}}"
+                  }
+               ],
+               "title": "Read Throughput",
+               "type": "timeseries"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "MiBs"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 8,
+                  "y": 0
+               },
+               "id": 59,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "rate(node_mountstats_nfs_total_write_bytes_total[$__range])",
+                     "legendFormat": "{{hostname}} - {{export}}"
+                  }
+               ],
+               "title": "Write Throughput",
+               "type": "timeseries"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "iops"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 16,
+                  "y": 0
+               },
+               "id": 60,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "sum by(hostname) (rate(node_mountstats_nfs_operations_requests_total{operation!~\"READ|WRITE\"}[$__range]))",
+                     "legendFormat": "{{hostname}}"
+                  }
+               ],
+               "title": "Metadata IOPS",
+               "type": "timeseries"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "iops"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 0,
+                  "y": 0
+               },
+               "id": 61,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "sum by(hostname) (rate(node_mountstats_nfs_operations_requests_total{operation=~\"READ|WRITE\"}[$__range]))",
+                     "legendFormat": "{{hostname}}"
+                  }
+               ],
+               "title": "Read/Write IOPS",
+               "type": "timeseries"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "cps"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 8,
+                  "y": 0
+               },
+               "id": 62,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "sum by(hostname, export) (node_nfs_rpc_retransmissions_total)",
+                     "legendFormat": "{{hostname}} - {{export}}"
+                  }
+               ],
+               "title": "NFS Retransmissions",
+               "type": "timeseries"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "s"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 16,
+                  "y": 0
+               },
+               "id": 63,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "avg by(hostname, export) (rate(node_mountstats_nfs_operations_request_time_seconds_total[$__range]))",
+                     "legendFormat": "{{hostname}} - {{export}}"
+                  }
+               ],
+               "title": "NFS Request Time",
+               "type": "timeseries"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "s"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 0,
+                  "y": 0
+               },
+               "id": 64,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "avg by(hostname, export) (rate(node_mountstats_nfs_operations_response_time_seconds_total[$__range]))",
+                     "legendFormat": "{{hostname}} - {{export}}"
+                  }
+               ],
+               "title": "NFS Response Time",
+               "type": "timeseries"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "s"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 8,
+                  "y": 0
+               },
+               "id": 65,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "avg by(hostname, export) (rate(node_mountstats_nfs_operations_queue_time_seconds_total[$__range]))",
+                     "legendFormat": "{{hostname}} - {{export}}"
+                  }
+               ],
+               "title": "NFS Queue Time",
+               "type": "timeseries"
+            }
+         ],
+         "title": "NFS",
+         "type": "row"
       }
    ],
    "schemaVersion": 39,
@@ -1745,18 +2007,6 @@
             "multi": true,
             "name": "hostname",
             "query": "label_values(DCGM_FI_DEV_GPU_UTIL, Hostname)",
-            "refresh": 1,
-            "type": "query"
-         },
-         {
-            "datasource": {
-               "type": "prometheus",
-               "uid": "${PROMETHEUS_DS}"
-            },
-            "includeAll": true,
-            "multi": true,
-            "name": "instance",
-            "query": "label_values(rdma_device_status, instance)",
             "refresh": 1,
             "type": "query"
          },
