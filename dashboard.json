@@ -2408,8 +2408,8 @@
             },
             "includeAll": true,
             "multi": true,
-            "name": "hostname",
-            "query": "label_values(DCGM_FI_DEV_GPU_UTIL, Hostname)",
+            "name": "oci_name",
+            "query": "label_values(up, oci_name)",
             "refresh": 1,
             "type": "query"
          },
