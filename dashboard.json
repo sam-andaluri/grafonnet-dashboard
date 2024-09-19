@@ -19,6 +19,21 @@
                },
                "fieldConfig": {
                   "defaults": {
+                     "mappings": [
+                        {
+                           "options": {
+                              "0": {
+                                 "color": "red",
+                                 "text": "down"
+                              },
+                              "1": {
+                                 "color": "green",
+                                 "text": "up"
+                              }
+                           },
+                           "type": "value"
+                        }
+                     ],
                      "unit": "none"
                   }
                },
@@ -39,8 +54,16 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "rdma_device_status{oci_name=~\"$oci_name\"}",
-                     "legendFormat": "{{oci_name}} {{rdma_device}}"
+                     "expr": "rdma_device_status==0",
+                     "legendFormat": "{{hostname}} {{rdma_device}}"
+                  },
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "rdma_device_status==1",
+                     "legendFormat": "{{hostname}} {{rdma_device}}"
                   }
                ],
                "title": "RDMA Device Status",
@@ -53,6 +76,21 @@
                },
                "fieldConfig": {
                   "defaults": {
+                     "mappings": [
+                        {
+                           "options": {
+                              "0": {
+                                 "color": "red",
+                                 "text": "down"
+                              },
+                              "1": {
+                                 "color": "green",
+                                 "text": "up"
+                              }
+                           },
+                           "type": "value"
+                        }
+                     ],
                      "unit": "none"
                   }
                },
@@ -73,15 +111,23 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "rttcc_status{oci_name=~\"$oci_name\"}",
-                     "legendFormat": "{{oci_name}} {{rdma_device}}"
+                     "expr": "rttcc_status==0",
+                     "legendFormat": "{{hostname}} {{rdma_device}}"
+                  },
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "rttcc_status==1",
+                     "legendFormat": "{{hostname}} {{rdma_device}}"
                   }
                ],
                "title": "RTTCC Status",
                "type": "state-timeline"
             }
          ],
-         "title": "Health",
+         "title": "Health Status",
          "type": "row"
       },
       {
@@ -188,7 +234,7 @@
                "type": "timeseries"
             }
          ],
-         "title": "Cluster",
+         "title": "Cluster Metrics",
          "type": "row"
       },
       {
@@ -225,8 +271,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "(node_load1{oci_name=~\"$oci_name\"})",
-                     "legendFormat": "{{oci_name}}"
+                     "expr": "(node_load1{hostname=~\"$hostname\"})",
+                     "legendFormat": "{{hostname}}"
                   }
                ],
                "title": "Instance 1m load average",
@@ -256,8 +302,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "(node_load5{oci_name=~\"$oci_name\"})",
-                     "legendFormat": "{{oci_name}}"
+                     "expr": "(node_load5{hostname=~\"$hostname\"})",
+                     "legendFormat": "{{hostname}}"
                   }
                ],
                "title": "Instance 5m load average",
@@ -287,8 +333,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "(node_load15{oci_name=~\"$oci_name\"})",
-                     "legendFormat": "{{oci_name}}"
+                     "expr": "(node_load15{hostname=~\"$hostname\"})",
+                     "legendFormat": "{{hostname}}"
                   }
                ],
                "title": "Instance 15m load average",
@@ -318,8 +364,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "ceil((1 - (node_memory_MemAvailable_bytes{oci_name=~\"$oci_name\"}/node_memory_MemTotal_bytes{oci_name=~\"$oci_name\"}))*100)",
-                     "legendFormat": "{{oci_name}}"
+                     "expr": "ceil((1 - (node_memory_MemAvailable_bytes{hostname=~\"$hostname\"}/node_memory_MemTotal_bytes{hostname=~\"$hostname\"}))*100)",
+                     "legendFormat": "{{hostname}}"
                   }
                ],
                "title": "Memory utilization",
@@ -381,7 +427,7 @@
                         "uid": "$PROMETHEUS_DS"
                      },
                      "expr": "irate(node_disk_reads_completed_total[$__rate_interval])",
-                     "legendFormat": "{{oci_name}} {{device}}"
+                     "legendFormat": "{{hostname}} {{device}}"
                   }
                ],
                "title": "Disk reads completed iops",
@@ -412,7 +458,7 @@
                         "uid": "$PROMETHEUS_DS"
                      },
                      "expr": "irate(node_disk_writes_completed_total[$__rate_interval])",
-                     "legendFormat": "{{oci_name}} {{device}}"
+                     "legendFormat": "{{hostname}} {{device}}"
                   }
                ],
                "title": "Disk writes completed iops",
@@ -425,7 +471,7 @@
                },
                "fieldConfig": {
                   "defaults": {
-                     "unit": "Bps"
+                     "unit": "MiBs"
                   }
                },
                "gridPos": {
@@ -443,7 +489,7 @@
                         "uid": "$PROMETHEUS_DS"
                      },
                      "expr": "irate(node_disk_read_bytes_total[$__rate_interval])",
-                     "legendFormat": "{{oci_name}} {{device}}"
+                     "legendFormat": "{{hostname}} {{device}}"
                   }
                ],
                "title": "Disk read bytes",
@@ -456,7 +502,7 @@
                },
                "fieldConfig": {
                   "defaults": {
-                     "unit": "Bps"
+                     "unit": "MiBs"
                   }
                },
                "gridPos": {
@@ -474,7 +520,7 @@
                         "uid": "$PROMETHEUS_DS"
                      },
                      "expr": "irate(node_disk_written_bytes_total[$__rate_interval])",
-                     "legendFormat": "{{oci_name}} {{device}}"
+                     "legendFormat": "{{hostname}} {{device}}"
                   }
                ],
                "title": "Disk write bytes",
@@ -505,7 +551,7 @@
                         "uid": "$PROMETHEUS_DS"
                      },
                      "expr": "irate(node_disk_io_time_seconds_total[$__rate_interval])",
-                     "legendFormat": "{{oci_name}} {{device}}"
+                     "legendFormat": "{{hostname}} {{device}}"
                   }
                ],
                "title": "Time spent doing I/Os",
@@ -518,7 +564,7 @@
                },
                "fieldConfig": {
                   "defaults": {
-                     "unit": "Bps"
+                     "unit": "MiBs"
                   }
                },
                "gridPos": {
@@ -535,8 +581,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "rate(node_network_receive_bytes_total{oci_name=~\"$oci_name\",device=~\"$device\"}[$__rate_interval])",
-                     "legendFormat": "{{oci_name}} {{device}}"
+                     "expr": "rate(node_network_receive_bytes_total{hostname=~\"$hostname\",device=~\"$device\"}[$__rate_interval])",
+                     "legendFormat": "{{hostname}} {{device}}"
                   }
                ],
                "title": "Network Traffic Received",
@@ -549,7 +595,7 @@
                },
                "fieldConfig": {
                   "defaults": {
-                     "unit": "Bps"
+                     "unit": "MiBs"
                   }
                },
                "gridPos": {
@@ -566,15 +612,15 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "rate(node_network_transmit_bytes_total{oci_name=~\"$oci_name\",device=~\"$device\"}[$__rate_interval])",
-                     "legendFormat": "{{oci_name}} {{device}}"
+                     "expr": "rate(node_network_transmit_bytes_total{hostname=~\"$hostname\",device=~\"$device\"}[$__rate_interval])",
+                     "legendFormat": "{{hostname}} {{device}}"
                   }
                ],
                "title": "Network Traffic Sent",
                "type": "timeseries"
             }
          ],
-         "title": "Node",
+         "title": "Node Metrics",
          "type": "row"
       },
       {
@@ -594,1071 +640,6 @@
                },
                "fieldConfig": {
                   "defaults": {
-                     "unit": "hertz"
-                  }
-               },
-               "gridPos": {
-                  "h": 8,
-                  "w": 8,
-                  "x": 0,
-                  "y": 0
-               },
-               "id": 22,
-               "pluginVersion": "v11.0.0",
-               "targets": [
-                  {
-                     "datasource": {
-                        "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
-                     },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_SM_CLOCK{Hostname=~\"$hostname\"})",
-                     "legendFormat": "Host {{ Hostname }}"
-                  }
-               ],
-               "title": "SM Clock",
-               "type": "timeseries"
-            },
-            {
-               "datasource": {
-                  "type": "datasource",
-                  "uid": "-- Mixed --"
-               },
-               "fieldConfig": {
-                  "defaults": {
-                     "unit": "hertz"
-                  }
-               },
-               "gridPos": {
-                  "h": 8,
-                  "w": 8,
-                  "x": 8,
-                  "y": 0
-               },
-               "id": 23,
-               "pluginVersion": "v11.0.0",
-               "targets": [
-                  {
-                     "datasource": {
-                        "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
-                     },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_MEM_CLOCK{Hostname=~\"$hostname\"})",
-                     "legendFormat": "Host {{ Hostname }}"
-                  }
-               ],
-               "title": "Memory Clock",
-               "type": "timeseries"
-            },
-            {
-               "datasource": {
-                  "type": "datasource",
-                  "uid": "-- Mixed --"
-               },
-               "fieldConfig": {
-                  "defaults": {
-                     "unit": "celsius"
-                  }
-               },
-               "gridPos": {
-                  "h": 8,
-                  "w": 8,
-                  "x": 16,
-                  "y": 0
-               },
-               "id": 24,
-               "pluginVersion": "v11.0.0",
-               "targets": [
-                  {
-                     "datasource": {
-                        "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
-                     },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_MEMORY_TEMP{Hostname=~\"$hostname\"})",
-                     "legendFormat": "Host {{ Hostname }}"
-                  }
-               ],
-               "title": "Memory temperature (in C)",
-               "type": "timeseries"
-            },
-            {
-               "datasource": {
-                  "type": "datasource",
-                  "uid": "-- Mixed --"
-               },
-               "fieldConfig": {
-                  "defaults": {
-                     "unit": "celsius"
-                  }
-               },
-               "gridPos": {
-                  "h": 8,
-                  "w": 8,
-                  "x": 0,
-                  "y": 0
-               },
-               "id": 25,
-               "pluginVersion": "v11.0.0",
-               "targets": [
-                  {
-                     "datasource": {
-                        "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
-                     },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_GPU_TEMP{Hostname=~\"$hostname\"})",
-                     "legendFormat": "Host {{ Hostname }}"
-                  }
-               ],
-               "title": "GPU temperature (in C)",
-               "type": "timeseries"
-            },
-            {
-               "datasource": {
-                  "type": "datasource",
-                  "uid": "-- Mixed --"
-               },
-               "fieldConfig": {
-                  "defaults": {
-                     "unit": "watts"
-                  }
-               },
-               "gridPos": {
-                  "h": 8,
-                  "w": 8,
-                  "x": 8,
-                  "y": 0
-               },
-               "id": 26,
-               "pluginVersion": "v11.0.0",
-               "targets": [
-                  {
-                     "datasource": {
-                        "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
-                     },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_POWER_USAGE{Hostname=~\"$hostname\"})",
-                     "legendFormat": "Host {{ Hostname }}"
-                  }
-               ],
-               "title": "Power draw (in W)",
-               "type": "timeseries"
-            },
-            {
-               "datasource": {
-                  "type": "datasource",
-                  "uid": "-- Mixed --"
-               },
-               "fieldConfig": {
-                  "defaults": {
-                     "unit": "joules"
-                  }
-               },
-               "gridPos": {
-                  "h": 8,
-                  "w": 8,
-                  "x": 16,
-                  "y": 0
-               },
-               "id": 27,
-               "pluginVersion": "v11.0.0",
-               "targets": [
-                  {
-                     "datasource": {
-                        "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
-                     },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_TOTAL_ENERGY_CONSUMPTION{Hostname=~\"$hostname\"})",
-                     "legendFormat": "Host {{ Hostname }}"
-                  }
-               ],
-               "title": "Total energy consumption since boot (in mJ)",
-               "type": "timeseries"
-            },
-            {
-               "datasource": {
-                  "type": "datasource",
-                  "uid": "-- Mixed --"
-               },
-               "fieldConfig": {
-                  "defaults": {
-                     "unit": "none"
-                  }
-               },
-               "gridPos": {
-                  "h": 8,
-                  "w": 8,
-                  "x": 0,
-                  "y": 0
-               },
-               "id": 28,
-               "pluginVersion": "v11.0.0",
-               "targets": [
-                  {
-                     "datasource": {
-                        "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
-                     },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_PCIE_REPLAY_COUNTER{Hostname=~\"$hostname\"})",
-                     "legendFormat": "Host {{ Hostname }}"
-                  }
-               ],
-               "title": "Total number of PCIe retries",
-               "type": "timeseries"
-            },
-            {
-               "datasource": {
-                  "type": "datasource",
-                  "uid": "-- Mixed --"
-               },
-               "fieldConfig": {
-                  "defaults": {
-                     "unit": "percent"
-                  }
-               },
-               "gridPos": {
-                  "h": 8,
-                  "w": 8,
-                  "x": 8,
-                  "y": 0
-               },
-               "id": 29,
-               "pluginVersion": "v11.0.0",
-               "targets": [
-                  {
-                     "datasource": {
-                        "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
-                     },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_GPU_UTIL{Hostname=~\"$hostname\"})",
-                     "legendFormat": "Host {{ Hostname }}"
-                  }
-               ],
-               "title": "GPU Utilization",
-               "type": "timeseries"
-            },
-            {
-               "datasource": {
-                  "type": "datasource",
-                  "uid": "-- Mixed --"
-               },
-               "fieldConfig": {
-                  "defaults": {
-                     "unit": "percent"
-                  }
-               },
-               "gridPos": {
-                  "h": 8,
-                  "w": 8,
-                  "x": 16,
-                  "y": 0
-               },
-               "id": 30,
-               "pluginVersion": "v11.0.0",
-               "targets": [
-                  {
-                     "datasource": {
-                        "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
-                     },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_MEM_COPY_UTIL{Hostname=~\"$hostname\"})",
-                     "legendFormat": "Host {{ Hostname }}"
-                  }
-               ],
-               "title": "Memory Copy Utilization",
-               "type": "timeseries"
-            },
-            {
-               "datasource": {
-                  "type": "datasource",
-                  "uid": "-- Mixed --"
-               },
-               "fieldConfig": {
-                  "defaults": {
-                     "unit": "percent"
-                  }
-               },
-               "gridPos": {
-                  "h": 8,
-                  "w": 8,
-                  "x": 0,
-                  "y": 0
-               },
-               "id": 31,
-               "pluginVersion": "v11.0.0",
-               "targets": [
-                  {
-                     "datasource": {
-                        "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
-                     },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_ENC_UTIL{Hostname=~\"$hostname\"})",
-                     "legendFormat": "Host {{ Hostname }}"
-                  }
-               ],
-               "title": "Encoder Utilization",
-               "type": "timeseries"
-            },
-            {
-               "datasource": {
-                  "type": "datasource",
-                  "uid": "-- Mixed --"
-               },
-               "fieldConfig": {
-                  "defaults": {
-                     "unit": "percent"
-                  }
-               },
-               "gridPos": {
-                  "h": 8,
-                  "w": 8,
-                  "x": 8,
-                  "y": 0
-               },
-               "id": 32,
-               "pluginVersion": "v11.0.0",
-               "targets": [
-                  {
-                     "datasource": {
-                        "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
-                     },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_DEC_UTIL{Hostname=~\"$hostname\"})",
-                     "legendFormat": "Host {{ Hostname }}"
-                  }
-               ],
-               "title": "Decoder Utilization",
-               "type": "timeseries"
-            },
-            {
-               "datasource": {
-                  "type": "datasource",
-                  "uid": "-- Mixed --"
-               },
-               "fieldConfig": {
-                  "defaults": {
-                     "unit": "none"
-                  }
-               },
-               "gridPos": {
-                  "h": 8,
-                  "w": 8,
-                  "x": 16,
-                  "y": 0
-               },
-               "id": 33,
-               "pluginVersion": "v11.0.0",
-               "targets": [
-                  {
-                     "datasource": {
-                        "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
-                     },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_XID_ERRORS{Hostname=~\"$hostname\"})",
-                     "legendFormat": "Host {{ Hostname }}"
-                  }
-               ],
-               "title": "Value of the last XID error encountered",
-               "type": "timeseries"
-            },
-            {
-               "datasource": {
-                  "type": "datasource",
-                  "uid": "-- Mixed --"
-               },
-               "fieldConfig": {
-                  "defaults": {
-                     "unit": "megabytes"
-                  }
-               },
-               "gridPos": {
-                  "h": 8,
-                  "w": 8,
-                  "x": 0,
-                  "y": 0
-               },
-               "id": 34,
-               "pluginVersion": "v11.0.0",
-               "targets": [
-                  {
-                     "datasource": {
-                        "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
-                     },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_FB_FREE{Hostname=~\"$hostname\"})",
-                     "legendFormat": "Host {{ Hostname }}"
-                  }
-               ],
-               "title": "Framebuffer memory free (in MiB)",
-               "type": "timeseries"
-            },
-            {
-               "datasource": {
-                  "type": "datasource",
-                  "uid": "-- Mixed --"
-               },
-               "fieldConfig": {
-                  "defaults": {
-                     "unit": "megabytes"
-                  }
-               },
-               "gridPos": {
-                  "h": 8,
-                  "w": 8,
-                  "x": 8,
-                  "y": 0
-               },
-               "id": 35,
-               "pluginVersion": "v11.0.0",
-               "targets": [
-                  {
-                     "datasource": {
-                        "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
-                     },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_FB_USED{Hostname=~\"$hostname\"})",
-                     "legendFormat": "Host {{ Hostname }}"
-                  }
-               ],
-               "title": "Framebuffer memory used (in MiB)",
-               "type": "timeseries"
-            },
-            {
-               "datasource": {
-                  "type": "datasource",
-                  "uid": "-- Mixed --"
-               },
-               "fieldConfig": {
-                  "defaults": {
-                     "unit": "none"
-                  }
-               },
-               "gridPos": {
-                  "h": 8,
-                  "w": 8,
-                  "x": 16,
-                  "y": 0
-               },
-               "id": 36,
-               "pluginVersion": "v11.0.0",
-               "targets": [
-                  {
-                     "datasource": {
-                        "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
-                     },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_VGPU_LICENSE_STATUS{Hostname=~\"$hostname\"})",
-                     "legendFormat": "Host {{ Hostname }}"
-                  }
-               ],
-               "title": "vGPU License status",
-               "type": "timeseries"
-            },
-            {
-               "datasource": {
-                  "type": "datasource",
-                  "uid": "-- Mixed --"
-               },
-               "fieldConfig": {
-                  "defaults": {
-                     "unit": "none"
-                  }
-               },
-               "gridPos": {
-                  "h": 8,
-                  "w": 8,
-                  "x": 0,
-                  "y": 0
-               },
-               "id": 37,
-               "pluginVersion": "v11.0.0",
-               "targets": [
-                  {
-                     "datasource": {
-                        "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
-                     },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_NVLINK_BANDWIDTH_TOTAL{Hostname=~\"$hostname\"})",
-                     "legendFormat": "Host {{ Hostname }}"
-                  }
-               ],
-               "title": "Total number of NVLink bandwidth counters for all lanes",
-               "type": "timeseries"
-            },
-            {
-               "datasource": {
-                  "type": "datasource",
-                  "uid": "-- Mixed --"
-               },
-               "fieldConfig": {
-                  "defaults": {
-                     "unit": "none"
-                  }
-               },
-               "gridPos": {
-                  "h": 8,
-                  "w": 8,
-                  "x": 8,
-                  "y": 0
-               },
-               "id": 38,
-               "pluginVersion": "v11.0.0",
-               "targets": [
-                  {
-                     "datasource": {
-                        "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
-                     },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_UNCORRECTABLE_REMAPPED_ROWS{Hostname=~\"$hostname\"})",
-                     "legendFormat": "Host {{ Hostname }}"
-                  }
-               ],
-               "title": "Number of remapped rows for uncorrectable errors",
-               "type": "timeseries"
-            },
-            {
-               "datasource": {
-                  "type": "datasource",
-                  "uid": "-- Mixed --"
-               },
-               "fieldConfig": {
-                  "defaults": {
-                     "unit": "none"
-                  }
-               },
-               "gridPos": {
-                  "h": 8,
-                  "w": 8,
-                  "x": 16,
-                  "y": 0
-               },
-               "id": 39,
-               "pluginVersion": "v11.0.0",
-               "targets": [
-                  {
-                     "datasource": {
-                        "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
-                     },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_CORRECTABLE_REMAPPED_ROWS{Hostname=~\"$hostname\"})",
-                     "legendFormat": "Host {{ Hostname }}"
-                  }
-               ],
-               "title": "Number of remapped rows for correctable errors",
-               "type": "timeseries"
-            },
-            {
-               "datasource": {
-                  "type": "datasource",
-                  "uid": "-- Mixed --"
-               },
-               "fieldConfig": {
-                  "defaults": {
-                     "unit": "none"
-                  }
-               },
-               "gridPos": {
-                  "h": 8,
-                  "w": 8,
-                  "x": 0,
-                  "y": 0
-               },
-               "id": 40,
-               "pluginVersion": "v11.0.0",
-               "targets": [
-                  {
-                     "datasource": {
-                        "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
-                     },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_ROW_REMAP_FAILURE{Hostname=~\"$hostname\"})",
-                     "legendFormat": "Host {{ Hostname }}"
-                  }
-               ],
-               "title": "Whether remapping of rows has failed",
-               "type": "timeseries"
-            }
-         ],
-         "title": "GPU",
-         "type": "row"
-      },
-      {
-         "collapsed": true,
-         "gridPos": {
-            "h": 1,
-            "w": 24,
-            "x": 0,
-            "y": 4
-         },
-         "id": 41,
-         "panels": [
-            {
-               "datasource": {
-                  "type": "datasource",
-                  "uid": "-- Mixed --"
-               },
-               "fieldConfig": {
-                  "defaults": {
-                     "unit": "none"
-                  }
-               },
-               "gridPos": {
-                  "h": 8,
-                  "w": 8,
-                  "x": 0,
-                  "y": 0
-               },
-               "id": 42,
-               "pluginVersion": "v11.0.0",
-               "targets": [
-                  {
-                     "datasource": {
-                        "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
-                     },
-                     "expr": "(rdma_np_ecn_marked_roce_packets{oci_name=~\"$oci_name\",interface=~\"$interface\"})",
-                     "legendFormat": "RDMA hardware counters by host {{ oci_name }} and nic {{ interface }}"
-                  }
-               ],
-               "title": "Number of ROCEv2 packets marked for congestion",
-               "type": "timeseries"
-            },
-            {
-               "datasource": {
-                  "type": "datasource",
-                  "uid": "-- Mixed --"
-               },
-               "fieldConfig": {
-                  "defaults": {
-                     "unit": "none"
-                  }
-               },
-               "gridPos": {
-                  "h": 8,
-                  "w": 8,
-                  "x": 8,
-                  "y": 0
-               },
-               "id": 43,
-               "pluginVersion": "v11.0.0",
-               "targets": [
-                  {
-                     "datasource": {
-                        "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
-                     },
-                     "expr": "(rdma_out_of_sequence{oci_name=~\"$oci_name\",interface=~\"$interface\"})",
-                     "legendFormat": "RDMA hardware counters by host {{ oci_name }} and nic {{ interface }}"
-                  }
-               ],
-               "title": "Number of out of sequence packets received",
-               "type": "timeseries"
-            },
-            {
-               "datasource": {
-                  "type": "datasource",
-                  "uid": "-- Mixed --"
-               },
-               "fieldConfig": {
-                  "defaults": {
-                     "unit": "none"
-                  }
-               },
-               "gridPos": {
-                  "h": 8,
-                  "w": 8,
-                  "x": 16,
-                  "y": 0
-               },
-               "id": 44,
-               "pluginVersion": "v11.0.0",
-               "targets": [
-                  {
-                     "datasource": {
-                        "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
-                     },
-                     "expr": "(rdma_packet_seq_err{oci_name=~\"$oci_name\",interface=~\"$interface\"})",
-                     "legendFormat": "RDMA hardware counters by host {{ oci_name }} and nic {{ interface }}"
-                  }
-               ],
-               "title": "Number of received NAK sequence error packets",
-               "type": "timeseries"
-            },
-            {
-               "datasource": {
-                  "type": "datasource",
-                  "uid": "-- Mixed --"
-               },
-               "fieldConfig": {
-                  "defaults": {
-                     "unit": "none"
-                  }
-               },
-               "gridPos": {
-                  "h": 8,
-                  "w": 8,
-                  "x": 0,
-                  "y": 0
-               },
-               "id": 45,
-               "pluginVersion": "v11.0.0",
-               "targets": [
-                  {
-                     "datasource": {
-                        "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
-                     },
-                     "expr": "(rdma_local_ack_timeout_err{oci_name=~\"$oci_name\",interface=~\"$interface\"})",
-                     "legendFormat": "RDMA hardware counters by host {{ oci_name }} and nic {{ interface }}"
-                  }
-               ],
-               "title": "Number of times QPs ack timer expired",
-               "type": "timeseries"
-            },
-            {
-               "datasource": {
-                  "type": "datasource",
-                  "uid": "-- Mixed --"
-               },
-               "fieldConfig": {
-                  "defaults": {
-                     "unit": "none"
-                  }
-               },
-               "gridPos": {
-                  "h": 8,
-                  "w": 8,
-                  "x": 8,
-                  "y": 0
-               },
-               "id": 46,
-               "pluginVersion": "v11.0.0",
-               "targets": [
-                  {
-                     "datasource": {
-                        "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
-                     },
-                     "expr": "(rdma_roce_adp_retrans{oci_name=~\"$oci_name\",interface=~\"$interface\"})",
-                     "legendFormat": "RDMA hardware counters by host {{ oci_name }} and nic {{ interface }}"
-                  }
-               ],
-               "title": "Number of adaptive retransmissions for RoCE traffic",
-               "type": "timeseries"
-            },
-            {
-               "datasource": {
-                  "type": "datasource",
-                  "uid": "-- Mixed --"
-               },
-               "fieldConfig": {
-                  "defaults": {
-                     "unit": "none"
-                  }
-               },
-               "gridPos": {
-                  "h": 8,
-                  "w": 8,
-                  "x": 16,
-                  "y": 0
-               },
-               "id": 47,
-               "pluginVersion": "v11.0.0",
-               "targets": [
-                  {
-                     "datasource": {
-                        "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
-                     },
-                     "expr": "(rdma_np_cnp_sent{oci_name=~\"$oci_name\",interface=~\"$interface\"})",
-                     "legendFormat": "RDMA hardware counters by host {{ oci_name }} and nic {{ interface }}"
-                  }
-               ],
-               "title": "Number of CNP packets sent",
-               "type": "timeseries"
-            },
-            {
-               "datasource": {
-                  "type": "datasource",
-                  "uid": "-- Mixed --"
-               },
-               "fieldConfig": {
-                  "defaults": {
-                     "unit": "none"
-                  }
-               },
-               "gridPos": {
-                  "h": 8,
-                  "w": 8,
-                  "x": 0,
-                  "y": 0
-               },
-               "id": 48,
-               "pluginVersion": "v11.0.0",
-               "targets": [
-                  {
-                     "datasource": {
-                        "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
-                     },
-                     "expr": "(rdma_rp_cnp_handled{oci_name=~\"$oci_name\",interface=~\"$interface\"})",
-                     "legendFormat": "RDMA hardware counters by host {{ oci_name }} and nic {{ interface }}"
-                  }
-               ],
-               "title": "Number of CNP packets handled to throttle",
-               "type": "timeseries"
-            },
-            {
-               "datasource": {
-                  "type": "datasource",
-                  "uid": "-- Mixed --"
-               },
-               "fieldConfig": {
-                  "defaults": {
-                     "unit": "none"
-                  }
-               },
-               "gridPos": {
-                  "h": 8,
-                  "w": 8,
-                  "x": 8,
-                  "y": 0
-               },
-               "id": 49,
-               "pluginVersion": "v11.0.0",
-               "targets": [
-                  {
-                     "datasource": {
-                        "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
-                     },
-                     "expr": "(rdma_rp_cnp_ignored{oci_name=~\"$oci_name\",interface=~\"$interface\"})",
-                     "legendFormat": "RDMA hardware counters by host {{ oci_name }} and nic {{ interface }}"
-                  }
-               ],
-               "title": "Number of CNP packets received and ignored",
-               "type": "timeseries"
-            },
-            {
-               "datasource": {
-                  "type": "datasource",
-                  "uid": "-- Mixed --"
-               },
-               "fieldConfig": {
-                  "defaults": {
-                     "unit": "none"
-                  }
-               },
-               "gridPos": {
-                  "h": 8,
-                  "w": 8,
-                  "x": 16,
-                  "y": 0
-               },
-               "id": 50,
-               "pluginVersion": "v11.0.0",
-               "targets": [
-                  {
-                     "datasource": {
-                        "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
-                     },
-                     "expr": "(rdma_rx_icrc_encapsulated{oci_name=~\"$oci_name\",interface=~\"$interface\"})",
-                     "legendFormat": "RDMA hardware counters by host {{ oci_name }} and nic {{ interface }}"
-                  }
-               ],
-               "title": "Number of RoCE packets with ICRC (Invertible Cyclic Redundancy Check) errors",
-               "type": "timeseries"
-            },
-            {
-               "datasource": {
-                  "type": "datasource",
-                  "uid": "-- Mixed --"
-               },
-               "fieldConfig": {
-                  "defaults": {
-                     "unit": "none"
-                  }
-               },
-               "gridPos": {
-                  "h": 8,
-                  "w": 8,
-                  "x": 0,
-                  "y": 0
-               },
-               "id": 51,
-               "pluginVersion": "v11.0.0",
-               "targets": [
-                  {
-                     "datasource": {
-                        "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
-                     },
-                     "expr": "(rdma_roce_slow_restart{oci_name=~\"$oci_name\",interface=~\"$interface\"})",
-                     "legendFormat": "RDMA hardware counters by host {{ oci_name }} and nic {{ interface }}"
-                  }
-               ],
-               "title": "Number of times RoCE slow restart was used",
-               "type": "timeseries"
-            }
-         ],
-         "title": "RDMA",
-         "type": "row"
-      },
-      {
-         "collapsed": true,
-         "gridPos": {
-            "h": 1,
-            "w": 24,
-            "x": 0,
-            "y": 5
-         },
-         "id": 52,
-         "panels": [
-            {
-               "datasource": {
-                  "type": "datasource",
-                  "uid": "-- Mixed --"
-               },
-               "fieldConfig": {
-                  "defaults": {
-                     "unit": "Bps"
-                  }
-               },
-               "gridPos": {
-                  "h": 8,
-                  "w": 8,
-                  "x": 0,
-                  "y": 0
-               },
-               "id": 53,
-               "pluginVersion": "v11.0.0",
-               "targets": [
-                  {
-                     "datasource": {
-                        "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
-                     },
-                     "expr": "sum by(gpu) (nvlink_data_tx_kib{oci_name=~\"$oci_name\",gpu=~\"$gpu\"})",
-                     "legendFormat": "Total NVLink bandwidth usage by gpu {{ gpu }}"
-                  }
-               ],
-               "title": "Total data in KiB transmitted",
-               "type": "timeseries"
-            },
-            {
-               "datasource": {
-                  "type": "datasource",
-                  "uid": "-- Mixed --"
-               },
-               "fieldConfig": {
-                  "defaults": {
-                     "unit": "Bps"
-                  }
-               },
-               "gridPos": {
-                  "h": 8,
-                  "w": 8,
-                  "x": 8,
-                  "y": 0
-               },
-               "id": 54,
-               "pluginVersion": "v11.0.0",
-               "targets": [
-                  {
-                     "datasource": {
-                        "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
-                     },
-                     "expr": "sum by(gpu) (nvlink_data_rx_kib{oci_name=~\"$oci_name\",gpu=~\"$gpu\"})",
-                     "legendFormat": "Total NVLink bandwidth usage by gpu {{ gpu }}"
-                  }
-               ],
-               "title": "Total data in KiB received",
-               "type": "timeseries"
-            },
-            {
-               "datasource": {
-                  "type": "datasource",
-                  "uid": "-- Mixed --"
-               },
-               "fieldConfig": {
-                  "defaults": {
-                     "unit": "Bps"
-                  }
-               },
-               "gridPos": {
-                  "h": 8,
-                  "w": 8,
-                  "x": 16,
-                  "y": 0
-               },
-               "id": 55,
-               "pluginVersion": "v11.0.0",
-               "targets": [
-                  {
-                     "datasource": {
-                        "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
-                     },
-                     "expr": "sum by(gpu) (nvlink_raw_tx_kib{oci_name=~\"$oci_name\",gpu=~\"$gpu\"})",
-                     "legendFormat": "Total NVLink bandwidth usage by gpu {{ gpu }}"
-                  }
-               ],
-               "title": "Total raw bytes in KiB transmitted",
-               "type": "timeseries"
-            },
-            {
-               "datasource": {
-                  "type": "datasource",
-                  "uid": "-- Mixed --"
-               },
-               "fieldConfig": {
-                  "defaults": {
-                     "unit": "Bps"
-                  }
-               },
-               "gridPos": {
-                  "h": 8,
-                  "w": 8,
-                  "x": 0,
-                  "y": 0
-               },
-               "id": 56,
-               "pluginVersion": "v11.0.0",
-               "targets": [
-                  {
-                     "datasource": {
-                        "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
-                     },
-                     "expr": "sum by(gpu) (nvlink_raw_rx_kib{oci_name=~\"$oci_name\",gpu=~\"$gpu\"})",
-                     "legendFormat": "Total NVLink bandwidth usage by gpu {{ gpu }}"
-                  }
-               ],
-               "title": "Total raw bytes in KiB received",
-               "type": "timeseries"
-            }
-         ],
-         "title": "NVLink",
-         "type": "row"
-      },
-      {
-         "collapsed": true,
-         "gridPos": {
-            "h": 1,
-            "w": 24,
-            "x": 0,
-            "y": 6
-         },
-         "id": 57,
-         "panels": [
-            {
-               "datasource": {
-                  "type": "datasource",
-                  "uid": "-- Mixed --"
-               },
-               "fieldConfig": {
-                  "defaults": {
                      "unit": "MiBs"
                   }
                },
@@ -1668,7 +649,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 58,
+               "id": 22,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1699,7 +680,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 59,
+               "id": 23,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1730,7 +711,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 60,
+               "id": 24,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1761,7 +742,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 61,
+               "id": 25,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1792,7 +773,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 62,
+               "id": 26,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1823,7 +804,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 63,
+               "id": 27,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1854,7 +835,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 64,
+               "id": 28,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1885,7 +866,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 65,
+               "id": 29,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1901,7 +882,1441 @@
                "type": "timeseries"
             }
          ],
-         "title": "NFS",
+         "title": "NFS Metrics",
+         "type": "row"
+      },
+      {
+         "collapsed": true,
+         "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 4
+         },
+         "id": 30,
+         "panels": [
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "hertz"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 0,
+                  "y": 0
+               },
+               "id": 31,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_SM_CLOCK{Hostname=~\"$hostname\"})",
+                     "legendFormat": "Host {{ Hostname }}"
+                  }
+               ],
+               "title": "SM Clock",
+               "type": "timeseries"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "hertz"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 8,
+                  "y": 0
+               },
+               "id": 32,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_MEM_CLOCK{Hostname=~\"$hostname\"})",
+                     "legendFormat": "Host {{ Hostname }}"
+                  }
+               ],
+               "title": "Memory Clock",
+               "type": "timeseries"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "celsius"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 16,
+                  "y": 0
+               },
+               "id": 33,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_MEMORY_TEMP{Hostname=~\"$hostname\"})",
+                     "legendFormat": "Host {{ Hostname }}"
+                  }
+               ],
+               "title": "Memory temperature (in C)",
+               "type": "timeseries"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "celsius"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 0,
+                  "y": 0
+               },
+               "id": 34,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_GPU_TEMP{Hostname=~\"$hostname\"})",
+                     "legendFormat": "Host {{ Hostname }}"
+                  }
+               ],
+               "title": "GPU temperature (in C)",
+               "type": "timeseries"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "watts"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 8,
+                  "y": 0
+               },
+               "id": 35,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_POWER_USAGE{Hostname=~\"$hostname\"})",
+                     "legendFormat": "Host {{ Hostname }}"
+                  }
+               ],
+               "title": "Power draw (in W)",
+               "type": "timeseries"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "joules"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 16,
+                  "y": 0
+               },
+               "id": 36,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_TOTAL_ENERGY_CONSUMPTION{Hostname=~\"$hostname\"})",
+                     "legendFormat": "Host {{ Hostname }}"
+                  }
+               ],
+               "title": "Total energy consumption since boot (in mJ)",
+               "type": "timeseries"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "none"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 0,
+                  "y": 0
+               },
+               "id": 37,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_PCIE_REPLAY_COUNTER{Hostname=~\"$hostname\"})",
+                     "legendFormat": "Host {{ Hostname }}"
+                  }
+               ],
+               "title": "Total number of PCIe retries",
+               "type": "timeseries"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "percent"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 8,
+                  "y": 0
+               },
+               "id": 38,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_GPU_UTIL{Hostname=~\"$hostname\"})",
+                     "legendFormat": "Host {{ Hostname }}"
+                  }
+               ],
+               "title": "GPU Utilization",
+               "type": "timeseries"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "percent"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 16,
+                  "y": 0
+               },
+               "id": 39,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_MEM_COPY_UTIL{Hostname=~\"$hostname\"})",
+                     "legendFormat": "Host {{ Hostname }}"
+                  }
+               ],
+               "title": "Memory Copy Utilization",
+               "type": "timeseries"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "percent"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 0,
+                  "y": 0
+               },
+               "id": 40,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_ENC_UTIL{Hostname=~\"$hostname\"})",
+                     "legendFormat": "Host {{ Hostname }}"
+                  }
+               ],
+               "title": "Encoder Utilization",
+               "type": "timeseries"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "percent"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 8,
+                  "y": 0
+               },
+               "id": 41,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_DEC_UTIL{Hostname=~\"$hostname\"})",
+                     "legendFormat": "Host {{ Hostname }}"
+                  }
+               ],
+               "title": "Decoder Utilization",
+               "type": "timeseries"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "none"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 16,
+                  "y": 0
+               },
+               "id": 42,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_XID_ERRORS{Hostname=~\"$hostname\"})",
+                     "legendFormat": "Host {{ Hostname }}"
+                  }
+               ],
+               "title": "Value of the last XID error encountered",
+               "type": "timeseries"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "megabytes"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 0,
+                  "y": 0
+               },
+               "id": 43,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_FB_FREE{Hostname=~\"$hostname\"})",
+                     "legendFormat": "Host {{ Hostname }}"
+                  }
+               ],
+               "title": "Framebuffer memory free (in MiB)",
+               "type": "timeseries"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "megabytes"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 8,
+                  "y": 0
+               },
+               "id": 44,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_FB_USED{Hostname=~\"$hostname\"})",
+                     "legendFormat": "Host {{ Hostname }}"
+                  }
+               ],
+               "title": "Framebuffer memory used (in MiB)",
+               "type": "timeseries"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "none"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 16,
+                  "y": 0
+               },
+               "id": 45,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_NVLINK_BANDWIDTH_TOTAL{Hostname=~\"$hostname\"})",
+                     "legendFormat": "Host {{ Hostname }}"
+                  }
+               ],
+               "title": "Total number of NVLink bandwidth counters for all lanes",
+               "type": "timeseries"
+            }
+         ],
+         "title": "GPU Metrics",
+         "type": "row"
+      },
+      {
+         "collapsed": true,
+         "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 5
+         },
+         "id": 46,
+         "panels": [
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "cps"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 0,
+                  "y": 0
+               },
+               "id": 47,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_ECC_SBE_VOL_TOTAL{Hostname=~\"$hostname\"})",
+                     "legendFormat": "Host {{ Hostname }}"
+                  }
+               ],
+               "title": "Total number of single-bit volatile ECC errors",
+               "type": "timeseries"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "cps"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 8,
+                  "y": 0
+               },
+               "id": 48,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_ECC_DBE_VOL_TOTAL{Hostname=~\"$hostname\"})",
+                     "legendFormat": "Host {{ Hostname }}"
+                  }
+               ],
+               "title": "Total number of double-bit volatile ECC errors",
+               "type": "timeseries"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "cps"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 16,
+                  "y": 0
+               },
+               "id": 49,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_ECC_SBE_AGG_TOTAL{Hostname=~\"$hostname\"})",
+                     "legendFormat": "Host {{ Hostname }}"
+                  }
+               ],
+               "title": "Total number of single-bit persistent ECC errors",
+               "type": "timeseries"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "cps"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 0,
+                  "y": 0
+               },
+               "id": 50,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_ECC_DBE_AGG_TOTAL{Hostname=~\"$hostname\"})",
+                     "legendFormat": "Host {{ Hostname }}"
+                  }
+               ],
+               "title": "Total number of double-bit persistent ECC errors",
+               "type": "timeseries"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "cps"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 8,
+                  "y": 0
+               },
+               "id": 51,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_UNCORRECTABLE_REMAPPED_ROWS{Hostname=~\"$hostname\"})",
+                     "legendFormat": "Host {{ Hostname }}"
+                  }
+               ],
+               "title": "Number of remapped rows for uncorrectable errors",
+               "type": "timeseries"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "cps"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 16,
+                  "y": 0
+               },
+               "id": 52,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_CORRECTABLE_REMAPPED_ROWS{Hostname=~\"$hostname\"})",
+                     "legendFormat": "Host {{ Hostname }}"
+                  }
+               ],
+               "title": "Number of remapped rows for correctable errors",
+               "type": "timeseries"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "cps"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 0,
+                  "y": 0
+               },
+               "id": 53,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_ROW_REMAP_FAILURE{Hostname=~\"$hostname\"})",
+                     "legendFormat": "Host {{ Hostname }}"
+                  }
+               ],
+               "title": "Whether remapping of rows has failed",
+               "type": "timeseries"
+            }
+         ],
+         "title": "GPU Errors",
+         "type": "row"
+      },
+      {
+         "collapsed": true,
+         "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 6
+         },
+         "id": 54,
+         "panels": [
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "KBs"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 0,
+                  "y": 0
+               },
+               "id": 55,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "sum by(gpu) (nvlink_data_tx_kib{hostname=~\"$hostname\",gpu=~\"$gpu\"})",
+                     "legendFormat": "Total NVLink bandwidth usage by gpu {{ gpu }}"
+                  }
+               ],
+               "title": "Total data transmitted",
+               "type": "timeseries"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "KBs"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 8,
+                  "y": 0
+               },
+               "id": 56,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "sum by(gpu) (nvlink_data_rx_kib{hostname=~\"$hostname\",gpu=~\"$gpu\"})",
+                     "legendFormat": "Total NVLink bandwidth usage by gpu {{ gpu }}"
+                  }
+               ],
+               "title": "Total data received",
+               "type": "timeseries"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "KBs"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 16,
+                  "y": 0
+               },
+               "id": 57,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "sum by(gpu) (nvlink_raw_tx_kib{hostname=~\"$hostname\",gpu=~\"$gpu\"})",
+                     "legendFormat": "Total NVLink bandwidth usage by gpu {{ gpu }}"
+                  }
+               ],
+               "title": "Total raw bytes transmitted",
+               "type": "timeseries"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "KBs"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 0,
+                  "y": 0
+               },
+               "id": 58,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "sum by(gpu) (nvlink_raw_rx_kib{hostname=~\"$hostname\",gpu=~\"$gpu\"})",
+                     "legendFormat": "Total NVLink bandwidth usage by gpu {{ gpu }}"
+                  }
+               ],
+               "title": "Total raw bytes received",
+               "type": "timeseries"
+            }
+         ],
+         "title": "NVLink Metrics",
+         "type": "row"
+      },
+      {
+         "collapsed": true,
+         "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 7
+         },
+         "id": 59,
+         "panels": [
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "MiBs"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 0,
+                  "y": 0
+               },
+               "id": 60,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "(ib_port_xmit_data{hostname=~\"$hostname\",interface=~\"$interface\"})",
+                     "legendFormat": "host {{ hostname }} and nic {{ interface }}"
+                  }
+               ],
+               "title": "Total number of data octets transmitted",
+               "type": "timeseries"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "MiBs"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 8,
+                  "y": 0
+               },
+               "id": 61,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "(ib_port_rcv_data{hostname=~\"$hostname\",interface=~\"$interface\"})",
+                     "legendFormat": "host {{ hostname }} and nic {{ interface }}"
+                  }
+               ],
+               "title": "Total number of data octets received",
+               "type": "timeseries"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "pps"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 16,
+                  "y": 0
+               },
+               "id": 62,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "(ib_port_xmit_packets{hostname=~\"$hostname\",interface=~\"$interface\"})",
+                     "legendFormat": "host {{ hostname }} and nic {{ interface }}"
+                  }
+               ],
+               "title": "Total number of packets transmitted",
+               "type": "timeseries"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "pps"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 0,
+                  "y": 0
+               },
+               "id": 63,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "(ib_port_rcv_packets{hostname=~\"$hostname\",interface=~\"$interface\"})",
+                     "legendFormat": "host {{ hostname }} and nic {{ interface }}"
+                  }
+               ],
+               "title": "Total number of packets received",
+               "type": "timeseries"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "pps"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 8,
+                  "y": 0
+               },
+               "id": 64,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "(ib_unicast_rcv_packets{hostname=~\"$hostname\",interface=~\"$interface\"})",
+                     "legendFormat": "host {{ hostname }} and nic {{ interface }}"
+                  }
+               ],
+               "title": "Total number of unicast packets received",
+               "type": "timeseries"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "pps"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 16,
+                  "y": 0
+               },
+               "id": 65,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "(ib_unicast_xmit_packets{hostname=~\"$hostname\",interface=~\"$interface\"})",
+                     "legendFormat": "host {{ hostname }} and nic {{ interface }}"
+                  }
+               ],
+               "title": "Total number of unicast packets transmitted",
+               "type": "timeseries"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "pps"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 0,
+                  "y": 0
+               },
+               "id": 66,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "(ib_multicast_rcv_packets{hostname=~\"$hostname\",interface=~\"$interface\"})",
+                     "legendFormat": "host {{ hostname }} and nic {{ interface }}"
+                  }
+               ],
+               "title": "Total number of multicast packets received",
+               "type": "timeseries"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "pps"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 8,
+                  "y": 0
+               },
+               "id": 67,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "(ib_multicast_xmit_packets{hostname=~\"$hostname\",interface=~\"$interface\"})",
+                     "legendFormat": "host {{ hostname }} and nic {{ interface }}"
+                  }
+               ],
+               "title": "Total number of multicast packets transmitted",
+               "type": "timeseries"
+            }
+         ],
+         "title": "ROCEv2 Port Metrics",
+         "type": "row"
+      },
+      {
+         "collapsed": true,
+         "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 8
+         },
+         "id": 68,
+         "panels": [
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "none"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 0,
+                  "y": 0
+               },
+               "id": 69,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "(rdma_np_ecn_marked_roce_packets{hostname=~\"$hostname\",interface=~\"$interface\"})",
+                     "legendFormat": "host {{ hostname }} and nic {{ interface }}"
+                  }
+               ],
+               "title": "Number of ROCEv2 packets marked for congestion",
+               "type": "timeseries"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "none"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 8,
+                  "y": 0
+               },
+               "id": 70,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "(rdma_out_of_sequence{hostname=~\"$hostname\",interface=~\"$interface\"})",
+                     "legendFormat": "host {{ hostname }} and nic {{ interface }}"
+                  }
+               ],
+               "title": "Number of out of sequence packets received",
+               "type": "timeseries"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "none"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 16,
+                  "y": 0
+               },
+               "id": 71,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "(rdma_packet_seq_err{hostname=~\"$hostname\",interface=~\"$interface\"})",
+                     "legendFormat": "host {{ hostname }} and nic {{ interface }}"
+                  }
+               ],
+               "title": "Number of received NAK sequence error packets",
+               "type": "timeseries"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "none"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 0,
+                  "y": 0
+               },
+               "id": 72,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "(rdma_local_ack_timeout_err{hostname=~\"$hostname\",interface=~\"$interface\"})",
+                     "legendFormat": "host {{ hostname }} and nic {{ interface }}"
+                  }
+               ],
+               "title": "Number of times QPs ack timer expired",
+               "type": "timeseries"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "none"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 8,
+                  "y": 0
+               },
+               "id": 73,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "(rdma_roce_adp_retrans{hostname=~\"$hostname\",interface=~\"$interface\"})",
+                     "legendFormat": "host {{ hostname }} and nic {{ interface }}"
+                  }
+               ],
+               "title": "Number of adaptive retransmissions for RoCE traffic",
+               "type": "timeseries"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "none"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 16,
+                  "y": 0
+               },
+               "id": 74,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "(rdma_np_cnp_sent{hostname=~\"$hostname\",interface=~\"$interface\"})",
+                     "legendFormat": "host {{ hostname }} and nic {{ interface }}"
+                  }
+               ],
+               "title": "Number of CNP packets sent",
+               "type": "timeseries"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "none"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 0,
+                  "y": 0
+               },
+               "id": 75,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "(rdma_rp_cnp_handled{hostname=~\"$hostname\",interface=~\"$interface\"})",
+                     "legendFormat": "host {{ hostname }} and nic {{ interface }}"
+                  }
+               ],
+               "title": "Number of CNP packets handled to throttle",
+               "type": "timeseries"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "none"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 8,
+                  "y": 0
+               },
+               "id": 76,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "(rdma_rp_cnp_ignored{hostname=~\"$hostname\",interface=~\"$interface\"})",
+                     "legendFormat": "host {{ hostname }} and nic {{ interface }}"
+                  }
+               ],
+               "title": "Number of CNP packets received and ignored",
+               "type": "timeseries"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "none"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 16,
+                  "y": 0
+               },
+               "id": 77,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "(rdma_rx_icrc_encapsulated{hostname=~\"$hostname\",interface=~\"$interface\"})",
+                     "legendFormat": "host {{ hostname }} and nic {{ interface }}"
+                  }
+               ],
+               "title": "Number of RoCE packets with ICRC (Invertible Cyclic Redundancy Check) errors",
+               "type": "timeseries"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "unit": "none"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 0,
+                  "y": 0
+               },
+               "id": 78,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "(rdma_roce_slow_restart{hostname=~\"$hostname\",interface=~\"$interface\"})",
+                     "legendFormat": "host {{ hostname }} and nic {{ interface }}"
+                  }
+               ],
+               "title": "Number of times RoCE slow restart was used",
+               "type": "timeseries"
+            }
+         ],
+         "title": "ROCEv2 Congestion Metrics",
          "type": "row"
       }
    ],
@@ -1993,8 +2408,8 @@
             },
             "includeAll": true,
             "multi": true,
-            "name": "oci_name",
-            "query": "label_values(up, oci_name)",
+            "name": "hostname",
+            "query": "label_values(DCGM_FI_DEV_GPU_UTIL, Hostname)",
             "refresh": 1,
             "type": "query"
          },
@@ -2007,6 +2422,18 @@
             "multi": true,
             "name": "hostname",
             "query": "label_values(DCGM_FI_DEV_GPU_UTIL, Hostname)",
+            "refresh": 1,
+            "type": "query"
+         },
+         {
+            "datasource": {
+               "type": "prometheus",
+               "uid": "${PROMETHEUS_DS}"
+            },
+            "includeAll": true,
+            "multi": true,
+            "name": "fss_mount",
+            "query": "label_values(up, fss_mount)",
             "refresh": 1,
             "type": "query"
          },
