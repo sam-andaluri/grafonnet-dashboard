@@ -111,6 +111,63 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
+                     "expr": "rdma_link_noflap{hostname=~\"$hostname\", oci_name=~\"$oci_name\"}==0",
+                     "legendFormat": "{{hostname}}:{{rdma_device}}"
+                  },
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "rdma_link_noflap{hostname=~\"$hostname\", oci_name=~\"$oci_name\"}==1",
+                     "legendFormat": "{{hostname}}:{{rdma_device}}"
+                  }
+               ],
+               "title": "RDMA Link flapping",
+               "type": "state-timeline"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "mappings": [
+                        {
+                           "options": {
+                              "0": {
+                                 "color": "red",
+                                 "text": "down"
+                              },
+                              "1": {
+                                 "color": "green",
+                                 "text": "up"
+                              }
+                           },
+                           "type": "value"
+                        }
+                     ],
+                     "unit": "none"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 16,
+                  "y": 0
+               },
+               "id": 4,
+               "options": {
+                  "showValue": "never"
+               },
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
                      "expr": "rttcc_status{hostname=~\"$hostname\", oci_name=~\"$oci_name\"}==0",
                      "legendFormat": "{{hostname}}:{{rdma_device}}"
                   },
@@ -138,7 +195,7 @@
             "x": 0,
             "y": 1
          },
-         "id": 4,
+         "id": 5,
          "panels": [
             {
                "datasource": {
@@ -156,7 +213,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 5,
+               "id": 6,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -187,7 +244,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 6,
+               "id": 7,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -218,7 +275,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 7,
+               "id": 8,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -245,7 +302,7 @@
             "x": 0,
             "y": 2
          },
-         "id": 8,
+         "id": 9,
          "panels": [
             {
                "datasource": {
@@ -263,7 +320,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 9,
+               "id": 10,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -294,7 +351,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 10,
+               "id": 11,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -325,7 +382,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 11,
+               "id": 12,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -356,7 +413,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 12,
+               "id": 13,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -387,7 +444,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 13,
+               "id": 14,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -418,7 +475,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 14,
+               "id": 15,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -449,7 +506,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 15,
+               "id": 16,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -480,7 +537,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 16,
+               "id": 17,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -511,7 +568,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 17,
+               "id": 18,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -542,7 +599,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 18,
+               "id": 19,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -573,7 +630,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 19,
+               "id": 20,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -604,7 +661,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 20,
+               "id": 21,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -631,7 +688,7 @@
             "x": 0,
             "y": 3
          },
-         "id": 21,
+         "id": 22,
          "panels": [
             {
                "datasource": {
@@ -649,7 +706,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 22,
+               "id": 23,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -680,7 +737,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 23,
+               "id": 24,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -711,7 +768,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 24,
+               "id": 25,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -742,7 +799,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 25,
+               "id": 26,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -773,7 +830,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 26,
+               "id": 27,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -804,7 +861,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 27,
+               "id": 28,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -835,7 +892,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 28,
+               "id": 29,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -866,7 +923,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 29,
+               "id": 30,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -893,7 +950,7 @@
             "x": 0,
             "y": 4
          },
-         "id": 30,
+         "id": 31,
          "panels": [
             {
                "datasource": {
@@ -911,7 +968,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 31,
+               "id": 32,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -942,7 +999,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 32,
+               "id": 33,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -973,7 +1030,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 33,
+               "id": 34,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1004,7 +1061,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 34,
+               "id": 35,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1035,7 +1092,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 35,
+               "id": 36,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1066,7 +1123,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 36,
+               "id": 37,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1097,7 +1154,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 37,
+               "id": 38,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1128,7 +1185,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 38,
+               "id": 39,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1159,7 +1216,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 39,
+               "id": 40,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1190,7 +1247,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 40,
+               "id": 41,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1221,7 +1278,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 41,
+               "id": 42,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1252,7 +1309,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 42,
+               "id": 43,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1283,7 +1340,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 43,
+               "id": 44,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1314,7 +1371,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 44,
+               "id": 45,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1345,7 +1402,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 45,
+               "id": 46,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1372,7 +1429,7 @@
             "x": 0,
             "y": 5
          },
-         "id": 46,
+         "id": 47,
          "panels": [
             {
                "datasource": {
@@ -1390,7 +1447,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 47,
+               "id": 48,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1421,7 +1478,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 48,
+               "id": 49,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1452,7 +1509,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 49,
+               "id": 50,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1483,7 +1540,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 50,
+               "id": 51,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1514,7 +1571,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 51,
+               "id": 52,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1545,7 +1602,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 52,
+               "id": 53,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1576,7 +1633,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 53,
+               "id": 54,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1603,7 +1660,7 @@
             "x": 0,
             "y": 6
          },
-         "id": 54,
+         "id": 55,
          "panels": [
             {
                "datasource": {
@@ -1621,7 +1678,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 55,
+               "id": 56,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1652,7 +1709,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 56,
+               "id": 57,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1683,7 +1740,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 57,
+               "id": 58,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1714,7 +1771,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 58,
+               "id": 59,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1741,7 +1798,7 @@
             "x": 0,
             "y": 7
          },
-         "id": 59,
+         "id": 60,
          "panels": [
             {
                "datasource": {
@@ -1759,7 +1816,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 60,
+               "id": 61,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1790,7 +1847,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 61,
+               "id": 62,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1821,7 +1878,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 62,
+               "id": 63,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1852,7 +1909,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 63,
+               "id": 64,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1883,7 +1940,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 64,
+               "id": 65,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1914,7 +1971,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 65,
+               "id": 66,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1945,7 +2002,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 66,
+               "id": 67,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1976,7 +2033,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 67,
+               "id": 68,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -2003,7 +2060,7 @@
             "x": 0,
             "y": 8
          },
-         "id": 68,
+         "id": 69,
          "panels": [
             {
                "datasource": {
@@ -2021,7 +2078,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 69,
+               "id": 70,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -2052,7 +2109,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 70,
+               "id": 71,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -2083,7 +2140,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 71,
+               "id": 72,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -2114,7 +2171,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 72,
+               "id": 73,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -2145,7 +2202,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 73,
+               "id": 74,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -2176,7 +2233,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 74,
+               "id": 75,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -2207,7 +2264,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 75,
+               "id": 76,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -2238,7 +2295,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 76,
+               "id": 77,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -2269,7 +2326,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 77,
+               "id": 78,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -2300,7 +2357,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 78,
+               "id": 79,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {

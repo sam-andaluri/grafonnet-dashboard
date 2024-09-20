@@ -8,6 +8,7 @@ import re
 fake_rdma_device_status = Gauge('rdma_device_status', '', ['rdma_device', 'net_device'])
 fake_rttcc_status = Gauge('rttcc_status', '', ['rdma_device', 'net_device'])
 fake_oca_version = Gauge('oca_version', '', ['hostname', 'version'])
+fake_rdma_link_noflap = Gauge('rdma_link_noflap', '', ['rdma_device', 'net_device'])
 
 def get_rdma_metrics():
     hostname = subprocess.getoutput("hostname")
@@ -21,8 +22,10 @@ def get_rdma_metrics():
       fake_rttcc_status.labels(rdma_device=rdma, net_device=mlx).set(1)
       if fakelink==mlx:
         fake_rdma_device_status.labels(rdma_device=rdma, net_device=mlx).set(0)
+        fake_rdma_link_noflap.labels(rdma_device=rdma, net_device=mlx).set(0)
       else:
         fake_rdma_device_status.labels(rdma_device=rdma, net_device=mlx).set(1)
+        fake_rdma_link_noflap.labels(rdma_device=rdma, net_device=mlx).set(1)
 
 
 if __name__ == '__main__':
