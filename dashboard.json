@@ -54,16 +54,16 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "rdma_device_status==0",
-                     "legendFormat": "{{hostname}} {{rdma_device}}"
+                     "expr": "rdma_device_status{hostname=~\"$hostname\", oci_name=~\"$oci_name\"}==0",
+                     "legendFormat": "{{hostname}}:{{rdma_device}}"
                   },
                   {
                      "datasource": {
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "rdma_device_status==1",
-                     "legendFormat": "{{hostname}} {{rdma_device}}"
+                     "expr": "rdma_device_status{hostname=~\"$hostname\", oci_name=~\"$oci_name\"}==1",
+                     "legendFormat": "{{hostname}}:{{rdma_device}}"
                   }
                ],
                "title": "RDMA Device Status",
@@ -111,16 +111,16 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "rttcc_status==0",
-                     "legendFormat": "{{hostname}} {{rdma_device}}"
+                     "expr": "rttcc_status{hostname=~\"$hostname\", oci_name=~\"$oci_name\"}==0",
+                     "legendFormat": "{{hostname}}:{{rdma_device}}"
                   },
                   {
                      "datasource": {
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "rttcc_status==1",
-                     "legendFormat": "{{hostname}} {{rdma_device}}"
+                     "expr": "rttcc_status{hostname=~\"$hostname\", oci_name=~\"$oci_name\"}==1",
+                     "legendFormat": "{{hostname}}:{{rdma_device}}"
                   }
                ],
                "title": "RTTCC Status",
@@ -271,8 +271,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "(node_load1{hostname=~\"$hostname\"})",
-                     "legendFormat": "{{hostname}}"
+                     "expr": "(node_load1{hostname=~\"$hostname\",oci_name=~\"$oci_name\"})",
+                     "legendFormat": "{{oci_name}} {{hostname}}"
                   }
                ],
                "title": "Instance 1m load average",
@@ -302,8 +302,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "(node_load5{hostname=~\"$hostname\"})",
-                     "legendFormat": "{{hostname}}"
+                     "expr": "(node_load5{hostname=~\"$hostname\",oci_name=~\"$oci_name\"})",
+                     "legendFormat": "{{oci_name}} {{hostname}}"
                   }
                ],
                "title": "Instance 5m load average",
@@ -333,8 +333,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "(node_load15{hostname=~\"$hostname\"})",
-                     "legendFormat": "{{hostname}}"
+                     "expr": "(node_load15{hostname=~\"$hostname\",oci_name=~\"$oci_name\"})",
+                     "legendFormat": "{{oci_name}} {{hostname}}"
                   }
                ],
                "title": "Instance 15m load average",
@@ -364,8 +364,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "ceil((1 - (node_memory_MemAvailable_bytes{hostname=~\"$hostname\"}/node_memory_MemTotal_bytes{hostname=~\"$hostname\"}))*100)",
-                     "legendFormat": "{{hostname}}"
+                     "expr": "ceil((1 - (node_memory_MemAvailable_bytes{hostname=~\"$hostname\",oci_name=~\"$oci_name\"}/node_memory_MemTotal_bytes{hostname=~\"$hostname\",oci_name=~\"$oci_name\"}))*100)",
+                     "legendFormat": "{{oci_name}} {{hostname}}"
                   }
                ],
                "title": "Memory utilization",
@@ -395,8 +395,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "ceil((1 - (node_filesystem_avail_bytes{mountpoint=~\"$mountpoint\",device!~\"rootfs\"} / node_filesystem_size_bytes{mountpoint=~\"$mountpoint\",device!~\"rootfs\"}))*100)",
-                     "legendFormat": "{{mountpoint}}"
+                     "expr": "ceil((1 - (node_filesystem_avail_bytes{hostname=~\"$hostname\",oci_name=~\"$oci_name\",mountpoint=~\"$mountpoint\",device!~\"rootfs\"} / node_filesystem_size_bytes{hostname=~\"$hostname\",oci_name=~\"$oci_name\",mountpoint=~\"$mountpoint\",device!~\"rootfs\"}))*100)",
+                     "legendFormat": "{{oci_name}} {{hostname}} {{mountpoint}}"
                   }
                ],
                "title": "Storage utilization",
@@ -426,8 +426,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "irate(node_disk_reads_completed_total[$__rate_interval])",
-                     "legendFormat": "{{hostname}} {{device}}"
+                     "expr": "irate(node_disk_reads_completed_total{hostname=~\"$hostname\",oci_name=~\"$oci_name\"}[5m])",
+                     "legendFormat": "{{oci_name}} {{hostname}} {{device}}"
                   }
                ],
                "title": "Disk reads completed iops",
@@ -457,8 +457,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "irate(node_disk_writes_completed_total[$__rate_interval])",
-                     "legendFormat": "{{hostname}} {{device}}"
+                     "expr": "irate(node_disk_writes_completed_total{hostname=~\"$hostname\",oci_name=~\"$oci_name\"}[5m])",
+                     "legendFormat": "{{oci_name}} {{hostname}} {{device}}"
                   }
                ],
                "title": "Disk writes completed iops",
@@ -471,7 +471,7 @@
                },
                "fieldConfig": {
                   "defaults": {
-                     "unit": "MiBs"
+                     "unit": "Bps"
                   }
                },
                "gridPos": {
@@ -488,8 +488,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "irate(node_disk_read_bytes_total[$__rate_interval])",
-                     "legendFormat": "{{hostname}} {{device}}"
+                     "expr": "irate(node_disk_read_bytes_total{hostname=~\"$hostname\",oci_name=~\"$oci_name\"}[5m])",
+                     "legendFormat": "{{oci_name}} {{hostname}} {{device}}"
                   }
                ],
                "title": "Disk read bytes",
@@ -502,7 +502,7 @@
                },
                "fieldConfig": {
                   "defaults": {
-                     "unit": "MiBs"
+                     "unit": "Bps"
                   }
                },
                "gridPos": {
@@ -519,8 +519,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "irate(node_disk_written_bytes_total[$__rate_interval])",
-                     "legendFormat": "{{hostname}} {{device}}"
+                     "expr": "irate(node_disk_written_bytes_total{hostname=~\"$hostname\",oci_name=~\"$oci_name\"}[5m])",
+                     "legendFormat": "{{oci_name}} {{hostname}} {{device}}"
                   }
                ],
                "title": "Disk write bytes",
@@ -550,8 +550,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "irate(node_disk_io_time_seconds_total[$__rate_interval])",
-                     "legendFormat": "{{hostname}} {{device}}"
+                     "expr": "irate(node_disk_io_time_seconds_total{hostname=~\"$hostname\",oci_name=~\"$oci_name\"}[5m])",
+                     "legendFormat": "{{oci_name}} {{hostname}} {{device}}"
                   }
                ],
                "title": "Time spent doing I/Os",
@@ -564,7 +564,7 @@
                },
                "fieldConfig": {
                   "defaults": {
-                     "unit": "MiBs"
+                     "unit": "Bps"
                   }
                },
                "gridPos": {
@@ -581,8 +581,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "rate(node_network_receive_bytes_total{hostname=~\"$hostname\",device=~\"$device\"}[$__rate_interval])",
-                     "legendFormat": "{{hostname}} {{device}}"
+                     "expr": "rate(node_network_receive_bytes_total{hostname=~\"$hostname\",oci_name=~\"$oci_name\",device=~\"$device\"}[5m])",
+                     "legendFormat": "{{oci_name}} {{hostname}} {{device}}"
                   }
                ],
                "title": "Network Traffic Received",
@@ -595,7 +595,7 @@
                },
                "fieldConfig": {
                   "defaults": {
-                     "unit": "MiBs"
+                     "unit": "Bps"
                   }
                },
                "gridPos": {
@@ -612,8 +612,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "rate(node_network_transmit_bytes_total{hostname=~\"$hostname\",device=~\"$device\"}[$__rate_interval])",
-                     "legendFormat": "{{hostname}} {{device}}"
+                     "expr": "rate(node_network_transmit_bytes_total{hostname=~\"$hostname\",oci_name=~\"$oci_name\",device=~\"$device\"}[5m])",
+                     "legendFormat": "{{oci_name}} {{hostname}} {{device}}"
                   }
                ],
                "title": "Network Traffic Sent",
@@ -640,7 +640,7 @@
                },
                "fieldConfig": {
                   "defaults": {
-                     "unit": "MiBs"
+                     "unit": "Bps"
                   }
                },
                "gridPos": {
@@ -657,8 +657,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "rate(node_mountstats_nfs_total_read_bytes_total[$__range])",
-                     "legendFormat": "{{hostname}} - {{export}}"
+                     "expr": "rate(node_mountstats_nfs_total_read_bytes_total{hostname=~\"$hostname\", oci_name=~\"$oci_name\"}[$__range])",
+                     "legendFormat": "{{oci_name}} {{hostname}} {{export}}"
                   }
                ],
                "title": "Read Throughput",
@@ -671,7 +671,7 @@
                },
                "fieldConfig": {
                   "defaults": {
-                     "unit": "MiBs"
+                     "unit": "Bps"
                   }
                },
                "gridPos": {
@@ -688,8 +688,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "rate(node_mountstats_nfs_total_write_bytes_total[$__range])",
-                     "legendFormat": "{{hostname}} - {{export}}"
+                     "expr": "rate(node_mountstats_nfs_total_write_bytes_total{hostname=~\"$hostname\", oci_name=~\"$oci_name\"}[$__range])",
+                     "legendFormat": "{{oci_name}} {{hostname}} {{export}}"
                   }
                ],
                "title": "Write Throughput",
@@ -719,8 +719,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "sum by(hostname) (rate(node_mountstats_nfs_operations_requests_total{operation!~\"READ|WRITE\"}[$__range]))",
-                     "legendFormat": "{{hostname}}"
+                     "expr": "sum by(oci_name, hostname) (rate(node_mountstats_nfs_operations_requests_total{hostname=~\"$hostname\", oci_name=~\"$oci_name\", operation!~\"READ|WRITE\"}[$__range]))",
+                     "legendFormat": "{{oci_name}} {{hostname}}"
                   }
                ],
                "title": "Metadata IOPS",
@@ -750,8 +750,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "sum by(hostname) (rate(node_mountstats_nfs_operations_requests_total{operation=~\"READ|WRITE\"}[$__range]))",
-                     "legendFormat": "{{hostname}}"
+                     "expr": "sum by(oci_name, hostname) (rate(node_mountstats_nfs_operations_requests_total{hostname=~\"$hostname\", oci_name=~\"$oci_name\", operation=~\"READ|WRITE\"}[$__range]))",
+                     "legendFormat": "{{oci_name}} {{hostname}}"
                   }
                ],
                "title": "Read/Write IOPS",
@@ -781,8 +781,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "sum by(hostname, export) (node_nfs_rpc_retransmissions_total)",
-                     "legendFormat": "{{hostname}} - {{export}}"
+                     "expr": "sum by(oci_name, hostname, export) (node_nfs_rpc_retransmissions_total{hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
+                     "legendFormat": "{{oci_name}} {{hostname}} {{export}}"
                   }
                ],
                "title": "NFS Retransmissions",
@@ -812,8 +812,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(hostname, export) (rate(node_mountstats_nfs_operations_request_time_seconds_total[$__range]))",
-                     "legendFormat": "{{hostname}} - {{export}}"
+                     "expr": "avg by(oci_name, hostname, export) (rate(node_mountstats_nfs_operations_request_time_seconds_total{hostname=~\"$hostname\", oci_name=~\"$oci_name\"}[$__range]))",
+                     "legendFormat": "{{oci_name}} {{hostname}} {{export}}"
                   }
                ],
                "title": "NFS Request Time",
@@ -843,8 +843,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(hostname, export) (rate(node_mountstats_nfs_operations_response_time_seconds_total[$__range]))",
-                     "legendFormat": "{{hostname}} - {{export}}"
+                     "expr": "avg by(oci_name, hostname, export) (rate(node_mountstats_nfs_operations_response_time_seconds_total{hostname=~\"$hostname\", oci_name=~\"$oci_name\"}[$__range]))",
+                     "legendFormat": "{{oci_name}} {{hostname}} {{export}}"
                   }
                ],
                "title": "NFS Response Time",
@@ -874,8 +874,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(hostname, export) (rate(node_mountstats_nfs_operations_queue_time_seconds_total[$__range]))",
-                     "legendFormat": "{{hostname}} - {{export}}"
+                     "expr": "avg by(oci_name, hostname, export) (rate(node_mountstats_nfs_operations_queue_time_seconds_total{hostname=~\"$hostname\", oci_name=~\"$oci_name\"}[$__range]))",
+                     "legendFormat": "{{oci_name}} {{hostname}} {{export}}"
                   }
                ],
                "title": "NFS Queue Time",
@@ -919,8 +919,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_SM_CLOCK{Hostname=~\"$hostname\"})",
-                     "legendFormat": "Host {{ Hostname }}"
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_SM_CLOCK{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
+                     "legendFormat": "{{ Hostname }}"
                   }
                ],
                "title": "SM Clock",
@@ -950,8 +950,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_MEM_CLOCK{Hostname=~\"$hostname\"})",
-                     "legendFormat": "Host {{ Hostname }}"
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_MEM_CLOCK{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
+                     "legendFormat": "{{ Hostname }}"
                   }
                ],
                "title": "Memory Clock",
@@ -981,8 +981,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_MEMORY_TEMP{Hostname=~\"$hostname\"})",
-                     "legendFormat": "Host {{ Hostname }}"
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_MEMORY_TEMP{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
+                     "legendFormat": "{{ Hostname }}"
                   }
                ],
                "title": "Memory temperature (in C)",
@@ -1012,8 +1012,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_GPU_TEMP{Hostname=~\"$hostname\"})",
-                     "legendFormat": "Host {{ Hostname }}"
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_GPU_TEMP{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
+                     "legendFormat": "{{ Hostname }}"
                   }
                ],
                "title": "GPU temperature (in C)",
@@ -1043,8 +1043,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_POWER_USAGE{Hostname=~\"$hostname\"})",
-                     "legendFormat": "Host {{ Hostname }}"
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_POWER_USAGE{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
+                     "legendFormat": "{{ Hostname }}"
                   }
                ],
                "title": "Power draw (in W)",
@@ -1057,7 +1057,7 @@
                },
                "fieldConfig": {
                   "defaults": {
-                     "unit": "joules"
+                     "unit": "joule"
                   }
                },
                "gridPos": {
@@ -1074,8 +1074,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_TOTAL_ENERGY_CONSUMPTION{Hostname=~\"$hostname\"})",
-                     "legendFormat": "Host {{ Hostname }}"
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_TOTAL_ENERGY_CONSUMPTION{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
+                     "legendFormat": "{{ Hostname }}"
                   }
                ],
                "title": "Total energy consumption since boot (in mJ)",
@@ -1105,8 +1105,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_PCIE_REPLAY_COUNTER{Hostname=~\"$hostname\"})",
-                     "legendFormat": "Host {{ Hostname }}"
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_PCIE_REPLAY_COUNTER{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
+                     "legendFormat": "{{ Hostname }}"
                   }
                ],
                "title": "Total number of PCIe retries",
@@ -1136,8 +1136,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_GPU_UTIL{Hostname=~\"$hostname\"})",
-                     "legendFormat": "Host {{ Hostname }}"
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_GPU_UTIL{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
+                     "legendFormat": "{{ Hostname }}"
                   }
                ],
                "title": "GPU Utilization",
@@ -1167,8 +1167,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_MEM_COPY_UTIL{Hostname=~\"$hostname\"})",
-                     "legendFormat": "Host {{ Hostname }}"
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_MEM_COPY_UTIL{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
+                     "legendFormat": "{{ Hostname }}"
                   }
                ],
                "title": "Memory Copy Utilization",
@@ -1198,8 +1198,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_ENC_UTIL{Hostname=~\"$hostname\"})",
-                     "legendFormat": "Host {{ Hostname }}"
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_ENC_UTIL{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
+                     "legendFormat": "{{ Hostname }}"
                   }
                ],
                "title": "Encoder Utilization",
@@ -1229,8 +1229,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_DEC_UTIL{Hostname=~\"$hostname\"})",
-                     "legendFormat": "Host {{ Hostname }}"
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_DEC_UTIL{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
+                     "legendFormat": "{{ Hostname }}"
                   }
                ],
                "title": "Decoder Utilization",
@@ -1260,8 +1260,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_XID_ERRORS{Hostname=~\"$hostname\"})",
-                     "legendFormat": "Host {{ Hostname }}"
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_XID_ERRORS{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
+                     "legendFormat": "{{ Hostname }}"
                   }
                ],
                "title": "Value of the last XID error encountered",
@@ -1291,8 +1291,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_FB_FREE{Hostname=~\"$hostname\"})",
-                     "legendFormat": "Host {{ Hostname }}"
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_FB_FREE{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
+                     "legendFormat": "{{ Hostname }}"
                   }
                ],
                "title": "Framebuffer memory free (in MiB)",
@@ -1322,8 +1322,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_FB_USED{Hostname=~\"$hostname\"})",
-                     "legendFormat": "Host {{ Hostname }}"
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_FB_USED{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
+                     "legendFormat": "{{ Hostname }}"
                   }
                ],
                "title": "Framebuffer memory used (in MiB)",
@@ -1353,8 +1353,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_NVLINK_BANDWIDTH_TOTAL{Hostname=~\"$hostname\"})",
-                     "legendFormat": "Host {{ Hostname }}"
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_NVLINK_BANDWIDTH_TOTAL{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
+                     "legendFormat": "{{ Hostname }}"
                   }
                ],
                "title": "Total number of NVLink bandwidth counters for all lanes",
@@ -1398,8 +1398,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_ECC_SBE_VOL_TOTAL{Hostname=~\"$hostname\"})",
-                     "legendFormat": "Host {{ Hostname }}"
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_ECC_SBE_VOL_TOTAL{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
+                     "legendFormat": "{{ Hostname }}"
                   }
                ],
                "title": "Total number of single-bit volatile ECC errors",
@@ -1429,8 +1429,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_ECC_DBE_VOL_TOTAL{Hostname=~\"$hostname\"})",
-                     "legendFormat": "Host {{ Hostname }}"
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_ECC_DBE_VOL_TOTAL{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
+                     "legendFormat": "{{ Hostname }}"
                   }
                ],
                "title": "Total number of double-bit volatile ECC errors",
@@ -1460,8 +1460,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_ECC_SBE_AGG_TOTAL{Hostname=~\"$hostname\"})",
-                     "legendFormat": "Host {{ Hostname }}"
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_ECC_SBE_AGG_TOTAL{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
+                     "legendFormat": "{{ Hostname }}"
                   }
                ],
                "title": "Total number of single-bit persistent ECC errors",
@@ -1491,8 +1491,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_ECC_DBE_AGG_TOTAL{Hostname=~\"$hostname\"})",
-                     "legendFormat": "Host {{ Hostname }}"
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_ECC_DBE_AGG_TOTAL{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
+                     "legendFormat": "{{ Hostname }}"
                   }
                ],
                "title": "Total number of double-bit persistent ECC errors",
@@ -1522,8 +1522,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_UNCORRECTABLE_REMAPPED_ROWS{Hostname=~\"$hostname\"})",
-                     "legendFormat": "Host {{ Hostname }}"
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_UNCORRECTABLE_REMAPPED_ROWS{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
+                     "legendFormat": "{{ Hostname }}"
                   }
                ],
                "title": "Number of remapped rows for uncorrectable errors",
@@ -1553,8 +1553,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_CORRECTABLE_REMAPPED_ROWS{Hostname=~\"$hostname\"})",
-                     "legendFormat": "Host {{ Hostname }}"
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_CORRECTABLE_REMAPPED_ROWS{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
+                     "legendFormat": "{{ Hostname }}"
                   }
                ],
                "title": "Number of remapped rows for correctable errors",
@@ -1584,8 +1584,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_ROW_REMAP_FAILURE{Hostname=~\"$hostname\"})",
-                     "legendFormat": "Host {{ Hostname }}"
+                     "expr": "avg by(Hostname) (DCGM_FI_DEV_ROW_REMAP_FAILURE{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
+                     "legendFormat": "{{ Hostname }}"
                   }
                ],
                "title": "Whether remapping of rows has failed",
@@ -1629,8 +1629,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "sum by(gpu) (nvlink_data_tx_kib{hostname=~\"$hostname\",gpu=~\"$gpu\"})",
-                     "legendFormat": "Total NVLink bandwidth usage by gpu {{ gpu }}"
+                     "expr": "sum by(gpu) (nvlink_data_tx_kib{hostname=~\"$hostname\",oci_name=~\"$oci_name\", gpu=~\"$gpu\"})",
+                     "legendFormat": "{{ gpu }}"
                   }
                ],
                "title": "Total data transmitted",
@@ -1660,8 +1660,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "sum by(gpu) (nvlink_data_rx_kib{hostname=~\"$hostname\",gpu=~\"$gpu\"})",
-                     "legendFormat": "Total NVLink bandwidth usage by gpu {{ gpu }}"
+                     "expr": "sum by(gpu) (nvlink_data_rx_kib{hostname=~\"$hostname\",oci_name=~\"$oci_name\", gpu=~\"$gpu\"})",
+                     "legendFormat": "{{ gpu }}"
                   }
                ],
                "title": "Total data received",
@@ -1691,8 +1691,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "sum by(gpu) (nvlink_raw_tx_kib{hostname=~\"$hostname\",gpu=~\"$gpu\"})",
-                     "legendFormat": "Total NVLink bandwidth usage by gpu {{ gpu }}"
+                     "expr": "sum by(gpu) (nvlink_raw_tx_kib{hostname=~\"$hostname\",oci_name=~\"$oci_name\", gpu=~\"$gpu\"})",
+                     "legendFormat": "{{ gpu }}"
                   }
                ],
                "title": "Total raw bytes transmitted",
@@ -1722,8 +1722,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "sum by(gpu) (nvlink_raw_rx_kib{hostname=~\"$hostname\",gpu=~\"$gpu\"})",
-                     "legendFormat": "Total NVLink bandwidth usage by gpu {{ gpu }}"
+                     "expr": "sum by(gpu) (nvlink_raw_rx_kib{hostname=~\"$hostname\",oci_name=~\"$oci_name\", gpu=~\"$gpu\"})",
+                     "legendFormat": "{{ gpu }}"
                   }
                ],
                "title": "Total raw bytes received",
@@ -1767,8 +1767,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "(ib_port_xmit_data{hostname=~\"$hostname\",interface=~\"$interface\"})",
-                     "legendFormat": "host {{ hostname }} and nic {{ interface }}"
+                     "expr": "(ib_port_xmit_data{hostname=~\"$hostname\", oci_name=~\"$oci_name\", interface=~\"$interface\"})",
+                     "legendFormat": "{{oci_name}}:{{ hostname }}:{{ interface }}"
                   }
                ],
                "title": "Total number of data octets transmitted",
@@ -1798,8 +1798,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "(ib_port_rcv_data{hostname=~\"$hostname\",interface=~\"$interface\"})",
-                     "legendFormat": "host {{ hostname }} and nic {{ interface }}"
+                     "expr": "(ib_port_rcv_data{hostname=~\"$hostname\", oci_name=~\"$oci_name\", interface=~\"$interface\"})",
+                     "legendFormat": "{{oci_name}}:{{ hostname }}:{{ interface }}"
                   }
                ],
                "title": "Total number of data octets received",
@@ -1829,8 +1829,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "(ib_port_xmit_packets{hostname=~\"$hostname\",interface=~\"$interface\"})",
-                     "legendFormat": "host {{ hostname }} and nic {{ interface }}"
+                     "expr": "(ib_port_xmit_packets{hostname=~\"$hostname\", oci_name=~\"$oci_name\", interface=~\"$interface\"})",
+                     "legendFormat": "{{oci_name}}:{{ hostname }}:{{ interface }}"
                   }
                ],
                "title": "Total number of packets transmitted",
@@ -1860,8 +1860,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "(ib_port_rcv_packets{hostname=~\"$hostname\",interface=~\"$interface\"})",
-                     "legendFormat": "host {{ hostname }} and nic {{ interface }}"
+                     "expr": "(ib_port_rcv_packets{hostname=~\"$hostname\", oci_name=~\"$oci_name\", interface=~\"$interface\"})",
+                     "legendFormat": "{{oci_name}}:{{ hostname }}:{{ interface }}"
                   }
                ],
                "title": "Total number of packets received",
@@ -1891,8 +1891,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "(ib_unicast_rcv_packets{hostname=~\"$hostname\",interface=~\"$interface\"})",
-                     "legendFormat": "host {{ hostname }} and nic {{ interface }}"
+                     "expr": "(ib_unicast_rcv_packets{hostname=~\"$hostname\", oci_name=~\"$oci_name\", interface=~\"$interface\"})",
+                     "legendFormat": "{{oci_name}}:{{ hostname }}:{{ interface }}"
                   }
                ],
                "title": "Total number of unicast packets received",
@@ -1922,8 +1922,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "(ib_unicast_xmit_packets{hostname=~\"$hostname\",interface=~\"$interface\"})",
-                     "legendFormat": "host {{ hostname }} and nic {{ interface }}"
+                     "expr": "(ib_unicast_xmit_packets{hostname=~\"$hostname\", oci_name=~\"$oci_name\", interface=~\"$interface\"})",
+                     "legendFormat": "{{oci_name}}:{{ hostname }}:{{ interface }}"
                   }
                ],
                "title": "Total number of unicast packets transmitted",
@@ -1953,8 +1953,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "(ib_multicast_rcv_packets{hostname=~\"$hostname\",interface=~\"$interface\"})",
-                     "legendFormat": "host {{ hostname }} and nic {{ interface }}"
+                     "expr": "(ib_multicast_rcv_packets{hostname=~\"$hostname\", oci_name=~\"$oci_name\", interface=~\"$interface\"})",
+                     "legendFormat": "{{oci_name}}:{{ hostname }}:{{ interface }}"
                   }
                ],
                "title": "Total number of multicast packets received",
@@ -1984,8 +1984,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "(ib_multicast_xmit_packets{hostname=~\"$hostname\",interface=~\"$interface\"})",
-                     "legendFormat": "host {{ hostname }} and nic {{ interface }}"
+                     "expr": "(ib_multicast_xmit_packets{hostname=~\"$hostname\", oci_name=~\"$oci_name\", interface=~\"$interface\"})",
+                     "legendFormat": "{{oci_name}}:{{ hostname }}:{{ interface }}"
                   }
                ],
                "title": "Total number of multicast packets transmitted",
@@ -2029,8 +2029,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "(rdma_np_ecn_marked_roce_packets{hostname=~\"$hostname\",interface=~\"$interface\"})",
-                     "legendFormat": "host {{ hostname }} and nic {{ interface }}"
+                     "expr": "(rdma_np_ecn_marked_roce_packets{hostname=~\"$hostname\", oci_name=~\"$oci_name\", interface=~\"$interface\"})",
+                     "legendFormat": "{{oci_name}}:{{ hostname }}:{{ interface }}"
                   }
                ],
                "title": "Number of ROCEv2 packets marked for congestion",
@@ -2060,8 +2060,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "(rdma_out_of_sequence{hostname=~\"$hostname\",interface=~\"$interface\"})",
-                     "legendFormat": "host {{ hostname }} and nic {{ interface }}"
+                     "expr": "(rdma_out_of_sequence{hostname=~\"$hostname\", oci_name=~\"$oci_name\", interface=~\"$interface\"})",
+                     "legendFormat": "{{oci_name}}:{{ hostname }}:{{ interface }}"
                   }
                ],
                "title": "Number of out of sequence packets received",
@@ -2091,8 +2091,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "(rdma_packet_seq_err{hostname=~\"$hostname\",interface=~\"$interface\"})",
-                     "legendFormat": "host {{ hostname }} and nic {{ interface }}"
+                     "expr": "(rdma_packet_seq_err{hostname=~\"$hostname\", oci_name=~\"$oci_name\", interface=~\"$interface\"})",
+                     "legendFormat": "{{oci_name}}:{{ hostname }}:{{ interface }}"
                   }
                ],
                "title": "Number of received NAK sequence error packets",
@@ -2122,8 +2122,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "(rdma_local_ack_timeout_err{hostname=~\"$hostname\",interface=~\"$interface\"})",
-                     "legendFormat": "host {{ hostname }} and nic {{ interface }}"
+                     "expr": "(rdma_local_ack_timeout_err{hostname=~\"$hostname\", oci_name=~\"$oci_name\", interface=~\"$interface\"})",
+                     "legendFormat": "{{oci_name}}:{{ hostname }}:{{ interface }}"
                   }
                ],
                "title": "Number of times QPs ack timer expired",
@@ -2153,8 +2153,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "(rdma_roce_adp_retrans{hostname=~\"$hostname\",interface=~\"$interface\"})",
-                     "legendFormat": "host {{ hostname }} and nic {{ interface }}"
+                     "expr": "(rdma_roce_adp_retrans{hostname=~\"$hostname\", oci_name=~\"$oci_name\", interface=~\"$interface\"})",
+                     "legendFormat": "{{oci_name}}:{{ hostname }}:{{ interface }}"
                   }
                ],
                "title": "Number of adaptive retransmissions for RoCE traffic",
@@ -2184,8 +2184,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "(rdma_np_cnp_sent{hostname=~\"$hostname\",interface=~\"$interface\"})",
-                     "legendFormat": "host {{ hostname }} and nic {{ interface }}"
+                     "expr": "(rdma_np_cnp_sent{hostname=~\"$hostname\", oci_name=~\"$oci_name\", interface=~\"$interface\"})",
+                     "legendFormat": "{{oci_name}}:{{ hostname }}:{{ interface }}"
                   }
                ],
                "title": "Number of CNP packets sent",
@@ -2215,8 +2215,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "(rdma_rp_cnp_handled{hostname=~\"$hostname\",interface=~\"$interface\"})",
-                     "legendFormat": "host {{ hostname }} and nic {{ interface }}"
+                     "expr": "(rdma_rp_cnp_handled{hostname=~\"$hostname\", oci_name=~\"$oci_name\", interface=~\"$interface\"})",
+                     "legendFormat": "{{oci_name}}:{{ hostname }}:{{ interface }}"
                   }
                ],
                "title": "Number of CNP packets handled to throttle",
@@ -2246,8 +2246,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "(rdma_rp_cnp_ignored{hostname=~\"$hostname\",interface=~\"$interface\"})",
-                     "legendFormat": "host {{ hostname }} and nic {{ interface }}"
+                     "expr": "(rdma_rp_cnp_ignored{hostname=~\"$hostname\", oci_name=~\"$oci_name\", interface=~\"$interface\"})",
+                     "legendFormat": "{{oci_name}}:{{ hostname }}:{{ interface }}"
                   }
                ],
                "title": "Number of CNP packets received and ignored",
@@ -2277,8 +2277,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "(rdma_rx_icrc_encapsulated{hostname=~\"$hostname\",interface=~\"$interface\"})",
-                     "legendFormat": "host {{ hostname }} and nic {{ interface }}"
+                     "expr": "(rdma_rx_icrc_encapsulated{hostname=~\"$hostname\", oci_name=~\"$oci_name\", interface=~\"$interface\"})",
+                     "legendFormat": "{{oci_name}}:{{ hostname }}:{{ interface }}"
                   }
                ],
                "title": "Number of RoCE packets with ICRC (Invertible Cyclic Redundancy Check) errors",
@@ -2308,8 +2308,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "(rdma_roce_slow_restart{hostname=~\"$hostname\",interface=~\"$interface\"})",
-                     "legendFormat": "host {{ hostname }} and nic {{ interface }}"
+                     "expr": "(rdma_roce_slow_restart{hostname=~\"$hostname\", oci_name=~\"$oci_name\", interface=~\"$interface\"})",
+                     "legendFormat": "{{oci_name}}:{{ hostname }}:{{ interface }}"
                   }
                ],
                "title": "Number of times RoCE slow restart was used",
