@@ -2478,7 +2478,7 @@
             "includeAll": true,
             "multi": true,
             "name": "hostname",
-            "query": "label_values(DCGM_FI_DEV_GPU_UTIL, Hostname)",
+            "query": "label_values(up, hostname)",
             "refresh": 1,
             "type": "query"
          },

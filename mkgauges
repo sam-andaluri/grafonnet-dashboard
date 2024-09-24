@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+export PATH=$PATH:.:/usr/local/go/bin:/home/ubuntu/go/bin
+jsonnet -J vendor guages.jsonnet -o guages.json
+
+payload="{\"dashboard\": $(jq . guages.json), \"overwrite\": true}"
+
+curl -X POST $BASIC_AUTH \
+  -H 'Content-Type: application/json' \
+  -d "${payload}" \
+  "http://admin:admin@localhost:3000/api/dashboards/db"
