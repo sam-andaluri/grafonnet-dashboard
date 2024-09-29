@@ -9,14 +9,14 @@ local grafana = import 'grafonnet/grafana.libsonnet';
 //);
 
 local slurm_metrics = [
-   { title: 'Metric 1' , metric: 'slurm_cpus_metric_1', legend: 'Metric 1' },
-   { title: 'Metric 2' , metric: 'slurm_cpus_metric_2', legend: 'Metric 2' },
-   { title: 'Metric 3' , metric: 'slurm_cpus_metric_3', legend: 'Metric 3' },
+   { title: 'Idle' , metric: 'slurm_cpus_idle, legend: 'Metric 1' },
+   { title: 'Alloc' , metric: 'slurm_cpus_alloc', legend: 'Metric 2' },
+   { title: 'Total' , metric: 'slurm_cpus_total', legend: 'Metric 3' },
 ];
 
 grafana.dashboard.new(
   'Slurm CPU Metrics Dynamic Gauge'
-).addPanel(
+) + grafana.dashboard.withPanels(
   grafana.gaugePanel.new(
     'Slurm CPU Metrics Gauge (Dynamic)',
     datasource = '$PROMETHEUS_DS',
@@ -48,10 +48,8 @@ grafana.dashboard.new(
   + grafana.gaugePanel.standardOptions.withUnit('none')
   + grafana.gaugePanel.standardOptions.withShowThresholdLabels(true)
   + grafana.gaugePanel.standardOptions.withShowThresholdMarkers(true)
-  
-  // Use dynamic color mapping
-  + grafana.gaugePanel.addThreshold(0, 'green', 'lt')    // Green for low values
-  + grafana.gaugePanel.addThreshold(50, 'yellow', 'gt')  // Yellow for mid-range values
-  + grafana.gaugePanel.addThreshold(80, 'red', 'gt')     // Red for high values
-)
+  + grafana.gaugePanel.addThreshold(0, 'green', 'lt')   
+  + grafana.gaugePanel.addThreshold(50, 'yellow', 'gt')  
+  + grafana.gaugePanel.addThreshold(80, 'red', 'gt') 
+);
 

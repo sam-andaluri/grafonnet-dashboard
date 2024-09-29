@@ -99,6 +99,18 @@ local nfs_metrics = [
 { expr: 'avg by(oci_name, hostname, export) (rate(node_mountstats_nfs_operations_queue_time_seconds_total{hostname=~"$hostname", oci_name=~"$oci_name"}[$__range]))', legend_format: '{{oci_name}} {{hostname}} {{export}}', title: 'NFS Queue Time', unit: 's' },
 ];
 
+local slurm_metrics = [
+{ expr: 'slurm_cpus_idle/slurm_cpus_total*100', legend_format: '{{cluster_name}}', title: 'CPUs Idle', unit: 'percent' },
+{ expr: 'slurm_cpus_alloc/slurm_cpus_total*100', legend_format: '{{cluster_name}}', title: 'CPUs Allocated', unit: 'percent' },
+{ expr: 'slurm_gpus_idle/slurm_gpus_total*100', legend_format: '{{cluster_name}}', title: 'GPUs Idle', unit: 'percent' },
+{ expr: 'slurm_gpus_alloc/slurm_gpus_total*100', legend_format: '{{cluster_name}}', title: 'GPUs Allocated', unit: 'percent' },
+];
+
+local slurm_metrics_loop = [
+{ exprs: ['slurm_cpus_idle/slurm_cpus_total*100', 'slurm_cpus_alloc/slurm_cpus_total*100', 'slurm_gpus_idle/slurm_gpus_total*100', 'slurm_gpus_alloc/slurm_gpus_total*100',] , legend_format: '{{cluster_name}}', title: 'CPUs Idle', unit: 'percent' },
+];
+
+
 g.dashboard.new('Cluster Dashboard')
 + g.dashboard.withUid('cluster-dashboard')
 + g.dashboard.withDescription(|||
@@ -284,6 +296,87 @@ g.dashboard.new('Cluster Dashboard')
         + g.panel.timeSeries.gridPos.withH(8)
       for metric in roce2_errors
       ]),    
+    row.new('Slurm Metrics')
+    + row.withCollapsed(true)
+    + row.withPanels([
+      g.panel.timeSeries.new(metric.title)
+        + g.panel.timeSeries.queryOptions.withTargets([
+            g.query.prometheus.new(
+                '$PROMETHEUS_DS',
+                metric.expr,
+            )
+            + g.query.prometheus.withLegendFormat(metric.legend_format)
+        ])
+        + g.panel.timeSeries.standardOptions.withUnit(metric.unit)
+        + g.panel.timeSeries.gridPos.withW(24)
+        + g.panel.timeSeries.gridPos.withH(8)
+      for metric in slurm_metrics
+      ]),  
+    row.new('Slurm Metrics Guages')
+    + row.withCollapsed(true)
+    + row.withPanels([
+      g.panel.gauge.new(metric.title)
+        + g.panel.gauge.queryOptions.withTargets([
+            g.query.prometheus.new(
+                '$PROMETHEUS_DS',
+                metric.expr,
+            )
+            + g.query.prometheus.withLegendFormat(metric.legend_format),
+            g.query.prometheus.new(
+                '$PROMETHEUS_DS',
+                metric.expr,
+            )
+            + g.query.prometheus.withLegendFormat(metric.legend_format),
+            g.query.prometheus.new(
+                '$PROMETHEUS_DS',
+                metric.expr,
+            )
+            + g.query.prometheus.withLegendFormat(metric.legend_format)
+        ])
+        + g.panel.gauge.standardOptions.withUnit('percent')
+        + g.panel.gauge.standardOptions.color.withMode('thresholds')
+        + g.panel.gauge.standardOptions.thresholds.withMode('absolute')
+        + g.panel.gauge.standardOptions.thresholds.withSteps([
+          g.panel.gauge.thresholdStep.withColor('green')
+          + g.panel.gauge.thresholdStep.withValue(null),
+          g.panel.gauge.thresholdStep.withColor('orange')
+          + g.panel.gauge.thresholdStep.withValue(50),
+          g.panel.gauge.thresholdStep.withColor('red')
+          + g.panel.gauge.thresholdStep.withValue(80),
+        ])
+        + g.panel.gauge.gridPos.withW(3)
+        + g.panel.gauge.gridPos.withH(5)
+      for metric in slurm_metrics
+      ]),  
+    row.new('Slurm Metrics Guage Loop')
+    + row.withCollapsed(true)
+    + row.withPanels([
+      g.panel.gauge.new(metric.title)
+        + g.panel.gauge.queryOptions.withTargets([
+            g.query.prometheus.new(
+                '$PROMETHEUS_DS',
+                expr,
+            )
+            + g.query.prometheus.withLegendFormat(metric.legend_format),
+        for expr in metric.exprs    
+        ])
+        + g.panel.gauge.standardOptions.withUnit('percent')
+        + g.panel.gauge.standardOptions.color.withMode('thresholds')
+        + g.panel.gauge.standardOptions.thresholds.withMode('absolute')
+        + g.panel.gauge.standardOptions.thresholds.withSteps([
+          g.panel.gauge.thresholdStep.withColor('green')
+          + g.panel.gauge.thresholdStep.withValue(null),
+          g.panel.gauge.thresholdStep.withColor('orange')
+          + g.panel.gauge.thresholdStep.withValue(50),
+          g.panel.gauge.thresholdStep.withColor('red')
+          + g.panel.gauge.thresholdStep.withValue(80),
+        ])
+        + g.panel.gauge.gridPos.withW(3)
+        + g.panel.gauge.gridPos.withH(5)
+      for metric in slurm_metrics_loop
+      ]),  
   ])  
 )
+
+
 
