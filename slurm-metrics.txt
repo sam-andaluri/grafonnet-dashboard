@@ -1,0 +1,488 @@
+# HELP slurm_cpus_alloc Allocated CPUs
+# TYPE slurm_cpus_alloc gauge
+slurm_cpus_alloc 0
+# HELP slurm_cpus_idle Idle CPUs
+# TYPE slurm_cpus_idle gauge
+slurm_cpus_idle 8
+# HELP slurm_cpus_other Mix CPUs
+# TYPE slurm_cpus_other gauge
+slurm_cpus_other 0
+# HELP slurm_cpus_total Total CPUs
+# TYPE slurm_cpus_total gauge
+slurm_cpus_total 8
+# HELP slurm_exporter_collect_error Indicates if an error has occurred during collection
+# TYPE slurm_exporter_collect_error gauge
+slurm_exporter_collect_error{collector="jobs"} 0
+slurm_exporter_collect_error{collector="licenses"} 0
+slurm_exporter_collect_error{collector="nodes"} 0
+slurm_exporter_collect_error{collector="partition_jobs"} 0
+slurm_exporter_collect_error{collector="partition_nodes"} 0
+slurm_exporter_collect_error{collector="pings"} 0
+slurm_exporter_collect_error{collector="scheduler"} 0
+# HELP slurm_gpus_alloc Allocated GPUs
+# TYPE slurm_gpus_alloc gauge
+slurm_gpus_alloc 0
+# HELP slurm_gpus_idle Idle GPUs
+# TYPE slurm_gpus_idle gauge
+slurm_gpus_idle 0
+# HELP slurm_gpus_total Total GPUs
+# TYPE slurm_gpus_total gauge
+slurm_gpus_total 0
+# HELP slurm_gres_gpu_average_start_time_seconds Average estimated start time of pending jobs that requested GPU
+# TYPE slurm_gres_gpu_average_start_time_seconds gauge
+slurm_gres_gpu_average_start_time_seconds 0
+# HELP slurm_gres_gpu_average_wait_time_seconds Average wait time of pending jobs that requested GPU
+# TYPE slurm_gres_gpu_average_wait_time_seconds gauge
+slurm_gres_gpu_average_wait_time_seconds 0
+# HELP slurm_gres_gpu_cancelled Cancelled gres/gpu jobs in the cluster
+# TYPE slurm_gres_gpu_cancelled gauge
+slurm_gres_gpu_cancelled 0
+# HELP slurm_gres_gpu_completed Completed gres/gpu jobs in the cluster
+# TYPE slurm_gres_gpu_completed gauge
+slurm_gres_gpu_completed 0
+# HELP slurm_gres_gpu_completing Completing gres/gpu jobs in the cluster
+# TYPE slurm_gres_gpu_completing gauge
+slurm_gres_gpu_completing 0
+# HELP slurm_gres_gpu_configuring Configuring gres/gpu jobs in the cluster
+# TYPE slurm_gres_gpu_configuring gauge
+slurm_gres_gpu_configuring 0
+# HELP slurm_gres_gpu_failed Number of failed gres/gpu jobs
+# TYPE slurm_gres_gpu_failed gauge
+slurm_gres_gpu_failed 0
+# HELP slurm_gres_gpu_median_start_time_seconds Median estimated start time of pending jobs that requested GPU
+# TYPE slurm_gres_gpu_median_start_time_seconds gauge
+slurm_gres_gpu_median_start_time_seconds 0
+# HELP slurm_gres_gpu_median_wait_time_seconds Median wait time of pending jobs that requested GPU
+# TYPE slurm_gres_gpu_median_wait_time_seconds gauge
+slurm_gres_gpu_median_wait_time_seconds 0
+# HELP slurm_gres_gpu_node_fail Number of gres/gpu jobs stopped due to node fail
+# TYPE slurm_gres_gpu_node_fail gauge
+slurm_gres_gpu_node_fail 0
+# HELP slurm_gres_gpu_pending Pending gres/gpu jobs in queue
+# TYPE slurm_gres_gpu_pending gauge
+slurm_gres_gpu_pending 0
+# HELP slurm_gres_gpu_pending_dependency Pending gres/gpu jobs because of dependency in queue
+# TYPE slurm_gres_gpu_pending_dependency gauge
+slurm_gres_gpu_pending_dependency 0
+# HELP slurm_gres_gpu_preempted Number of preempted gres/gpu jobs
+# TYPE slurm_gres_gpu_preempted gauge
+slurm_gres_gpu_preempted 0
+# HELP slurm_gres_gpu_running Running gres/gpu jobs in the cluster
+# TYPE slurm_gres_gpu_running gauge
+slurm_gres_gpu_running 0
+# HELP slurm_gres_gpu_suspended Suspended gres/gpu jobs in the cluster
+# TYPE slurm_gres_gpu_suspended gauge
+slurm_gres_gpu_suspended 0
+# HELP slurm_gres_gpu_timeout gres/gpu Jobs stopped by timeout
+# TYPE slurm_gres_gpu_timeout gauge
+slurm_gres_gpu_timeout 0
+# HELP slurm_gres_gpu_total Total gres/gpu jobs in the cluster
+# TYPE slurm_gres_gpu_total gauge
+slurm_gres_gpu_total 0
+# HELP slurm_node_down Indicates if a node is down, 1=down 0=not down
+# TYPE slurm_node_down gauge
+slurm_node_down{node="GPU-309",reason=""} 0
+slurm_node_down{node="GPU-930",reason=""} 0
+# HELP slurm_node_features_info Node features
+# TYPE slurm_node_features_info gauge
+slurm_node_features_info{features="warm-crow,CN__warm-crow",node="GPU-309"} 1
+slurm_node_features_info{features="warm-crow,CN__warm-crow",node="GPU-930"} 1
+# HELP slurm_node_state_info Node state
+# TYPE slurm_node_state_info gauge
+slurm_node_state_info{node="GPU-309",state="dynamic_norm"} 1
+slurm_node_state_info{node="GPU-309",state="idle"} 1
+slurm_node_state_info{node="GPU-930",state="dynamic_norm"} 1
+slurm_node_state_info{node="GPU-930",state="idle"} 1
+# HELP slurm_nodes_alloc Allocated nodes
+# TYPE slurm_nodes_alloc gauge
+slurm_nodes_alloc 0
+# HELP slurm_nodes_comp Completing nodes
+# TYPE slurm_nodes_comp gauge
+slurm_nodes_comp 0
+# HELP slurm_nodes_down Down nodes
+# TYPE slurm_nodes_down gauge
+slurm_nodes_down 0
+# HELP slurm_nodes_drain Drain nodes
+# TYPE slurm_nodes_drain gauge
+slurm_nodes_drain 0
+# HELP slurm_nodes_err Error nodes
+# TYPE slurm_nodes_err gauge
+slurm_nodes_err 0
+# HELP slurm_nodes_fail Fail nodes
+# TYPE slurm_nodes_fail gauge
+slurm_nodes_fail 0
+# HELP slurm_nodes_idle Idle nodes
+# TYPE slurm_nodes_idle gauge
+slurm_nodes_idle 2
+# HELP slurm_nodes_invalid Invalid nodes
+# TYPE slurm_nodes_invalid gauge
+slurm_nodes_invalid 0
+# HELP slurm_nodes_maint Maint nodes
+# TYPE slurm_nodes_maint gauge
+slurm_nodes_maint 0
+# HELP slurm_nodes_mix Mix nodes
+# TYPE slurm_nodes_mix gauge
+slurm_nodes_mix 0
+# HELP slurm_nodes_planned Planned nodes
+# TYPE slurm_nodes_planned gauge
+slurm_nodes_planned 0
+# HELP slurm_nodes_reboot Reboot nodes
+# TYPE slurm_nodes_reboot gauge
+slurm_nodes_reboot 0
+# HELP slurm_nodes_resv Reserved nodes
+# TYPE slurm_nodes_resv gauge
+slurm_nodes_resv 0
+# HELP slurm_nodes_total Total nodes
+# TYPE slurm_nodes_total gauge
+slurm_nodes_total 2
+# HELP slurm_nodes_unknown Unknown nodes
+# TYPE slurm_nodes_unknown gauge
+slurm_nodes_unknown 2
+# HELP slurm_partition_cpus_alloc Allocated CPUs in the partition
+# TYPE slurm_partition_cpus_alloc gauge
+slurm_partition_cpus_alloc{partition="compute"} 0
+# HELP slurm_partition_cpus_idle Idle CPUs in the partition
+# TYPE slurm_partition_cpus_idle gauge
+slurm_partition_cpus_idle{partition="compute"} 8
+# HELP slurm_partition_cpus_other Mix CPUs in the partition
+# TYPE slurm_partition_cpus_other gauge
+slurm_partition_cpus_other{partition="compute"} 0
+# HELP slurm_partition_cpus_total Total CPUs in the partition
+# TYPE slurm_partition_cpus_total gauge
+slurm_partition_cpus_total{partition="compute"} 8
+# HELP slurm_partition_gpus_alloc Allocated GPUs in the partition
+# TYPE slurm_partition_gpus_alloc gauge
+slurm_partition_gpus_alloc{partition="compute"} 0
+# HELP slurm_partition_gpus_idle Idle GPUs in the partition
+# TYPE slurm_partition_gpus_idle gauge
+slurm_partition_gpus_idle{partition="compute"} 0
+# HELP slurm_partition_gpus_total Total GPUs in the partition
+# TYPE slurm_partition_gpus_total gauge
+slurm_partition_gpus_total{partition="compute"} 0
+# HELP slurm_partition_jobs_average_start_time_seconds Average estimated start time of pending jobs in the partition
+# TYPE slurm_partition_jobs_average_start_time_seconds gauge
+slurm_partition_jobs_average_start_time_seconds{partition="compute",reason=""} 0
+# HELP slurm_partition_jobs_average_wait_time_seconds Average wait time of pending jobs in the partition
+# TYPE slurm_partition_jobs_average_wait_time_seconds gauge
+slurm_partition_jobs_average_wait_time_seconds{partition="compute",reason=""} 0
+# HELP slurm_partition_jobs_cancelled Cancelled jobs in the partition
+# TYPE slurm_partition_jobs_cancelled gauge
+slurm_partition_jobs_cancelled{partition="compute"} 0
+# HELP slurm_partition_jobs_completed Completed jobs in the partition
+# TYPE slurm_partition_jobs_completed gauge
+slurm_partition_jobs_completed{partition="compute"} 0
+# HELP slurm_partition_jobs_completing Completing jobs in the partition
+# TYPE slurm_partition_jobs_completing gauge
+slurm_partition_jobs_completing{partition="compute"} 0
+# HELP slurm_partition_jobs_configuring Configuring jobs in the partition
+# TYPE slurm_partition_jobs_configuring gauge
+slurm_partition_jobs_configuring{partition="compute"} 0
+# HELP slurm_partition_jobs_failed Number of failed jobs in the partition
+# TYPE slurm_partition_jobs_failed gauge
+slurm_partition_jobs_failed{partition="compute"} 0
+# HELP slurm_partition_jobs_gres_gpu_average_start_time_seconds Average estimated start time of pending jobs that requested GPU in the partition
+# TYPE slurm_partition_jobs_gres_gpu_average_start_time_seconds gauge
+slurm_partition_jobs_gres_gpu_average_start_time_seconds{partition="compute",reason=""} 0
+# HELP slurm_partition_jobs_gres_gpu_average_wait_time_seconds Average wait time of pending jobs that requested GPU in the partition
+# TYPE slurm_partition_jobs_gres_gpu_average_wait_time_seconds gauge
+slurm_partition_jobs_gres_gpu_average_wait_time_seconds{partition="compute",reason=""} 0
+# HELP slurm_partition_jobs_gres_gpu_cancelled Cancelled gres/gpu jobs in the partition
+# TYPE slurm_partition_jobs_gres_gpu_cancelled gauge
+slurm_partition_jobs_gres_gpu_cancelled{partition="compute"} 0
+# HELP slurm_partition_jobs_gres_gpu_completed Completed gres/gpu jobs in the partition
+# TYPE slurm_partition_jobs_gres_gpu_completed gauge
+slurm_partition_jobs_gres_gpu_completed{partition="compute"} 0
+# HELP slurm_partition_jobs_gres_gpu_completing Completing gres/gpu jobs in the partition
+# TYPE slurm_partition_jobs_gres_gpu_completing gauge
+slurm_partition_jobs_gres_gpu_completing{partition="compute"} 0
+# HELP slurm_partition_jobs_gres_gpu_configuring Configuring gres/gpu jobs in the partition
+# TYPE slurm_partition_jobs_gres_gpu_configuring gauge
+slurm_partition_jobs_gres_gpu_configuring{partition="compute"} 0
+# HELP slurm_partition_jobs_gres_gpu_failed Number of failed gres/gpu jobs in the partition
+# TYPE slurm_partition_jobs_gres_gpu_failed gauge
+slurm_partition_jobs_gres_gpu_failed{partition="compute"} 0
+# HELP slurm_partition_jobs_gres_gpu_median_start_time_seconds Median estimated start time of pending jobs that requested GPU in the partition
+# TYPE slurm_partition_jobs_gres_gpu_median_start_time_seconds gauge
+slurm_partition_jobs_gres_gpu_median_start_time_seconds{partition="compute",reason=""} 0
+# HELP slurm_partition_jobs_gres_gpu_median_wait_time_seconds Median wait time of pending jobs that requested GPU in the partition
+# TYPE slurm_partition_jobs_gres_gpu_median_wait_time_seconds gauge
+slurm_partition_jobs_gres_gpu_median_wait_time_seconds{partition="compute",reason=""} 0
+# HELP slurm_partition_jobs_gres_gpu_node_fail Number of gres/gpu jobs stopped due to node fail in the partition
+# TYPE slurm_partition_jobs_gres_gpu_node_fail gauge
+slurm_partition_jobs_gres_gpu_node_fail{partition="compute"} 0
+# HELP slurm_partition_jobs_gres_gpu_pending Pending gres/gpu jobs in the partition
+# TYPE slurm_partition_jobs_gres_gpu_pending gauge
+slurm_partition_jobs_gres_gpu_pending{partition="compute"} 0
+# HELP slurm_partition_jobs_gres_gpu_pending_dependency Pending gres/gpu jobs because of dependency in the partition
+# TYPE slurm_partition_jobs_gres_gpu_pending_dependency gauge
+slurm_partition_jobs_gres_gpu_pending_dependency{partition="compute"} 0
+# HELP slurm_partition_jobs_gres_gpu_preempted Number of preempted gres/gpu jobs in the partition
+# TYPE slurm_partition_jobs_gres_gpu_preempted gauge
+slurm_partition_jobs_gres_gpu_preempted{partition="compute"} 0
+# HELP slurm_partition_jobs_gres_gpu_running Running gres/gpu jobs in the partition
+# TYPE slurm_partition_jobs_gres_gpu_running gauge
+slurm_partition_jobs_gres_gpu_running{partition="compute"} 0
+# HELP slurm_partition_jobs_gres_gpu_suspended Suspended gres/gpu jobs in the partition
+# TYPE slurm_partition_jobs_gres_gpu_suspended gauge
+slurm_partition_jobs_gres_gpu_suspended{partition="compute"} 0
+# HELP slurm_partition_jobs_gres_gpu_timeout gres/gpu Jobs stopped by timeout in the partition
+# TYPE slurm_partition_jobs_gres_gpu_timeout gauge
+slurm_partition_jobs_gres_gpu_timeout{partition="compute"} 0
+# HELP slurm_partition_jobs_gres_gpu_total Total gres/gpu jobs in the partition
+# TYPE slurm_partition_jobs_gres_gpu_total gauge
+slurm_partition_jobs_gres_gpu_total{partition="compute"} 0
+# HELP slurm_partition_jobs_median_start_time_seconds Median estimated start time of pending jobs in the partition
+# TYPE slurm_partition_jobs_median_start_time_seconds gauge
+slurm_partition_jobs_median_start_time_seconds{partition="compute",reason=""} 0
+# HELP slurm_partition_jobs_median_wait_time_seconds Median wait time of pending jobs in the partition
+# TYPE slurm_partition_jobs_median_wait_time_seconds gauge
+slurm_partition_jobs_median_wait_time_seconds{partition="compute",reason=""} 0
+# HELP slurm_partition_jobs_node_fail Number of jobs stopped due to node fail in the partition
+# TYPE slurm_partition_jobs_node_fail gauge
+slurm_partition_jobs_node_fail{partition="compute"} 0
+# HELP slurm_partition_jobs_pending Pending jobs in the partition
+# TYPE slurm_partition_jobs_pending gauge
+slurm_partition_jobs_pending{partition="compute"} 0
+# HELP slurm_partition_jobs_pending_dependency Pending jobs because of dependency in the partition
+# TYPE slurm_partition_jobs_pending_dependency gauge
+slurm_partition_jobs_pending_dependency{partition="compute"} 0
+# HELP slurm_partition_jobs_preempted Number of preempted jobs in the partition
+# TYPE slurm_partition_jobs_preempted gauge
+slurm_partition_jobs_preempted{partition="compute"} 0
+# HELP slurm_partition_jobs_running Running jobs in the partition
+# TYPE slurm_partition_jobs_running gauge
+slurm_partition_jobs_running{partition="compute"} 0
+# HELP slurm_partition_jobs_suspended Suspended jobs in the partition
+# TYPE slurm_partition_jobs_suspended gauge
+slurm_partition_jobs_suspended{partition="compute"} 0
+# HELP slurm_partition_jobs_timeout Jobs stopped by timeout in the partition
+# TYPE slurm_partition_jobs_timeout gauge
+slurm_partition_jobs_timeout{partition="compute"} 0
+# HELP slurm_partition_jobs_total Total jobs in the partition
+# TYPE slurm_partition_jobs_total gauge
+slurm_partition_jobs_total{partition="compute"} 0
+# HELP slurm_partition_nodes_alloc Allocated nodes in the partition
+# TYPE slurm_partition_nodes_alloc gauge
+slurm_partition_nodes_alloc{partition="compute"} 0
+# HELP slurm_partition_nodes_comp Completing nodes in the partition
+# TYPE slurm_partition_nodes_comp gauge
+slurm_partition_nodes_comp{partition="compute"} 0
+# HELP slurm_partition_nodes_down Down nodes in the partition
+# TYPE slurm_partition_nodes_down gauge
+slurm_partition_nodes_down{partition="compute"} 0
+# HELP slurm_partition_nodes_drain Drain nodes in the partition
+# TYPE slurm_partition_nodes_drain gauge
+slurm_partition_nodes_drain{partition="compute"} 0
+# HELP slurm_partition_nodes_err Error nodes in the partition
+# TYPE slurm_partition_nodes_err gauge
+slurm_partition_nodes_err{partition="compute"} 0
+# HELP slurm_partition_nodes_fail Fail nodes in the partition
+# TYPE slurm_partition_nodes_fail gauge
+slurm_partition_nodes_fail{partition="compute"} 0
+# HELP slurm_partition_nodes_idle Idle nodes in the partition
+# TYPE slurm_partition_nodes_idle gauge
+slurm_partition_nodes_idle{partition="compute"} 2
+# HELP slurm_partition_nodes_invalid Invalid nodes in the partition
+# TYPE slurm_partition_nodes_invalid gauge
+slurm_partition_nodes_invalid{partition="compute"} 0
+# HELP slurm_partition_nodes_maint Maint nodes in the partition
+# TYPE slurm_partition_nodes_maint gauge
+slurm_partition_nodes_maint{partition="compute"} 0
+# HELP slurm_partition_nodes_mix Mix nodes in the partition
+# TYPE slurm_partition_nodes_mix gauge
+slurm_partition_nodes_mix{partition="compute"} 0
+# HELP slurm_partition_nodes_planned Planned nodes in the partition
+# TYPE slurm_partition_nodes_planned gauge
+slurm_partition_nodes_planned{partition="compute"} 0
+# HELP slurm_partition_nodes_reboot Reboot nodes in the partition
+# TYPE slurm_partition_nodes_reboot gauge
+slurm_partition_nodes_reboot{partition="compute"} 0
+# HELP slurm_partition_nodes_resv Reserved nodes in the partition
+# TYPE slurm_partition_nodes_resv gauge
+slurm_partition_nodes_resv{partition="compute"} 0
+# HELP slurm_partition_nodes_total Total nodes in the partition
+# TYPE slurm_partition_nodes_total gauge
+slurm_partition_nodes_total{partition="compute"} 2
+# HELP slurm_partition_nodes_unknown Unknown nodes in the partition
+# TYPE slurm_partition_nodes_unknown gauge
+slurm_partition_nodes_unknown{partition="compute"} 2
+# HELP slurm_ping_latency Ping Latency
+# TYPE slurm_ping_latency gauge
+slurm_ping_latency{hostname="warm-crow-controller",mode="primary"} 595
+# HELP slurm_ping_up Ping Status
+# TYPE slurm_ping_up gauge
+slurm_ping_up{hostname="warm-crow-controller",mode="primary"} 1
+# HELP slurm_queue_average_start_time_seconds Average estimated start time of pending jobs
+# TYPE slurm_queue_average_start_time_seconds gauge
+slurm_queue_average_start_time_seconds 0
+# HELP slurm_queue_average_wait_time_seconds Average wait time of pending jobs
+# TYPE slurm_queue_average_wait_time_seconds gauge
+slurm_queue_average_wait_time_seconds 0
+# HELP slurm_queue_cancelled Cancelled jobs in the cluster
+# TYPE slurm_queue_cancelled gauge
+slurm_queue_cancelled 0
+# HELP slurm_queue_completed Completed jobs in the cluster
+# TYPE slurm_queue_completed gauge
+slurm_queue_completed 0
+# HELP slurm_queue_completing Completing jobs in the cluster
+# TYPE slurm_queue_completing gauge
+slurm_queue_completing 0
+# HELP slurm_queue_configuring Configuring jobs in the cluster
+# TYPE slurm_queue_configuring gauge
+slurm_queue_configuring 0
+# HELP slurm_queue_failed Number of failed jobs
+# TYPE slurm_queue_failed gauge
+slurm_queue_failed 0
+# HELP slurm_queue_median_start_time_seconds Mean estimated start time of pending jobs
+# TYPE slurm_queue_median_start_time_seconds gauge
+slurm_queue_median_start_time_seconds 0
+# HELP slurm_queue_median_wait_time_seconds Median wait time of pending jobs
+# TYPE slurm_queue_median_wait_time_seconds gauge
+slurm_queue_median_wait_time_seconds 0
+# HELP slurm_queue_node_fail Number of jobs stopped due to node fail
+# TYPE slurm_queue_node_fail gauge
+slurm_queue_node_fail 0
+# HELP slurm_queue_pending Pending jobs in queue
+# TYPE slurm_queue_pending gauge
+slurm_queue_pending 0
+# HELP slurm_queue_pending_dependency Pending jobs because of dependency in queue
+# TYPE slurm_queue_pending_dependency gauge
+slurm_queue_pending_dependency 0
+# HELP slurm_queue_preempted Number of preempted jobs
+# TYPE slurm_queue_preempted gauge
+slurm_queue_preempted 0
+# HELP slurm_queue_running Running jobs in the cluster
+# TYPE slurm_queue_running gauge
+slurm_queue_running 0
+# HELP slurm_queue_suspended Suspended jobs in the cluster
+# TYPE slurm_queue_suspended gauge
+slurm_queue_suspended 0
+# HELP slurm_queue_timeout Jobs stopped by timeout
+# TYPE slurm_queue_timeout gauge
+slurm_queue_timeout 0
+# HELP slurm_queue_total Total jobs in the cluster
+# TYPE slurm_queue_total gauge
+slurm_queue_total 0
+# HELP slurm_rpc_stats_count Information provided by the Slurm sdiag command, rpc count statistic
+# TYPE slurm_rpc_stats_count counter
+slurm_rpc_stats_count{operation="MESSAGE_NODE_REGISTRATION_STATUS"} 8
+slurm_rpc_stats_count{operation="REQUEST_AUTH_TOKEN"} 3
+slurm_rpc_stats_count{operation="REQUEST_JOB_INFO"} 3
+slurm_rpc_stats_count{operation="REQUEST_LICENSE_INFO"} 1
+slurm_rpc_stats_count{operation="REQUEST_NODE_INFO"} 3
+slurm_rpc_stats_count{operation="REQUEST_PARTITION_INFO"} 7
+slurm_rpc_stats_count{operation="REQUEST_PING"} 4
+slurm_rpc_stats_count{operation="REQUEST_STATS_INFO"} 1
+# HELP slurm_rpc_stats_time_avg_seconds Information provided by the Slurm sdiag command, rpc average time statistic
+# TYPE slurm_rpc_stats_time_avg_seconds gauge
+slurm_rpc_stats_time_avg_seconds{operation="MESSAGE_NODE_REGISTRATION_STATUS"} 6.2e-05
+slurm_rpc_stats_time_avg_seconds{operation="REQUEST_AUTH_TOKEN"} 0.000214
+slurm_rpc_stats_time_avg_seconds{operation="REQUEST_JOB_INFO"} 5.2e-05
+slurm_rpc_stats_time_avg_seconds{operation="REQUEST_LICENSE_INFO"} 3.5e-05
+slurm_rpc_stats_time_avg_seconds{operation="REQUEST_NODE_INFO"} 0.021156
+slurm_rpc_stats_time_avg_seconds{operation="REQUEST_PARTITION_INFO"} 5.7e-05
+slurm_rpc_stats_time_avg_seconds{operation="REQUEST_PING"} 4.2e-05
+slurm_rpc_stats_time_avg_seconds{operation="REQUEST_STATS_INFO"} 5.6e-05
+# HELP slurm_rpc_stats_time_total_seconds Information provided by the Slurm sdiag command, rpc total time statistic
+# TYPE slurm_rpc_stats_time_total_seconds counter
+slurm_rpc_stats_time_total_seconds{operation="MESSAGE_NODE_REGISTRATION_STATUS"} 0.000502
+slurm_rpc_stats_time_total_seconds{operation="REQUEST_AUTH_TOKEN"} 0.000644
+slurm_rpc_stats_time_total_seconds{operation="REQUEST_JOB_INFO"} 0.000156
+slurm_rpc_stats_time_total_seconds{operation="REQUEST_LICENSE_INFO"} 3.5e-05
+slurm_rpc_stats_time_total_seconds{operation="REQUEST_NODE_INFO"} 0.063469
+slurm_rpc_stats_time_total_seconds{operation="REQUEST_PARTITION_INFO"} 0.000405
+slurm_rpc_stats_time_total_seconds{operation="REQUEST_PING"} 0.000169
+slurm_rpc_stats_time_total_seconds{operation="REQUEST_STATS_INFO"} 5.6e-05
+# HELP slurm_scheduler_agent_count Information provided by the Slurm sdiag command, number of agent threads
+# TYPE slurm_scheduler_agent_count gauge
+slurm_scheduler_agent_count 0
+# HELP slurm_scheduler_agent_queue_size Information provided by the Slurm sdiag command, agent queue size
+# TYPE slurm_scheduler_agent_queue_size gauge
+slurm_scheduler_agent_queue_size 0
+# HELP slurm_scheduler_agent_thread_count Information provided by the Slurm sdiag command, active agent threads
+# TYPE slurm_scheduler_agent_thread_count gauge
+slurm_scheduler_agent_thread_count 0
+# HELP slurm_scheduler_backfill_depth_mean Information provided by the Slurm sdiag command, scheduler backfill mean depth
+# TYPE slurm_scheduler_backfill_depth_mean gauge
+slurm_scheduler_backfill_depth_mean 0
+# HELP slurm_scheduler_backfill_depth_mean_try_sched Information provided by the Slurm sdiag command, scheduler backfill mean depth (try sched)
+# TYPE slurm_scheduler_backfill_depth_mean_try_sched gauge
+slurm_scheduler_backfill_depth_mean_try_sched 0
+# HELP slurm_scheduler_backfill_last_cycle_seconds Information provided by the Slurm sdiag command, scheduler backfill last cycle time
+# TYPE slurm_scheduler_backfill_last_cycle_seconds gauge
+slurm_scheduler_backfill_last_cycle_seconds 0
+# HELP slurm_scheduler_backfill_last_depth_cycle Information provided by the Slurm sdiag command, scheduler backfill last depth cycle
+# TYPE slurm_scheduler_backfill_last_depth_cycle gauge
+slurm_scheduler_backfill_last_depth_cycle 0
+# HELP slurm_scheduler_backfill_last_depth_cycle_try_sched Information provided by the Slurm sdiag command, scheduler backfill last depth cycle (try sched)
+# TYPE slurm_scheduler_backfill_last_depth_cycle_try_sched gauge
+slurm_scheduler_backfill_last_depth_cycle_try_sched 0
+# HELP slurm_scheduler_backfill_last_queue_length Information provided by the Slurm sdiag command, scheduler backfill last queye length
+# TYPE slurm_scheduler_backfill_last_queue_length gauge
+slurm_scheduler_backfill_last_queue_length 0
+# HELP slurm_scheduler_backfill_last_table_size Information provided by the Slurm sdiag command, scheduler backfill last table size
+# TYPE slurm_scheduler_backfill_last_table_size gauge
+slurm_scheduler_backfill_last_table_size 0
+# HELP slurm_scheduler_backfill_max_cycle_seconds Information provided by the Slurm sdiag command, scheduler backfill max cycle time
+# TYPE slurm_scheduler_backfill_max_cycle_seconds gauge
+slurm_scheduler_backfill_max_cycle_seconds 0
+# HELP slurm_scheduler_backfill_mean_cycle_seconds Information provided by the Slurm sdiag command, scheduler backfill mean cycle time
+# TYPE slurm_scheduler_backfill_mean_cycle_seconds gauge
+slurm_scheduler_backfill_mean_cycle_seconds 0
+# HELP slurm_scheduler_backfill_mean_table_size Information provided by the Slurm sdiag command, scheduler backfill mean table size
+# TYPE slurm_scheduler_backfill_mean_table_size gauge
+slurm_scheduler_backfill_mean_table_size 0
+# HELP slurm_scheduler_backfill_queue_length_mean Information provided by the Slurm sdiag command, scheduler backfill queue length mean
+# TYPE slurm_scheduler_backfill_queue_length_mean gauge
+slurm_scheduler_backfill_queue_length_mean 0
+# HELP slurm_scheduler_backfilled_heterogeneous_total Information provided by the Slurm sdiag command, number of heterogeneous job components started thanks to backfilling since last Slurm start
+# TYPE slurm_scheduler_backfilled_heterogeneous_total gauge
+slurm_scheduler_backfilled_heterogeneous_total 0
+# HELP slurm_scheduler_backfilled_jobs_since_cycle_total Information provided by the Slurm sdiag command, number of jobs started thanks to backfilling since last time stats where reset
+# TYPE slurm_scheduler_backfilled_jobs_since_cycle_total gauge
+slurm_scheduler_backfilled_jobs_since_cycle_total 0
+# HELP slurm_scheduler_backfilled_jobs_since_start_total Information provided by the Slurm sdiag command, number of jobs started thanks to backfilling since last slurm start
+# TYPE slurm_scheduler_backfilled_jobs_since_start_total gauge
+slurm_scheduler_backfilled_jobs_since_start_total 0
+# HELP slurm_scheduler_cycle_mean_depth Information provided by the Slurm sdiag command, average depth of schedule max cycle
+# TYPE slurm_scheduler_cycle_mean_depth gauge
+slurm_scheduler_cycle_mean_depth 0
+# HELP slurm_scheduler_cycle_per_minute Information provided by the Slurm sdiag command, number scheduler cycles per minute
+# TYPE slurm_scheduler_cycle_per_minute gauge
+slurm_scheduler_cycle_per_minute 1
+# HELP slurm_scheduler_dbd_queue_size Information provided by the Slurm sdiag command, length of the DBD agent queue
+# TYPE slurm_scheduler_dbd_queue_size gauge
+slurm_scheduler_dbd_queue_size 0
+# HELP slurm_scheduler_last_cycle_seconds Information provided by the Slurm sdiag command, scheduler last cycle time
+# TYPE slurm_scheduler_last_cycle_seconds gauge
+slurm_scheduler_last_cycle_seconds 1.8e-05
+# HELP slurm_scheduler_last_queue_length Information provided by the Slurm sdiag command, main schedule last queue length
+# TYPE slurm_scheduler_last_queue_length gauge
+slurm_scheduler_last_queue_length 0
+# HELP slurm_scheduler_max_cycle_seconds Information provided by the Slurm sdiag command, scheduler max cycle time
+# TYPE slurm_scheduler_max_cycle_seconds gauge
+slurm_scheduler_max_cycle_seconds 3.7e-05
+# HELP slurm_scheduler_mean_cycle_seconds Information provided by the Slurm sdiag command, scheduler mean cycle time
+# TYPE slurm_scheduler_mean_cycle_seconds gauge
+slurm_scheduler_mean_cycle_seconds 1.2e-05
+# HELP slurm_scheduler_threads Information provided by the Slurm sdiag command, number of scheduler threads 
+# TYPE slurm_scheduler_threads gauge
+slurm_scheduler_threads 4
+# HELP slurm_scheduler_total_cycle Information provided by the Slurm sdiag command, scheduler total cycle iterations
+# TYPE slurm_scheduler_total_cycle gauge
+slurm_scheduler_total_cycle 186
+# HELP slurm_user_rpc_stats_count Information provided by the Slurm sdiag command, rpc count statistic per user
+# TYPE slurm_user_rpc_stats_count counter
+slurm_user_rpc_stats_count{user="opc"} 19
+slurm_user_rpc_stats_count{user="root"} 8
+slurm_user_rpc_stats_count{user="slurm"} 3
+# HELP slurm_user_rpc_stats_time_avg_seconds Information provided by the Slurm sdiag command, rpc average time statistic per user
+# TYPE slurm_user_rpc_stats_time_avg_seconds gauge
+slurm_user_rpc_stats_time_avg_seconds{user="opc"} 0.003402
+slurm_user_rpc_stats_time_avg_seconds{user="root"} 6.2e-05
+slurm_user_rpc_stats_time_avg_seconds{user="slurm"} 9.8e-05
+# HELP slurm_user_rpc_stats_time_total_seconds Information provided by the Slurm sdiag command, rpc total time statistic per user
+# TYPE slurm_user_rpc_stats_time_total_seconds counter
+slurm_user_rpc_stats_time_total_seconds{user="opc"} 0.06464
+slurm_user_rpc_stats_time_total_seconds{user="root"} 0.000502
+slurm_user_rpc_stats_time_total_seconds{user="slurm"} 0.000294

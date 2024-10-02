@@ -86,8 +86,6 @@ local health_status = [
 { expr1: 'rdma_device_status{hostname=~"$hostname", oci_name=~"$oci_name"}==0', expr2: 'rdma_device_status{hostname=~"$hostname", oci_name=~"$oci_name"}==1', legend_format: '{{hostname}}:{{rdma_device}}', title: 'RDMA Device Status', unit: 'none' },
 { expr1: 'rdma_link_noflap{hostname=~"$hostname", oci_name=~"$oci_name"}==0', expr2: 'rdma_link_noflap{hostname=~"$hostname", oci_name=~"$oci_name"}==1', legend_format: '{{hostname}}:{{rdma_device}}', title: 'RDMA Link flapping', unit: 'none' },
 { expr1: 'rttcc_status{hostname=~"$hostname", oci_name=~"$oci_name"}==0', expr2: 'rttcc_status{hostname=~"$hostname", oci_name=~"$oci_name"}==1', legend_format: '{{hostname}}:{{rdma_device}}', title: 'RTTCC Status', unit: 'none' },
-{ expr1: 'gpu_count{hostname=~"$hostname", oci_name=~"$oci_name"}==0', expr2: 'gpu_count{hostname=~"$hostname", oci_name=~"$oci_name"}==1', legend_format: '{{hostname}}:{{instance_shape}}', title: 'GPU Status', unit: 'none' },
-{ expr1: 'oca_version{hostname=~"$hostname", oci_name=~"$oci_name"}==0', expr2: 'oca_version{hostname=~"$hostname", oci_name=~"$oci_name"}==1', legend_format: '{{hostname}}:{{version}}', title: 'OCA Version', unit: 'none' },
 ];
 
 local nfs_metrics = [
@@ -110,13 +108,6 @@ local slurm_metrics = [
 
 local slurm_metrics_loop = [
   { subpanels: [ { expr: 'slurm_cpus_idle/slurm_cpus_total*100', legend: '{{cluster_name}} idle' }, { expr: 'slurm_cpus_alloc/slurm_cpus_total*100', legend: '{{cluster_name}} alloc' },] , legend_format: '{{cluster_name}}', title: 'CPUs Idle, Allocated', unit: 'percent' }, 
-];
-
-local slurm_single_stats = [
-  { subpanels: [ { expr: 'slurm_cpus_idle', legend: '{{cluster_name}} idle' }, { expr: 'slurm_cpus_alloc', legend: '{{cluster_name}} alloc' }, { expr: 'slurm_cpus_total', legend: '{{cluster_name}} total' },] , title: 'CPUs Idle, Allocated, Total', unit: 'none' }, 
-  { subpanels: [ { expr: 'slurm_gpus_idle', legend: '{{cluster_name}} idle' }, { expr: 'slurm_gpus_alloc', legend: '{{cluster_name}} alloc' }, { expr: 'slurm_gpus_total', legend: '{{cluster_name}} total' },] , title: 'GPUs Idle, Allocated, Total', unit: 'none' }, 
-  { subpanels: [ { expr: 'slurm_gres_gpu_running', legend: '{{cluster_name}} running' }, { expr: 'slurm_gres_gpu_completed', legend: '{{cluster_name}} completed' }, { expr: 'slurm_gres_gpu_suspended', legend: '{{cluster_name}} suspended' }, { expr: 'slurm_gres_gpu_pending', legend: '{{cluster_name}} pending' }, { expr: 'slurm_gres_gpu_total', legend: '{{cluster_name}} total' },] , title: 'Count of GRES GPU Jobs in different states', unit: 'none' }, 
-  { subpanels: [ { expr: 'slurm_nodes_idle', legend: '{{cluster_name}} idle' }, { expr: 'slurm_nodes_alloc', legend: '{{cluster_name}} allocated' }, { expr: 'slurm_nodes_down', legend: '{{cluster_name}} down' }, { expr: 'slurm_nodes_fail', legend: '{{cluster_name}} failed' }, { expr: 'slurm_nodes_total', legend: '{{cluster_name}} total' },] , title: 'Nodes', unit: 'none' }, 
 ];
 
 
@@ -370,27 +361,20 @@ g.dashboard.new('Cluster Dashboard')
         for gauge_panel in metric.subpanels    
         ])
         + g.panel.gauge.standardOptions.withUnit('percent')
-        + g.panel.gauge.standardOptions.color.withMode('continuous-GrYlRd')
-        + g.panel.gauge.standardOptions.color.withSeriesBy('max')
+        + g.panel.gauge.standardOptions.color.withMode('thresholds')
+        + g.panel.gauge.standardOptions.thresholds.withMode('absolute')
+        + g.panel.gauge.standardOptions.thresholds.withSteps([
+          g.panel.gauge.thresholdStep.withColor('red')
+          + g.panel.gauge.thresholdStep.withValue(null),
+          g.panel.gauge.thresholdStep.withColor('orange')
+          + g.panel.gauge.thresholdStep.withValue(50),
+          g.panel.gauge.thresholdStep.withColor('green')
+          + g.panel.gauge.thresholdStep.withValue(80),
+        ])
         + g.panel.gauge.gridPos.withW(3)
         + g.panel.gauge.gridPos.withH(5)
       for metric in slurm_metrics_loop
       ]),  
-    row.new('Slurm Metrics Single Stat Loop')
-    + row.withCollapsed(true)
-    + row.withPanels([
-      g.panel.stat.new(metric.title)
-        + g.panel.stat.queryOptions.withTargets([
-            g.query.prometheus.new(
-                '$PROMETHEUS_DS',
-                stat_panel.expr,
-            )
-            + g.query.prometheus.withLegendFormat(stat_panel.legend),
-        for stat_panel in metric.subpanels    
-        ])
-      for metric in slurm_single_stats  
-      ]),  
-
   ])  
 )
 

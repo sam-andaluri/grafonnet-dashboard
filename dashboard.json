@@ -2814,24 +2814,8 @@
                "fieldConfig": {
                   "defaults": {
                      "color": {
-                        "mode": "thresholds"
-                     },
-                     "thresholds": {
-                        "mode": "absolute",
-                        "steps": [
-                           {
-                              "color": "green",
-                              "value": null
-                           },
-                           {
-                              "color": "orange",
-                              "value": 50
-                           },
-                           {
-                              "color": "red",
-                              "value": 80
-                           }
-                        ]
+                        "mode": "continuous-GrYlRd",
+                        "seriesBy": "max"
                      },
                      "unit": "percent"
                   }
@@ -2851,7 +2835,7 @@
                         "uid": "$PROMETHEUS_DS"
                      },
                      "expr": "slurm_cpus_idle/slurm_cpus_total*100",
-                     "legendFormat": "{{cluster_name}}"
+                     "legendFormat": "{{cluster_name}} idle"
                   },
                   {
                      "datasource": {
@@ -2859,30 +2843,228 @@
                         "uid": "$PROMETHEUS_DS"
                      },
                      "expr": "slurm_cpus_alloc/slurm_cpus_total*100",
-                     "legendFormat": "{{cluster_name}}"
-                  },
-                  {
-                     "datasource": {
-                        "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
-                     },
-                     "expr": "slurm_gpus_idle/slurm_gpus_total*100",
-                     "legendFormat": "{{cluster_name}}"
-                  },
-                  {
-                     "datasource": {
-                        "type": "prometheus",
-                        "uid": "$PROMETHEUS_DS"
-                     },
-                     "expr": "slurm_gpus_alloc/slurm_gpus_total*100",
-                     "legendFormat": "{{cluster_name}}"
+                     "legendFormat": "{{cluster_name}} alloc"
                   }
                ],
-               "title": "CPUs Idle",
+               "title": "CPUs Idle, Allocated",
                "type": "gauge"
             }
          ],
          "title": "Slurm Metrics Guage Loop",
+         "type": "row"
+      },
+      {
+         "collapsed": true,
+         "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 12
+         },
+         "id": 92,
+         "panels": [
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 0,
+                  "y": 0
+               },
+               "id": 93,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "slurm_cpus_idle",
+                     "legendFormat": "{{cluster_name}} idle"
+                  },
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "slurm_cpus_alloc",
+                     "legendFormat": "{{cluster_name}} alloc"
+                  },
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "slurm_cpus_total",
+                     "legendFormat": "{{cluster_name}} total"
+                  }
+               ],
+               "title": "CPUs Idle, Allocated, Total",
+               "type": "stat"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 8,
+                  "y": 0
+               },
+               "id": 94,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "slurm_gpus_idle",
+                     "legendFormat": "{{cluster_name}} idle"
+                  },
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "slurm_gpus_alloc",
+                     "legendFormat": "{{cluster_name}} alloc"
+                  },
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "slurm_gpus_total",
+                     "legendFormat": "{{cluster_name}} total"
+                  }
+               ],
+               "title": "GPUs Idle, Allocated, Total",
+               "type": "stat"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 16,
+                  "y": 0
+               },
+               "id": 95,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "slurm_gres_gpu_running",
+                     "legendFormat": "{{cluster_name}} running"
+                  },
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "slurm_gres_gpu_completed",
+                     "legendFormat": "{{cluster_name}} completed"
+                  },
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "slurm_gres_gpu_suspended",
+                     "legendFormat": "{{cluster_name}} suspended"
+                  },
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "slurm_gres_gpu_pending",
+                     "legendFormat": "{{cluster_name}} pending"
+                  },
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "slurm_gres_gpu_total",
+                     "legendFormat": "{{cluster_name}} total"
+                  }
+               ],
+               "title": "Count of GRES GPU Jobs in different states",
+               "type": "stat"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 0,
+                  "y": 0
+               },
+               "id": 96,
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "slurm_nodes_idle",
+                     "legendFormat": "{{cluster_name}} idle"
+                  },
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "slurm_nodes_alloc",
+                     "legendFormat": "{{cluster_name}} allocated"
+                  },
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "slurm_nodes_down",
+                     "legendFormat": "{{cluster_name}} down"
+                  },
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "slurm_nodes_fail",
+                     "legendFormat": "{{cluster_name}} failed"
+                  },
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "slurm_nodes_total",
+                     "legendFormat": "{{cluster_name}} total"
+                  }
+               ],
+               "title": "Nodes",
+               "type": "stat"
+            }
+         ],
+         "title": "Slurm Metrics Single Stat Loop",
          "type": "row"
       }
    ],

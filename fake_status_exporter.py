@@ -13,19 +13,19 @@ fake_rdma_link_noflap = Gauge('rdma_link_noflap', '', ['rdma_device', 'net_devic
 def get_rdma_metrics():
     hostname = subprocess.getoutput("hostname")
     oca_version = subprocess.getoutput("rpm -qa | grep oracle-cloud-agent | cut -d '-' -f4,5")
-    mlx_rdma = subprocess.getoutput("rdma link show | grep rdma | cut -d ' ' -f2,8 | sed 's/\/1//g' | tr '\n' ' '").split()
-    fakelink = "mlx5_{digit}".format(digit=re.findall('\d', hostname)[0])
+    #mlx_rdma = subprocess.getoutput("rdma link show | grep rdma | cut -d ' ' -f2,8 | sed 's/\/1//g' | tr '\n' ' '").split()
+    #fakelink = "mlx5_{digit}".format(digit=re.findall('\d', hostname)[0])
     fake_oca_version.labels(hostname=hostname, version=oca_version).set(1)
-    for i in range(0, len(mlx_rdma), 2):
-      mlx = mlx_rdma[i] 
-      rdma = mlx_rdma[i+1]
-      fake_rttcc_status.labels(rdma_device=rdma, net_device=mlx).set(1)
-      if fakelink==mlx:
-        fake_rdma_device_status.labels(rdma_device=rdma, net_device=mlx).set(0)
-        fake_rdma_link_noflap.labels(rdma_device=rdma, net_device=mlx).set(0)
-      else:
-        fake_rdma_device_status.labels(rdma_device=rdma, net_device=mlx).set(1)
-        fake_rdma_link_noflap.labels(rdma_device=rdma, net_device=mlx).set(1)
+    #for i in range(0, len(mlx_rdma), 2):
+    #  mlx = mlx_rdma[i] 
+    #  rdma = mlx_rdma[i+1]
+    #  fake_rttcc_status.labels(rdma_device=rdma, net_device=mlx).set(1)
+    #  if fakelink==mlx:
+    #    fake_rdma_device_status.labels(rdma_device=rdma, net_device=mlx).set(0)
+    #    fake_rdma_link_noflap.labels(rdma_device=rdma, net_device=mlx).set(0)
+    #  else:
+    #    fake_rdma_device_status.labels(rdma_device=rdma, net_device=mlx).set(1)
+    #    fake_rdma_link_noflap.labels(rdma_device=rdma, net_device=mlx).set(1)
 
 
 if __name__ == '__main__':
