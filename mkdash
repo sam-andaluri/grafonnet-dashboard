@@ -7,4 +7,4 @@ payload="{\"dashboard\": $(jq . dashboard.json), \"overwrite\": true}"
 curl -X POST $BASIC_AUTH \
   -H 'Content-Type: application/json' \
   -d "${payload}" \
-  "http://admin:admin@warm-crow-monitoring:3000/api/dashboards/db"
+  "http://admin:admin@monitoring:3000/api/dashboards/db"

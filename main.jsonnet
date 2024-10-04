@@ -232,9 +232,9 @@ g.dashboard.new('Cluster Dashboard')
         + g.panel.timeSeries.queryOptions.withTargets([
             g.query.prometheus.new(
                 '$PROMETHEUS_DS',
-                'avg by(Hostname) (' + metric.name + '{Hostname=~"$hostname", oci_name=~"$oci_name"})',
+                'avg by(Hostname, gpu) (' + metric.name + '{Hostname=~"$hostname", oci_name=~"$oci_name"})',
             )
-            + g.query.prometheus.withLegendFormat('{{ Hostname }}')
+            + g.query.prometheus.withLegendFormat('{{ Hostname }}:{{ gpu }}')
         ])
         + g.panel.timeSeries.standardOptions.withUnit(metric.unit)
         + g.panel.timeSeries.gridPos.withW(24)
@@ -248,9 +248,9 @@ g.dashboard.new('Cluster Dashboard')
         + g.panel.timeSeries.queryOptions.withTargets([
             g.query.prometheus.new(
                 '$PROMETHEUS_DS',
-                'avg by(Hostname) (' + metric.name + '{Hostname=~"$hostname", oci_name=~"$oci_name"})',
+                'avg by(Hostname, gpu) (' + metric.name + '{Hostname=~"$hostname", oci_name=~"$oci_name"})',
             )
-            + g.query.prometheus.withLegendFormat('{{ Hostname }}')
+            + g.query.prometheus.withLegendFormat('{{ Hostname }}:{{ gpu }}')
         ])
         + g.panel.timeSeries.standardOptions.withUnit(metric.unit)
         + g.panel.timeSeries.gridPos.withW(24)

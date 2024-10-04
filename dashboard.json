@@ -182,6 +182,120 @@
                ],
                "title": "RTTCC Status",
                "type": "state-timeline"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "mappings": [
+                        {
+                           "options": {
+                              "0": {
+                                 "color": "red",
+                                 "text": "down"
+                              },
+                              "1": {
+                                 "color": "green",
+                                 "text": "up"
+                              }
+                           },
+                           "type": "value"
+                        }
+                     ],
+                     "unit": "none"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 0,
+                  "y": 0
+               },
+               "id": 5,
+               "options": {
+                  "showValue": "never"
+               },
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "gpu_count{hostname=~\"$hostname\", oci_name=~\"$oci_name\"}==0",
+                     "legendFormat": "{{hostname}}:{{instance_shape}}"
+                  },
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "gpu_count{hostname=~\"$hostname\", oci_name=~\"$oci_name\"}==1",
+                     "legendFormat": "{{hostname}}:{{instance_shape}}"
+                  }
+               ],
+               "title": "GPU Status",
+               "type": "state-timeline"
+            },
+            {
+               "datasource": {
+                  "type": "datasource",
+                  "uid": "-- Mixed --"
+               },
+               "fieldConfig": {
+                  "defaults": {
+                     "mappings": [
+                        {
+                           "options": {
+                              "0": {
+                                 "color": "red",
+                                 "text": "down"
+                              },
+                              "1": {
+                                 "color": "green",
+                                 "text": "up"
+                              }
+                           },
+                           "type": "value"
+                        }
+                     ],
+                     "unit": "none"
+                  }
+               },
+               "gridPos": {
+                  "h": 8,
+                  "w": 8,
+                  "x": 8,
+                  "y": 0
+               },
+               "id": 6,
+               "options": {
+                  "showValue": "never"
+               },
+               "pluginVersion": "v11.0.0",
+               "targets": [
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "oca_version{hostname=~\"$hostname\", oci_name=~\"$oci_name\"}==0",
+                     "legendFormat": "{{hostname}}:{{version}}"
+                  },
+                  {
+                     "datasource": {
+                        "type": "prometheus",
+                        "uid": "$PROMETHEUS_DS"
+                     },
+                     "expr": "oca_version{hostname=~\"$hostname\", oci_name=~\"$oci_name\"}==1",
+                     "legendFormat": "{{hostname}}:{{version}}"
+                  }
+               ],
+               "title": "OCA Version",
+               "type": "state-timeline"
             }
          ],
          "title": "Health Status",
@@ -195,7 +309,7 @@
             "x": 0,
             "y": 1
          },
-         "id": 5,
+         "id": 7,
          "panels": [
             {
                "datasource": {
@@ -213,7 +327,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 6,
+               "id": 8,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -244,7 +358,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 7,
+               "id": 9,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -275,7 +389,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 8,
+               "id": 10,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -302,7 +416,7 @@
             "x": 0,
             "y": 2
          },
-         "id": 9,
+         "id": 11,
          "panels": [
             {
                "datasource": {
@@ -320,7 +434,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 10,
+               "id": 12,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -351,7 +465,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 11,
+               "id": 13,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -382,7 +496,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 12,
+               "id": 14,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -413,7 +527,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 13,
+               "id": 15,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -444,7 +558,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 14,
+               "id": 16,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -475,7 +589,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 15,
+               "id": 17,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -506,7 +620,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 16,
+               "id": 18,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -537,7 +651,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 17,
+               "id": 19,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -568,7 +682,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 18,
+               "id": 20,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -599,7 +713,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 19,
+               "id": 21,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -630,7 +744,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 20,
+               "id": 22,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -661,7 +775,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 21,
+               "id": 23,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -688,7 +802,7 @@
             "x": 0,
             "y": 3
          },
-         "id": 22,
+         "id": 24,
          "panels": [
             {
                "datasource": {
@@ -706,7 +820,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 23,
+               "id": 25,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -737,7 +851,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 24,
+               "id": 26,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -768,7 +882,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 25,
+               "id": 27,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -799,7 +913,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 26,
+               "id": 28,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -830,7 +944,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 27,
+               "id": 29,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -861,7 +975,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 28,
+               "id": 30,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -892,7 +1006,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 29,
+               "id": 31,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -923,7 +1037,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 30,
+               "id": 32,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -950,7 +1064,7 @@
             "x": 0,
             "y": 4
          },
-         "id": 31,
+         "id": 33,
          "panels": [
             {
                "datasource": {
@@ -968,7 +1082,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 32,
+               "id": 34,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -976,8 +1090,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_SM_CLOCK{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
-                     "legendFormat": "{{ Hostname }}"
+                     "expr": "avg by(Hostname, gpu) (DCGM_FI_DEV_SM_CLOCK{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
+                     "legendFormat": "{{ Hostname }}:{{ gpu }}"
                   }
                ],
                "title": "SM Clock",
@@ -999,7 +1113,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 33,
+               "id": 35,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1007,8 +1121,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_MEM_CLOCK{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
-                     "legendFormat": "{{ Hostname }}"
+                     "expr": "avg by(Hostname, gpu) (DCGM_FI_DEV_MEM_CLOCK{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
+                     "legendFormat": "{{ Hostname }}:{{ gpu }}"
                   }
                ],
                "title": "Memory Clock",
@@ -1030,7 +1144,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 34,
+               "id": 36,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1038,8 +1152,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_MEMORY_TEMP{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
-                     "legendFormat": "{{ Hostname }}"
+                     "expr": "avg by(Hostname, gpu) (DCGM_FI_DEV_MEMORY_TEMP{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
+                     "legendFormat": "{{ Hostname }}:{{ gpu }}"
                   }
                ],
                "title": "Memory temperature (in C)",
@@ -1061,7 +1175,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 35,
+               "id": 37,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1069,8 +1183,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_GPU_TEMP{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
-                     "legendFormat": "{{ Hostname }}"
+                     "expr": "avg by(Hostname, gpu) (DCGM_FI_DEV_GPU_TEMP{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
+                     "legendFormat": "{{ Hostname }}:{{ gpu }}"
                   }
                ],
                "title": "GPU temperature (in C)",
@@ -1092,7 +1206,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 36,
+               "id": 38,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1100,8 +1214,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_POWER_USAGE{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
-                     "legendFormat": "{{ Hostname }}"
+                     "expr": "avg by(Hostname, gpu) (DCGM_FI_DEV_POWER_USAGE{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
+                     "legendFormat": "{{ Hostname }}:{{ gpu }}"
                   }
                ],
                "title": "Power draw (in W)",
@@ -1123,7 +1237,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 37,
+               "id": 39,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1131,8 +1245,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_TOTAL_ENERGY_CONSUMPTION{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
-                     "legendFormat": "{{ Hostname }}"
+                     "expr": "avg by(Hostname, gpu) (DCGM_FI_DEV_TOTAL_ENERGY_CONSUMPTION{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
+                     "legendFormat": "{{ Hostname }}:{{ gpu }}"
                   }
                ],
                "title": "Total energy consumption since boot (in mJ)",
@@ -1154,7 +1268,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 38,
+               "id": 40,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1162,8 +1276,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_PCIE_REPLAY_COUNTER{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
-                     "legendFormat": "{{ Hostname }}"
+                     "expr": "avg by(Hostname, gpu) (DCGM_FI_DEV_PCIE_REPLAY_COUNTER{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
+                     "legendFormat": "{{ Hostname }}:{{ gpu }}"
                   }
                ],
                "title": "Total number of PCIe retries",
@@ -1185,7 +1299,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 39,
+               "id": 41,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1193,8 +1307,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_GPU_UTIL{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
-                     "legendFormat": "{{ Hostname }}"
+                     "expr": "avg by(Hostname, gpu) (DCGM_FI_DEV_GPU_UTIL{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
+                     "legendFormat": "{{ Hostname }}:{{ gpu }}"
                   }
                ],
                "title": "GPU Utilization",
@@ -1216,7 +1330,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 40,
+               "id": 42,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1224,8 +1338,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_MEM_COPY_UTIL{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
-                     "legendFormat": "{{ Hostname }}"
+                     "expr": "avg by(Hostname, gpu) (DCGM_FI_DEV_MEM_COPY_UTIL{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
+                     "legendFormat": "{{ Hostname }}:{{ gpu }}"
                   }
                ],
                "title": "Memory Copy Utilization",
@@ -1247,7 +1361,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 41,
+               "id": 43,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1255,8 +1369,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_ENC_UTIL{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
-                     "legendFormat": "{{ Hostname }}"
+                     "expr": "avg by(Hostname, gpu) (DCGM_FI_DEV_ENC_UTIL{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
+                     "legendFormat": "{{ Hostname }}:{{ gpu }}"
                   }
                ],
                "title": "Encoder Utilization",
@@ -1278,7 +1392,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 42,
+               "id": 44,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1286,8 +1400,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_DEC_UTIL{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
-                     "legendFormat": "{{ Hostname }}"
+                     "expr": "avg by(Hostname, gpu) (DCGM_FI_DEV_DEC_UTIL{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
+                     "legendFormat": "{{ Hostname }}:{{ gpu }}"
                   }
                ],
                "title": "Decoder Utilization",
@@ -1309,7 +1423,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 43,
+               "id": 45,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1317,8 +1431,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_XID_ERRORS{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
-                     "legendFormat": "{{ Hostname }}"
+                     "expr": "avg by(Hostname, gpu) (DCGM_FI_DEV_XID_ERRORS{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
+                     "legendFormat": "{{ Hostname }}:{{ gpu }}"
                   }
                ],
                "title": "Value of the last XID error encountered",
@@ -1340,7 +1454,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 44,
+               "id": 46,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1348,8 +1462,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_FB_FREE{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
-                     "legendFormat": "{{ Hostname }}"
+                     "expr": "avg by(Hostname, gpu) (DCGM_FI_DEV_FB_FREE{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
+                     "legendFormat": "{{ Hostname }}:{{ gpu }}"
                   }
                ],
                "title": "Framebuffer memory free (in MiB)",
@@ -1371,7 +1485,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 45,
+               "id": 47,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1379,8 +1493,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_FB_USED{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
-                     "legendFormat": "{{ Hostname }}"
+                     "expr": "avg by(Hostname, gpu) (DCGM_FI_DEV_FB_USED{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
+                     "legendFormat": "{{ Hostname }}:{{ gpu }}"
                   }
                ],
                "title": "Framebuffer memory used (in MiB)",
@@ -1402,7 +1516,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 46,
+               "id": 48,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1410,8 +1524,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_NVLINK_BANDWIDTH_TOTAL{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
-                     "legendFormat": "{{ Hostname }}"
+                     "expr": "avg by(Hostname, gpu) (DCGM_FI_DEV_NVLINK_BANDWIDTH_TOTAL{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
+                     "legendFormat": "{{ Hostname }}:{{ gpu }}"
                   }
                ],
                "title": "Total number of NVLink bandwidth counters for all lanes",
@@ -1429,7 +1543,7 @@
             "x": 0,
             "y": 5
          },
-         "id": 47,
+         "id": 49,
          "panels": [
             {
                "datasource": {
@@ -1447,7 +1561,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 48,
+               "id": 50,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1455,8 +1569,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_ECC_SBE_VOL_TOTAL{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
-                     "legendFormat": "{{ Hostname }}"
+                     "expr": "avg by(Hostname, gpu) (DCGM_FI_DEV_ECC_SBE_VOL_TOTAL{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
+                     "legendFormat": "{{ Hostname }}:{{ gpu }}"
                   }
                ],
                "title": "Total number of single-bit volatile ECC errors",
@@ -1478,7 +1592,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 49,
+               "id": 51,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1486,8 +1600,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_ECC_DBE_VOL_TOTAL{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
-                     "legendFormat": "{{ Hostname }}"
+                     "expr": "avg by(Hostname, gpu) (DCGM_FI_DEV_ECC_DBE_VOL_TOTAL{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
+                     "legendFormat": "{{ Hostname }}:{{ gpu }}"
                   }
                ],
                "title": "Total number of double-bit volatile ECC errors",
@@ -1509,7 +1623,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 50,
+               "id": 52,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1517,8 +1631,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_ECC_SBE_AGG_TOTAL{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
-                     "legendFormat": "{{ Hostname }}"
+                     "expr": "avg by(Hostname, gpu) (DCGM_FI_DEV_ECC_SBE_AGG_TOTAL{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
+                     "legendFormat": "{{ Hostname }}:{{ gpu }}"
                   }
                ],
                "title": "Total number of single-bit persistent ECC errors",
@@ -1540,7 +1654,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 51,
+               "id": 53,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1548,8 +1662,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_ECC_DBE_AGG_TOTAL{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
-                     "legendFormat": "{{ Hostname }}"
+                     "expr": "avg by(Hostname, gpu) (DCGM_FI_DEV_ECC_DBE_AGG_TOTAL{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
+                     "legendFormat": "{{ Hostname }}:{{ gpu }}"
                   }
                ],
                "title": "Total number of double-bit persistent ECC errors",
@@ -1571,7 +1685,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 52,
+               "id": 54,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1579,8 +1693,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_UNCORRECTABLE_REMAPPED_ROWS{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
-                     "legendFormat": "{{ Hostname }}"
+                     "expr": "avg by(Hostname, gpu) (DCGM_FI_DEV_UNCORRECTABLE_REMAPPED_ROWS{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
+                     "legendFormat": "{{ Hostname }}:{{ gpu }}"
                   }
                ],
                "title": "Number of remapped rows for uncorrectable errors",
@@ -1602,7 +1716,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 53,
+               "id": 55,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1610,8 +1724,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_CORRECTABLE_REMAPPED_ROWS{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
-                     "legendFormat": "{{ Hostname }}"
+                     "expr": "avg by(Hostname, gpu) (DCGM_FI_DEV_CORRECTABLE_REMAPPED_ROWS{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
+                     "legendFormat": "{{ Hostname }}:{{ gpu }}"
                   }
                ],
                "title": "Number of remapped rows for correctable errors",
@@ -1633,7 +1747,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 54,
+               "id": 56,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1641,8 +1755,8 @@
                         "type": "prometheus",
                         "uid": "$PROMETHEUS_DS"
                      },
-                     "expr": "avg by(Hostname) (DCGM_FI_DEV_ROW_REMAP_FAILURE{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
-                     "legendFormat": "{{ Hostname }}"
+                     "expr": "avg by(Hostname, gpu) (DCGM_FI_DEV_ROW_REMAP_FAILURE{Hostname=~\"$hostname\", oci_name=~\"$oci_name\"})",
+                     "legendFormat": "{{ Hostname }}:{{ gpu }}"
                   }
                ],
                "title": "Whether remapping of rows has failed",
@@ -1660,7 +1774,7 @@
             "x": 0,
             "y": 6
          },
-         "id": 55,
+         "id": 57,
          "panels": [
             {
                "datasource": {
@@ -1678,7 +1792,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 56,
+               "id": 58,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1709,7 +1823,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 57,
+               "id": 59,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1740,7 +1854,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 58,
+               "id": 60,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1771,7 +1885,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 59,
+               "id": 61,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1798,7 +1912,7 @@
             "x": 0,
             "y": 7
          },
-         "id": 60,
+         "id": 62,
          "panels": [
             {
                "datasource": {
@@ -1816,7 +1930,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 61,
+               "id": 63,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1847,7 +1961,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 62,
+               "id": 64,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1878,7 +1992,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 63,
+               "id": 65,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1909,7 +2023,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 64,
+               "id": 66,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1940,7 +2054,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 65,
+               "id": 67,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -1971,7 +2085,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 66,
+               "id": 68,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -2002,7 +2116,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 67,
+               "id": 69,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -2033,7 +2147,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 68,
+               "id": 70,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -2060,7 +2174,7 @@
             "x": 0,
             "y": 8
          },
-         "id": 69,
+         "id": 71,
          "panels": [
             {
                "datasource": {
@@ -2078,7 +2192,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 70,
+               "id": 72,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -2109,7 +2223,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 71,
+               "id": 73,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -2140,7 +2254,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 72,
+               "id": 74,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -2171,7 +2285,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 73,
+               "id": 75,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -2202,7 +2316,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 74,
+               "id": 76,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -2233,7 +2347,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 75,
+               "id": 77,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -2264,7 +2378,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 76,
+               "id": 78,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -2295,7 +2409,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 77,
+               "id": 79,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -2326,7 +2440,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 78,
+               "id": 80,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -2357,7 +2471,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 79,
+               "id": 81,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -2384,7 +2498,7 @@
             "x": 0,
             "y": 9
          },
-         "id": 80,
+         "id": 82,
          "panels": [
             {
                "datasource": {
@@ -2402,7 +2516,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 81,
+               "id": 83,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -2433,7 +2547,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 82,
+               "id": 84,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -2464,7 +2578,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 83,
+               "id": 85,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -2495,7 +2609,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 84,
+               "id": 86,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -2522,7 +2636,7 @@
             "x": 0,
             "y": 10
          },
-         "id": 85,
+         "id": 87,
          "panels": [
             {
                "datasource": {
@@ -2560,7 +2674,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 86,
+               "id": 88,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -2627,7 +2741,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 87,
+               "id": 89,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -2694,7 +2808,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 88,
+               "id": 90,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -2761,7 +2875,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 89,
+               "id": 91,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -2804,7 +2918,7 @@
             "x": 0,
             "y": 11
          },
-         "id": 90,
+         "id": 92,
          "panels": [
             {
                "datasource": {
@@ -2826,7 +2940,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 91,
+               "id": 93,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -2861,7 +2975,7 @@
             "x": 0,
             "y": 12
          },
-         "id": 92,
+         "id": 94,
          "panels": [
             {
                "datasource": {
@@ -2874,7 +2988,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 93,
+               "id": 95,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -2916,7 +3030,7 @@
                   "x": 8,
                   "y": 0
                },
-               "id": 94,
+               "id": 96,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -2958,7 +3072,7 @@
                   "x": 16,
                   "y": 0
                },
-               "id": 95,
+               "id": 97,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
@@ -3016,7 +3130,7 @@
                   "x": 0,
                   "y": 0
                },
-               "id": 96,
+               "id": 98,
                "pluginVersion": "v11.0.0",
                "targets": [
                   {
